@@ -21,6 +21,9 @@
 | D11 | Dead-pocket definition | PROVISIONAL |
 | D12 | Pivot-node definition | PROVISIONAL |
 | D13 | Tenure: attribute only, inert in dynamics | PROVISIONAL |
+| D14 | Replicate semantics (what error bars mean) | PROVISIONAL |
+| D15 | Team locality (wide bridges) in within-dept ties | PROVISIONAL |
+| D16 | Headline scenario freeze + negative-result commitment | PROVISIONAL |
 
 ---
 
@@ -103,6 +106,20 @@ Option 3 alone would ignore the spec, but is valuable as a robustness toggle.
 **Recommendation: Option 1 as the model, Option 3 retained as a built-in sensitivity
 toggle** (experiments report whether headline ordering survives uniform weights).
 **PROVISIONAL.**
+
+**Amendment (2026-06-10, builder, after calibration scans — needs arbitration.)**
+"Close peer" is now defined by *relationship closeness*, not team co-membership:
+ties to ring-adjacent sister teams (D15) count as close collaborators with weight
+**peer_close = 1.0**, like own-team peers; all other non-manager ties carry
+**peer_far = 0.6**. Rationale: with sister ties at 0.6, two bridge ties deliver
+about one teammate's worth of influence while also inflating the fractional
+denominator — wide bridges were devalued exactly where the mechanism needs them,
+and measured scans showed cluster seeding *never* beating random seeding under
+any tested (θ̄, κ, silo, locality) combination. Weighting by closeness restores a
+2:1 advantage of a saturated sister team over a lone scattered seed. The original
+flat-0.6 variant remains available (`sister_close=False`) and the headline
+experiment reports the comparison. **This amendment is load-bearing for the
+headline claim — please arbitrate together with D15.**
 
 ---
 
@@ -215,8 +232,8 @@ again (no permanent immunity). **PROVISIONAL.**
    every agent's exposure is computed as (adopted-weight + w_comms)/(total-weight +
    w_comms), i.e. central comms is one additional "contact" of weight 0.3 (D3) that
    endorses the tool, for everyone, while the campaign runs. Afterwards the term
-   vanishes (message salience fades). Broadcast also sets awareness=true for all (D4).
-   Seeds *no* adopters directly.
+   vanishes (message salience fades). While the campaign runs, everyone is aware —
+   the comms term satisfies D4's "share > 0" clause. Seeds *no* adopters directly.
 2. **Persistent comms node** (a node adopted forever, connected to everyone).
    Models a permanent campaign, not "exposed once"; inflates every denominator
    forever; contradicts the spec's wording.
@@ -347,6 +364,118 @@ says tenure affects adoption.
 
 **Recommendation: Option 1.** v0.1 makes no behavioral claims about tenure; this is
 stated in limitations.md. **PROVISIONAL.**
+
+---
+
+## D14 — Replicate semantics (what error bars mean)
+
+**Context.** Each experimental condition is run R times (default 20). What varies
+between replicates determines what the reported bands mean.
+
+**Options.**
+
+1. **Full regeneration:** each replicate draws a *new* organization (same generator
+   parameters) *and* new agent attributes and dynamics randomness. Bands then mean:
+   "across organizations of this kind" — the honest scope of a synthetic-data claim.
+2. **Fixed graph, redrawn agents/dynamics:** one organization per condition, R
+   draws of thresholds/willingness/seeds. Tighter bands, faster; but claims silently
+   condition on one particular random org, inviting over-reading.
+3. **Nested design (G graphs × R draws each)** with variance decomposition.
+   The statistically complete answer; more machinery than v0.1 claims require.
+
+**Recommendation: Option 1** for all headline claims (R = 20, seeds derived from one
+master seed via `numpy.random.SeedSequence.spawn`); Option 2 retained as an engine
+flag (`share_graph`) for the pedagogical demo, where regenerating per slider-move
+would be slow and the demo makes no quantitative claims. **PROVISIONAL.**
+
+---
+
+## D15 — Team locality (wide bridges) in within-department ties
+
+**Context (empirical, from the first calibration scan, 2026-06-10).** With
+within-department cross-team ties spread *uniformly* across a department's ~15–30
+teams, a fully adopted team presents at most ~1 tie to any neighbouring team —
+"narrow bridges". Result, measured on a 24-cell scan (θ̄ × κ × silo, N=2000,
+6 replicates): cluster seeding **never** outperforms random seeding anywhere; it
+saturates its seeded teams and stalls (~6–10%), while random seeding percolates
+through the low-threshold tail whenever that tail is fat enough. This contradicts
+the central literature result this tool is meant to demonstrate (Centola & Macy
+2007; Centola 2010: complex contagion requires *wide bridges* — multiple
+overlapping ties between adjacent clusters).
+
+**The modeling question.** Is uniform within-department mixing the right null, or
+should collaboration ties be locally concentrated ("sister teams" that share
+projects), giving adjacent teams several overlapping ties?
+
+**Options.**
+
+1. **Add a team-locality parameter.** Teams within a department sit on a ring
+   (a stand-in for project/desk proximity); a cross-team tie's partner team is
+   chosen at ring distance d ~ 1 + Geometric(team_locality), so high locality
+   concentrates ties on 1–2 sister teams (wide bridges), locality → 0 recovers
+   uniform mixing. Default 0.7. Realistic (collaboration is locally concentrated
+   in real orgs), one interpretable knob, and makes bridge width an *explicit
+   experimental variable* instead of a hidden assumption.
+2. **Keep uniform mixing.** Honest null, but then the simulator's main
+   demonstration is "cluster seeding stalls; scattered seeding wins or everything
+   dies" — a defensible negative result, yet it would contradict the established
+   experimental literature *because of a known unrealistic structural assumption*
+   (no real department mixes its teams uniformly).
+3. **Hardwire sister-team pairs** (each team gets exactly 2 partners, dense
+   inter-team blocks). Strongest bridges, but a new discrete structure with more
+   arbitrary choices (how many partners? how dense?), and no smooth dial back to
+   the uniform null.
+
+**Recommendation: Option 1.** It contains Option 2 as the locality→0 limit, so
+experiments can show *both* regimes and report honestly when cluster seeding does
+NOT win (narrow bridges, fat low-θ tail). The headline figure must state the
+locality value; the bridge-width sensitivity becomes a first-class experiment
+section. **PROVISIONAL — flagging this one as the highest-priority arbitration:
+it is load-bearing for the headline claim.**
+
+---
+
+## D16 — Headline scenario freeze + negative-result commitment
+
+**Context.** Calibration scans (2026-06-10; ~100 cells over θ̄ × κ × silo × locality ×
+dept_degree × budget, N=2000, 6–10 replicates each) mapped three regimes:
+
+1. **Low/tight thresholds (θ̄ ≲ 0.2):** everything — including broadcast — saturates
+   near the willing ceiling (~85%). Innovators ignite their own teams via the low-θ
+   tail; team→sister-team dominoes finish the job. No strategy contrast.
+2. **Moderate thresholds (θ̄ ≈ 0.30, κ ≈ 12–20):** the demonstrative regime.
+   Broadcast converts only innovators and stalls (5–8% at κ=20), or becomes a
+   high-variance lottery (κ=12: 0.20 ± 0.13 — sometimes an innovator's team ignites
+   a cascade, usually not). Cluster seeding reliably builds local critical mass and
+   spreads through sister-team bridges; **silo strength monotonically caps its
+   plateau** (0.83 → 0.35 as s goes 0.5 → 0.95). This answers the spec's headline
+   question: *when does broadcast fail where cluster succeeds, and which structures
+   gate the outcome.*
+3. **High thresholds (θ̄ ≳ 0.36):** everything stalls; differences are noise.
+
+**The negative result (committed to publication, per spec §6).** Across the entire
+explored space, *scattered* strategies (random, champions-by-degree) matched or beat
+cluster seeding — e.g. random 0.67 ± 0.12 vs cluster 0.31 ± 0.07 in the headline
+cell. Mechanism, in this model family: (a) every agent is embedded in a dense team,
+so each scattered seed is itself a potential team-igniter through the heterogeneous
+threshold tail; (b) the 2.5% innovator atom acts as a free scattered seeding subsidy
+in every condition; (c) fractional thresholds devalue additional bridges (every new
+tie also grows the denominator). The popular "always seed clusters" heuristic is
+NOT reproduced here; experiment 1 reports this prominently rather than hiding it,
+with the mechanism analysis above as testable explanation.
+
+**Headline scenario (frozen, PROVISIONAL):** N=2000, 8 departments, mean team 8,
+silo_strength=0.85 (panel B sweeps 0.5–0.95), team_locality=0.7, dept_degree=6.0,
+θ̄=0.30, κ=20, p_innovator=0.025, p_willing=0.85, able=1.0, budget=5%, decay off,
+20 replicates with full regeneration (D14), all five strategies.
+
+**Alternatives considered for forcing a "cluster beats random" ordering** — tighter
+θ (κ 25–200), smaller budgets (1–2%), wider bridges (dept_degree 6, locality 0.9),
+closeness-weighted sisters (D3 amendment) — none produced it; the innovator atom
+plus team embedding always favored scattering. Removing the innovator atom entirely
+(p_innovator=0) would manufacture the ordering but break broadcast's realism (D2's
+rationale). **If you want that regime demonstrated, the honest lever is an explicit
+"no-innovators" sensitivity variant, clearly labeled as such — awaiting arbitration.**
 
 ---
 
