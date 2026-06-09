@@ -23,3 +23,21 @@ jobs:
         run: pytest -q
       - name: Experiment 1 pipeline smoke (CI-sized, same code path as the notebook)
         run: python experiments/run_experiment1.py --smoke
+
+  reproduce-headline:
+    # The README's actual reproduction path, continuously verified: execute
+    # notebook 1 under the known-good constraints and assert the committed
+    # results are reproduced bit-for-bit.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements-dev.txt -c constraints.txt
+      - run: python -m jupyter nbconvert --to notebook --execute --inplace experiments/01_broadcast_vs_cluster.ipynb
+      - name: Assert bit-for-bit reproduction of committed result CSVs
+        # (the PNG is regenerated too, but image bytes vary with platform font
+        # rendering — the numbers are the reproducibility contract)
+        run: git diff --exit-code experiments/results/*.csv

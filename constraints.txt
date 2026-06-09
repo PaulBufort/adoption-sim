@@ -1,0 +1,10 @@
+# Known-good exact versions for BIT-FOR-BIT reproduction of the committed results
+# (the result-affecting libraries only; anything newer should still reproduce the
+# qualitative findings, but numpy's random streams are only guaranteed stable
+# within a release line). Verified on CPython 3.13, macOS arm64 + Linux x86_64.
+#
+#   pip install -r requirements-dev.txt -c constraints.txt
+numpy==2.4.6
+networkx==3.6.1
+streamlit==1.58.0
+matplotlib==3.10.9

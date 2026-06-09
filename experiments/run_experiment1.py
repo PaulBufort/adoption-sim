@@ -1,8 +1,8 @@
 """CLI front end for experiment 1 (same code path as the notebook).
 
 Usage:
-    python experiments/run_experiment1.py            # full run (~2-5 min, multi-core)
-    python experiments/run_experiment1.py --smoke    # CI-sized, ~30 s, 1 core
+    python experiments/run_experiment1.py            # full run (~10-60 s, multi-core)
+    python experiments/run_experiment1.py --smoke    # CI-sized, ~1-5 s, 1 core
 
 Writes versioned CSVs + JSON metadata into experiments/results/.
 ALL DATA IS SYNTHETIC.
