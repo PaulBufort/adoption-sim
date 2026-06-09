@@ -97,6 +97,11 @@ def make_seeding(
 
     elif strategy == "line_manager_first":
         managers = np.flatnonzero((compiled.role == defaults.ROLE_MANAGER) & compiled.active)
+        if managers.size == 0:
+            raise ValueError(
+                "line_manager_first needs role data; imported real graphs have none "
+                "(see core/ingest.py docstring)"
+            )
         if k <= managers.size:
             seeds = rng.choice(managers, size=k, replace=False)
             meta = {"topped_up_with_random": 0}
