@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Large downloaded datasets (fetched by scripts, never committed)
+data/raw/
+
+# Scratch outputs (versioned results live in experiments/results/ and ARE committed)
+experiments/results/_scratch/
