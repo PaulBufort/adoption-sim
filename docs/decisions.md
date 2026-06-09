@@ -215,9 +215,27 @@ parameter) — reproduces the documented spike-then-relapse pattern."
    spike-then-relapse becomes a curve-fitting trick, not a finding.
 
 **Recommendation: synchronous updates (1) + hysteresis relapse (1).** Headline figure
-runs with decay OFF for clarity; a dedicated experiment section shows broadcast's
-spike-then-relapse with decay ON. Relapsed agents may re-adopt if conditions are met
-again (no permanent immunity). **PROVISIONAL.**
+runs with decay OFF for clarity; a dedicated experiment section studies decay ON.
+Relapsed agents may re-adopt if conditions are met again (no permanent immunity).
+**PROVISIONAL.**
+
+**Empirical amendment (2026-06-10, builder).** Measured behavior of hysteresis
+relapse contradicts the spec's expectation in an instructive way:
+
+1. **No visible "spike then relapse"**: because relapse and adoption interleave
+   during the cascade, decay manifests as a *lower plateau*, never as a visible
+   overshoot-then-sag. The documented mass spike-then-relapse pattern appears to
+   require *non-social* decay (novelty wearing off independently of neighbors) —
+   exactly Option 2, which we rejected as structurally meaningless. Reported as a
+   negative result; the model cannot currently reproduce that stylized fact.
+   θ=0 innovators additionally can never relapse (share < r·0 is impossible) —
+   coherent ("they never needed social proof") but worth your sign-off.
+2. **Decay differentially punishes scattered adoption** (headline regime, ρ=0.25,
+   r=1.0, 8 reps): random 0.73 → 0.26, champions 0.75 → 0.45, cluster 0.29 → 0.32
+   (unchanged). At ρ=0.40 the cluster-vs-random ordering fully reverses (0.30 vs
+   0.15). Cluster-seeded adoption is *decay-proof by construction* — local critical
+   mass keeps everyone reinforced. This emergent finding becomes the decay section
+   of experiment 1.
 
 ---
 
@@ -345,6 +363,21 @@ reader can re-cut). **PROVISIONAL.**
 
 **Recommendation: Option 1**, with the structural score reported alongside as the
 screening heuristic it is. **PROVISIONAL.**
+
+**Empirical amendment (2026-06-10, builder).** At v0.1 parameters the knockout
+diagnostic returns a **null result**: across headline and harsher-silo variants
+(N=1000, symmetric and one-sided seeding, fixed or re-drawn workforces), no single
+node's removal shifts the plateau beyond replicate noise — generated organizations
+carry enough redundant bridges that no individual is load-bearing. Even fully
+one-sided pilots (all seeds in one department) either fail to jump silos at all
+(silo ≥ 0.94: the receiving side needs θ ≤ one bridge tie's share ≈ 0.05, i.e.
+an innovator, and then a successful team ignition — joint probability ~7% per
+org) or jump through redundant paths. We do NOT fish for lucky seeds to
+manufacture a pivot demo. The notebook reports the null, validates the diagnostic
+on a designed bottleneck (barbell positive control, also a unit test), and keeps
+the tool for imported real topologies where genuine bottlenecks exist.
+``pivot_nodes`` gained an ``agents`` parameter to support fixed-workforce
+("this org, these people") semantics.
 
 ---
 
