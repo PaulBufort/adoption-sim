@@ -81,7 +81,12 @@ def as_org(
         labels = {v: i for i, v in enumerate(sorted(set(raw.values()), key=str))}
         team = {n: labels[raw[n]] for n in g.nodes()}
     else:
-        communities = nx.community.greedy_modularity_communities(g, weight=None)
+        # Louvain above 5k nodes (greedy modularity is quadratic-ish and slow);
+        # both are deterministic here (fixed seed).
+        if g.number_of_nodes() > 5000:
+            communities = nx.community.louvain_communities(g, weight=None, seed=seed)
+        else:
+            communities = nx.community.greedy_modularity_communities(g, weight=None)
         team = {}
         for tid, members in enumerate(communities):
             for n in members:

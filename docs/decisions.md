@@ -463,8 +463,17 @@ projects), giving adjacent teams several overlapping ties?
 experiments can show *both* regimes and report honestly when cluster seeding does
 NOT win (narrow bridges, fat low-θ tail). The headline figure must state the
 locality value; the bridge-width sensitivity becomes a first-class experiment
-section. **PROVISIONAL — flagging this one as the highest-priority arbitration:
-it is load-bearing for the headline claim.**
+section. **PROVISIONAL.**
+
+**Empirical amendment (2026-06-10, builder, after the notebook-02 tornado).** In the
+*frozen headline regime* (κ=20), `team_locality` is **not load-bearing after all**:
+sweeping it 0.4 → 0.9 moves the cluster plateau by 0.1 pp (vs 46 pp for θ̄), and the
+headline gap also survives uniform credibility weights (cluster even gains —
+sanity-checks.md check 4). Locality and the D3 closeness amendment mattered in the
+κ=12 regime explored during calibration, not in the frozen one. Downgrade both from
+"load-bearing for the headline" to "structural realism features and experimental
+variables". This *strengthens* the headline (robust to two contested choices) and
+shifts arbitration priority to D1/D2 (threshold distribution) and the seed budget.
 
 ---
 
