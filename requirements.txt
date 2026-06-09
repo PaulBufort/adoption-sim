@@ -1,0 +1,5 @@
+# Runtime for the engine + Streamlit demo (dependency policy, spec §3:
+# NetworkX + NumPy + Streamlit only — every addition must be justified in a PR).
+networkx>=3.2
+numpy>=1.26
+streamlit>=1.36

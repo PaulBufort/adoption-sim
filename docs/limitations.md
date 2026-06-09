@@ -49,6 +49,27 @@ organization.
     means cluster seeding is the *best possible* strategy — only that it beats the
     compared alternatives under stated assumptions.
 
+## Patterns this model does NOT reproduce (measured, kept on the record)
+
+13. **The "spike then relapse" rollout curve.** With socially-reinforced decay (D7),
+    relapse interleaves with adoption: plateaus get lower, but no visible
+    overshoot-then-sag ever appears. If your mental model of rollouts includes that
+    shape, this simulator will not draw it for you — reproducing it would require
+    non-social novelty decay we declined to add.
+14. **"Always seed clusters."** In this model family, scattered seeding (random or
+    by degree) beats cluster seeding on raw reach across the explored parameter
+    space, because every agent already sits inside a dense team (D16). Cluster
+    seeding wins on *retention under decay* instead. Treat any unqualified
+    cluster-seeding recommendation derived from this tool as a misreading.
+15. **Hero relays.** No generated organization showed a single person whose removal
+    changes the outcome by more than noise (D12); robustness comes from tie
+    redundancy. The pivot diagnostic is validated on a designed bottleneck and is
+    most meaningful on imported real topologies.
+16. **Innovators never quit.** A measured side effect of D2 + D7: zero-threshold
+    adopters cannot fall below their own (zero) reinforcement bar, so the 2.5%
+    innovator base never erodes. Coherent, but it slightly flatters every strategy's
+    floor under decay.
+
 ## Known technical limitations
 
 - Synchronous updates can create mild wave artifacts (D7); the literature baseline
