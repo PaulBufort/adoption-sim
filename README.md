@@ -23,17 +23,27 @@ survive in this model family, and how decay reverses the ranking.*
 ## Reproduce the headline figure (target: under 15 minutes)
 
 ```bash
-git clone <REPO_URL> && cd adoption-sim
-python3 -m venv .venv && source .venv/bin/activate     # Python ≥ 3.11
-pip install -r requirements-dev.txt                    # ~2-4 min
-jupyter lab experiments/01_broadcast_vs_cluster.ipynb  # Run → Run All Cells
+git clone <REPO_URL>           # TODO: URL lands here at public release
+cd <the cloned directory>
+python3 -m venv .venv && source .venv/bin/activate        # Python ≥ 3.11
+pip install -r requirements-dev.txt -c constraints.txt    # ~1-4 min
+jupyter lab experiments/01_broadcast_vs_cluster.ipynb     # Run → Run All Cells
 ```
 
-The notebook executes in **well under a minute** on a recent laptop (it ran in ~20 s
-on the development machine; the budget is dominated by `pip install`). It regenerates
-`docs/figures/headline.png` and all CSVs in `experiments/results/` bit-for-bit — one
-master seed drives everything. No notebook? `python experiments/run_experiment1.py`
-produces the same numbers in the terminal.
+Headless equivalent of "Run All":
+`python -m jupyter nbconvert --to notebook --execute --inplace experiments/01_broadcast_vs_cluster.ipynb`
+
+The notebook executes in **well under a minute** on a recent laptop (an independent
+fresh-clone test measured 113 s from clone to figure, ~25 s of it the notebook; the
+budget is dominated by `pip install`). It regenerates `docs/figures/headline.png` and
+all CSVs in `experiments/results/` — **bit-for-bit under `constraints.txt`** (one
+master seed drives everything; newer numpy releases may change random streams, which
+is why the constraints file exists). After a successful run, `git status` will show
+only the executed notebook and the `.meta.json` provenance sidecars (timestamps) as
+modified — the result CSVs and the PNG should be unchanged. No notebook?
+`python experiments/run_experiment1.py` produces the same numbers in the terminal.
+
+Run the test suite with plain `pytest` from the repo root (59 tests, ~15 s).
 
 ## The web demo
 

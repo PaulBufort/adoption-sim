@@ -9,8 +9,11 @@ pip install -r requirements.txt      # from the repo root
 streamlit run demo/app.py
 ```
 
-Opens at http://localhost:8501. First simulation takes a few seconds; repeated
-parameter combinations are cached.
+Serves at http://localhost:8501 — open it manually (the repo ships
+`.streamlit/config.toml` with `headless = true`, so no browser auto-opens; that
+same setting also suppresses Streamlit's first-run email prompt). First simulation
+takes a few seconds; repeated parameter combinations are cached. For liveness
+probes use `http://localhost:8501/_stcore/health` (returns `ok`).
 
 ## Deploy to Streamlit Community Cloud (free)
 
