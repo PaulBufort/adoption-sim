@@ -105,17 +105,24 @@ def pivot_nodes(
     reps: int = 5,
     rng_seed: int = 0,
     delta_threshold: float = defaults.ANALYSIS["pivot_delta_pp"],
+    agents: tuple | None = None,
 ) -> list[PivotReport]:
     """Counterfactual knockouts (D12): re-run the simulation without each candidate
     and report the plateau shift. seeding_factory(compiled, rng) -> Seeding must
     draw seeds among *active* agents only (all built-in strategies do).
+
+    Pass ``agents`` (theta, willing, able from dynamics.draw_agents) to evaluate
+    pivots for one *fixed* workforce — the diagnostic-map semantics: "in this
+    organization, with these people, whose departure changes the outcome?"
+    Without it, deltas average over re-drawn workforces and individual relay
+    effects wash out into replicate noise (measured 2026-06-10).
     """
     def mean_plateau(c: CompiledOrg) -> float:
         vals = []
         for rep in range(reps):
             rng = np.random.default_rng((rng_seed, rep))
             seeding = seeding_factory(c, rng)
-            res = run_simulation(c, params, seeding, rng=rng)
+            res = run_simulation(c, params, seeding, rng=rng, agents=agents)
             vals.append(plateau(res.curve))
         return float(np.mean(vals))
 
