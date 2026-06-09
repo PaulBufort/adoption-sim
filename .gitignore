@@ -21,3 +21,4 @@ data/raw/
 
 # Scratch outputs (versioned results live in experiments/results/ and ARE committed)
 experiments/results/_scratch/
+experiments/results/*smoke*

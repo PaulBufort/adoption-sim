@@ -30,7 +30,7 @@ _SECTIONS = {
     "meta": {"name", "description"},
     "org": set(defaults.ORG) | _ORG_EXTRA,
     "agents": set(defaults.AGENTS),
-    "dynamics": set(defaults.DYNAMICS),
+    "dynamics": set(defaults.DYNAMICS) | {"w_comms"},
     "seeding": set(defaults.SEEDING) | {"strategy"},
     "run": {"replicates", "master_seed", "share_graph"},
 }
