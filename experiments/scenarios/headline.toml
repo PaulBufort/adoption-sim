@@ -1,0 +1,27 @@
+# Headline scenario — experiment 1: broadcast vs cluster seeding.
+# Frozen by decision D16 (PROVISIONAL, see docs/decisions.md). All data SYNTHETIC.
+
+[meta]
+name = "headline"
+description = "Broadcast fails where cluster seeding succeeds; silos cap the spread (synthetic org, D16 regime)."
+
+[org]
+n_agents = 2000
+n_departments = 8
+mean_team_size = 8
+silo_strength = 0.85
+team_locality = 0.7
+dept_degree = 6.0
+
+[agents]
+theta_mean = 0.30
+theta_concentration = 20.0
+p_innovator = 0.025
+
+[seeding]
+strategy = "cluster"   # experiment 1 sweeps all five strategies over this base
+budget = 0.05
+
+[run]
+replicates = 20
+master_seed = 20260610
