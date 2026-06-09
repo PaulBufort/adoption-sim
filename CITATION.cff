@@ -1,0 +1,24 @@
+# TODO before public release: replace author placeholder with the real name/ORCID
+# and fill repository-code once the GitHub URL exists. (Flagged in docs/journal.md.)
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "adoption-sim: complex contagion on synthetic organizational networks"
+version: 0.1.0
+date-released: "2026-06-10"
+license: AGPL-3.0
+authors:
+  - family-names: "TODO-AUTHOR-FAMILY-NAME"
+    given-names: "TODO-AUTHOR-GIVEN-NAME"
+abstract: >-
+  Research simulator of complex contagion (fractional thresholds with
+  ready/willing/able gating) on synthetic two-layer organizational networks.
+  Compares seeding strategies (broadcast, random, champions, cluster,
+  line-manager-first) under explicit, logged modeling decisions. All outputs
+  are synthetic and uncalibrated by design (v0.1).
+keywords:
+  - complex contagion
+  - threshold models
+  - organizational networks
+  - diffusion of innovations
+  - agent-based simulation

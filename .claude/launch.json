@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "demo",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": ["-m", "streamlit", "run", "demo/app.py", "--server.port", "8599", "--server.headless", "true", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"],
+      "port": 8599
+    }
+  ]
+}

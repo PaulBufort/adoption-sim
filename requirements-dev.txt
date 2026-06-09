@@ -1,0 +1,8 @@
+# Everything needed to reproduce the experiments and run the tests.
+# (matplotlib + jupyter are toolchain per spec §3; core/ never imports them —
+# enforced by tests/test_stack_policy.py.)
+-r requirements.txt
+matplotlib>=3.8
+jupyterlab>=4.0
+nbconvert>=7.0
+pytest>=8.0

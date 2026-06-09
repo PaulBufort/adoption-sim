@@ -1,0 +1,84 @@
+# adoption-sim
+
+**A research simulator of complex contagion on synthetic organizational networks.**
+When does a broadcast-style rollout fail where cluster-based seeding succeeds — and
+which structures (silos, thresholds, relays) decide the outcome?
+
+> **⚠ Everything this tool produces is synthetic.** Generated organizations,
+> stipulated thresholds, uncalibrated dynamics. It is an instrument for reasoning
+> about *mechanisms* — never a forecast of any real rollout. The full list of things
+> you cannot conclude is in [docs/limitations.md](docs/limitations.md), and it is
+> long on purpose.
+
+![Headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. SYNTHETIC DATA.](docs/figures/headline.png)
+
+*Synthetic data: N=2000, θ̄=0.30 (κ=20, 2.5% innovators), silo strength 0.85, seed
+budget 5%, 20 replicates per strategy, bands = 10th–90th percentile. Broadcast
+(red) converts only the zero-threshold innovators (~6%); cluster seeding (blue)
+builds local critical mass (~29%); and — the negative result we report rather than
+hide — scattered strategies (grey/violet) win on raw reach here. Experiment 1
+explains all three, including why the folklore "always seed clusters" does not
+survive in this model family, and how decay reverses the ranking.*
+
+## Reproduce the headline figure (target: under 15 minutes)
+
+```bash
+git clone <REPO_URL> && cd adoption-sim
+python3 -m venv .venv && source .venv/bin/activate     # Python ≥ 3.11
+pip install -r requirements-dev.txt                    # ~2-4 min
+jupyter lab experiments/01_broadcast_vs_cluster.ipynb  # Run → Run All Cells
+```
+
+The notebook executes in **well under a minute** on a recent laptop (it ran in ~20 s
+on the development machine; the budget is dominated by `pip install`). It regenerates
+`docs/figures/headline.png` and all CSVs in `experiments/results/` bit-for-bit — one
+master seed drives everything. No notebook? `python experiments/run_experiment1.py`
+produces the same numbers in the terminal.
+
+## The web demo
+
+```bash
+streamlit run demo/app.py
+```
+
+Five controls (size, silo strength, mean threshold, strategy, seed budget) →
+adoption curves vs the broadcast reference, a dead-pocket department map, and a
+ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
+[demo/README.md](demo/README.md).
+
+## What's in the box
+
+| path | contents |
+|---|---|
+| `core/` | engine — org generator, threshold dynamics, seeding, metrics, sweeps, ingest. **Imports NetworkX + NumPy + stdlib only** (enforced by a test) |
+| `experiments/` | one notebook per experiment + scenario TOMLs + versioned results (CSV + provenance JSON) |
+| `demo/` | Streamlit app (synthetic-data banner included) |
+| `docs/` | [spec](docs/spec.md) · [model math](docs/model.md) · [assumptions](docs/assumptions.md) · [limitations](docs/limitations.md) · [decision log](docs/decisions.md) · [sanity checks](docs/sanity-checks.md) · [build journal](docs/journal.md) |
+| `tests/` | 59 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
+
+## The science, honestly
+
+- **Every modeling choice that affects claims is logged** in
+  [docs/decisions.md](docs/decisions.md) with 2–3 alternatives and trade-offs — all
+  currently **PROVISIONAL** pending review. The figure-level claims hang mostly on
+  the threshold distribution (D1/D2) and seed budget — measured, not asserted
+  (tornado in [docs/sanity-checks.md](docs/sanity-checks.md)).
+- **Negative results are reported**: scattered seeding beats cluster seeding on reach
+  in this model family (D16); socially-reinforced decay produces no spike-then-relapse
+  (D7); no individual pivot relays exist in generated orgs (D12). Each comes with the
+  mechanism analysis.
+- **Sanity checks**: Granovetter's knife-edge, Centola & Macy's weak-long-ties
+  result, and Watts' cascade boundary replicate qualitatively (4/4 PASS); a real
+  topology (SNAP email-Enron, fetched separately) reproduces the qualitative ordering.
+- **Every figure states its data is synthetic** — the stamp is baked into the
+  plotting helper.
+
+## Requirements & license
+
+Python ≥ 3.11. Runtime: NetworkX, NumPy, Streamlit (dependency policy: nothing else;
+additions must be justified). Dev: + matplotlib, jupyterlab, pytest.
+
+**AGPL-3.0** — see [LICENSE](LICENSE). Cite via [CITATION.cff](CITATION.cff).
+
+*Status: v0.1. Calibration on real organizational data is explicitly out of scope
+at this stage (spec §1). Time steps are abstract influence rounds.*
