@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adoption-sim"
+version = "0.1.0"
+description = "Complex contagion on synthetic organizational networks — research simulator; every output is synthetic by design"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "AGPL-3.0-only" }
+authors = [{ name = "adoption-sim project contributors" }]
+keywords = ["complex contagion", "threshold models", "organizational networks", "diffusion"]
+dependencies = [
+    "networkx>=3.2",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+demo = ["streamlit>=1.36"]
+dev = [
+    "streamlit>=1.36",
+    "matplotlib>=3.8",
+    "jupyterlab>=4.0",
+    "nbconvert>=7.0",
+    "pytest>=8.0",
+]
+
+# The engine lives in core/ (repo layout fixed by docs/spec.md §3); it installs
+# as the import package `adoption_sim`. Repo-local `import core` keeps working
+# for the notebooks (root conftest / sys.path bootstrap) — same files, and the
+# package uses relative imports internally so both names resolve identically.
+[tool.setuptools]
+packages = ["adoption_sim"]
+
+[tool.setuptools.package-dir]
+adoption_sim = "core"

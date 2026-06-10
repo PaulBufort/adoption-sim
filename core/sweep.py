@@ -18,10 +18,10 @@ import os
 
 import numpy as np
 
-from core.dynamics import run_simulation
-from core.metrics import dept_rates, plateau, relapse_magnitude
-from core.orggen import generate_org
-from core.scenario import build_sim_params, org_kwargs, set_path
+from .dynamics import run_simulation
+from .metrics import dept_rates, plateau, relapse_magnitude
+from .orggen import generate_org
+from .scenario import build_sim_params, org_kwargs, set_path
 
 
 def expand_jobs(scenario: dict, axes: dict[str, list] | None = None,
@@ -59,7 +59,7 @@ def expand_jobs(scenario: dict, axes: dict[str, list] | None = None,
 
 def run_job(job: dict) -> dict:
     """One replicate -> one flat result row. Module-level for pickling."""
-    from core.seeding import make_seeding  # local import keeps spawn cheap
+    from .seeding import make_seeding  # local import keeps spawn cheap
 
     sc = job["scenario"]
     # share_graph (D14 option 2): the org seed depends on the condition only,

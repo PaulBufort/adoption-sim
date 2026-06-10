@@ -21,9 +21,9 @@ import tomllib
 
 import numpy as np
 
-from core import defaults
-from core.dynamics import SimParams
-from core.seeding import STRATEGIES
+from . import defaults
+from .dynamics import SimParams
+from .seeding import STRATEGIES
 
 _ORG_EXTRA = {"weights", "sister_close"}
 _SECTIONS = {
@@ -140,8 +140,9 @@ def save_results(rows: list[dict], csv_path: str | pathlib.Path, scenario: dict 
         writer = csv.DictWriter(fh, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
-    import core
     import networkx
+
+    from . import __version__ as _pkg_version
     meta = {
         "scenario": scenario,
         "generated_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -149,7 +150,7 @@ def save_results(rows: list[dict], csv_path: str | pathlib.Path, scenario: dict 
             "python": platform.python_version(),
             "numpy": np.__version__,
             "networkx": networkx.__version__,
-            "adoption_sim": core.__version__,
+            "adoption_sim": _pkg_version,
         },
         "git_commit": _git_commit(),
         "data_is_synthetic": True,

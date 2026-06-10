@@ -14,8 +14,8 @@ import dataclasses
 
 import numpy as np
 
-from core import defaults
-from core.orggen import CompiledOrg, LEADERSHIP_TEAM
+from . import defaults
+from .orggen import CompiledOrg, LEADERSHIP_TEAM
 
 STRATEGIES = {
     "broadcast": "everyone exposed once via central comms; zero seeded adopters",

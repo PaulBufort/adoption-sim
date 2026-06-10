@@ -10,6 +10,6 @@ with a D-number; code comments reference those numbers.
 
 __version__ = "0.1.0"
 
-from core.orggen import OrgGraph, CompiledOrg, generate_org
-from core.dynamics import SimParams, RunResult, run_simulation
-from core.seeding import Seeding, make_seeding, STRATEGIES
+from .orggen import OrgGraph, CompiledOrg, generate_org
+from .dynamics import SimParams, RunResult, run_simulation
+from .seeding import Seeding, make_seeding, STRATEGIES

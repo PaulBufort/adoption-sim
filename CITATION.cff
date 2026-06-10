@@ -1,5 +1,6 @@
-# TODO before public release: replace author placeholder with the real name/ORCID
-# and fill repository-code once the GitHub URL exists. (Flagged in docs/journal.md.)
+# NOTE before public release: replace the entity author below with the real
+# author (family-names/given-names + ORCID) and fill repository-code with the
+# GitHub URL. Schema-valid as-is (validated with cffconvert; see REVIEW_A.md).
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
@@ -8,14 +9,14 @@ version: 0.1.0
 date-released: "2026-06-10"
 license: AGPL-3.0
 authors:
-  - family-names: "TODO-AUTHOR-FAMILY-NAME"
-    given-names: "TODO-AUTHOR-GIVEN-NAME"
+  - name: "adoption-sim project contributors"
 abstract: >-
   Research simulator of complex contagion (fractional thresholds with
-  ready/willing/able gating) on synthetic two-layer organizational networks.
-  Compares seeding strategies (broadcast, random, champions, cluster,
-  line-manager-first) under explicit, logged modeling decisions. All outputs
-  are synthetic and uncalibrated by design (v0.1).
+  ready/willing/able gating and per-source visibility) on synthetic two-layer
+  organizational networks. Compares seeding strategies (broadcast, random,
+  champions, cluster, line-manager-first) under explicit, ratified modeling
+  decisions with logged alternatives. All outputs are synthetic and
+  uncalibrated by design (v0.1).
 keywords:
   - complex contagion
   - threshold models
