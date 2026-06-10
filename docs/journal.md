@@ -6,6 +6,82 @@
 
 ---
 
+## 2026-06-10 — Session 2: arbitration applied, D17 built, experiment 3
+
+**Scope:** your arbitration directives, in order. All six execution items done.
+
+### What changed
+
+- **decisions.md:** D1–D16 flipped to RATIFIED with your additions recorded in
+  place; D17 written up (options incl. the rejected stochastic variant and its
+  ratchet artifact) and implemented the same day.
+- **Engine (D17):** `SimParams.visibility` (global, default 1.0 — provably and
+  bit-verifiably inert), per-agent override in `run_simulation`, and the
+  `seeding.pilot_visibility` scenario key for the intervention. 8 new tests (67
+  total), including an **exact** θ/v equivalence test that passes with decay on.
+- **Experiment 1 rebuilt:** dual-κ headline (20 main / 12 lottery) with the
+  heterogeneity caption; p_innov ∈ {0, 0.01, 0.025, 0.05} sweep; T_b ∈ {1, 5, 20}
+  sweep; the D9 caption rule baked into the broadcast legend label so no figure can
+  omit it; negative result + mechanism immediately after the headline. Frozen-recipe
+  CSVs re-verified **bit-identical** post-D17.
+- **Experiment 3 (new):** `03_observability.ipynb` — equivalence theorem + exact
+  witness, global-v sweep (5 strategies × 4 v), observable-pilots intervention
+  (3 strategies × 3 v_global, seeds at v=1), outward-credibility mechanism table.
+- **Docs/demo:** model.md (D17 equation + the costly-production-behavior
+  definitional note), limitations.md (entries 13–14 + 19; renumbered 1–19),
+  sanity-checks.md (check 5: exact equivalence; non-reproduction 4), assumptions.md,
+  README (dual-panel caption, ratified status), demo visibility slider + broadcast
+  floor captions.
+
+### Findings you asked to be told about (item 6)
+
+1. **v < 1 does NOT rescue cluster seeding — twice.** Global v provably cannot
+   (θ/v equivalence; empirically confirmed: orderings preserved at every v). The
+   observable-pilots intervention doesn't either: at v_global = 0.8, loud pilots
+   buy cluster +3.9 pp but random +9.5 pp and champions +15.1 pp. **Cluster never
+   overtakes random anywhere in the tested space.** Your going-in hypothesis is
+   refuted in this model family, and the mechanism is measured: gains track
+   outward credibility per seed (cluster 5.7 · random 11.7 · champions 16.1) —
+   a pilot team's megaphone mostly points at people who already adopted.
+2. **A second expectation broke — mine.** The D16 mechanism analysis had credited
+   the innovator atom as co-cause of scattering's advantage. The ratified p_innov
+   sweep refutes the necessity claim: at p_innov = 0, random still beats cluster
+   (42% vs 20%). Team embedding + the Beta tail suffices. D16 carries the
+   amendment.
+3. **Broadcast's yield is 100% innovator-derived:** at p_innov = 0 it converts
+   exactly 0.000 across all replicates. And T_b: a 20-step sustained campaign
+   lifts broadcast 5.8% → 13.5% — repetition more than doubles a small number and
+   still loses to every seeded strategy by multiples.
+4. **Below v ≈ 0.6 nothing works at all** (θ_eff ≥ 0.5 exceeds nearly everyone):
+   if usage is mostly invisible, the binding constraint is visibility itself, not
+   seeding strategy. Corollary: broadcast — the only strategy whose channel stays
+   loud — becomes competitive at low v *by standing still*.
+
+### Teaching note (what's new for the conference audience)
+
+The observability result is the most counter-intuitive deliverable so far, and it
+unpacks in three beats:
+
+1. **"Nobody can see who uses the tool" is just "everyone is more resistant",
+   exactly.** Global invisibility v rescales every threshold to θ/v — we prove it,
+   test it bit-for-bit, and show the sweep. So the intuition "our pilots failed
+   because usage is invisible" contains no strategy-relevant information *unless*
+   visibility differs across people.
+2. **Making pilots loud is real but goes to the wrong address.** Work-out-loud
+   rituals help in proportion to how much of the speaker's credibility points at
+   *non-adopters*. Whole pilot teams fail that test by construction — most of
+   their ties point at each other. The same ritual on well-connected individuals
+   buys 3–4× more adoption. One sentence for the stage: *a megaphone is wasted in
+   a room where everyone already agrees.*
+3. **The honest arc of the project so far:** the folklore "seed clusters, not
+   individuals" failed on reach (session 1), survived on retention under decay
+   (session 1), and now fails again under every visibility variant we ratified
+   (session 2) — each verdict with a measured mechanism attached. That arc — a
+   model that keeps disagreeing with its builders' and its owner's hypotheses and
+   says so in print — *is* the credibility instrument.
+
+---
+
 ## 2026-06-10 — Session 1: empty repo → v0.1 candidate
 
 **Scope:** v0.1 per docs/spec.md. Everything below was built and verified this session.
