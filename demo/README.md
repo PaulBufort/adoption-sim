@@ -4,6 +4,15 @@ Pedagogical Streamlit front end for the simulator. **All data synthetic.**
 
 ## Run locally
 
+**One click:** double-click `Launch Demo.command` at the repo root (macOS Finder
+opens it in Terminal; Linux: run it). It creates `.venv/` and installs the runtime
+dependencies on first use, starts the server, waits for it to report healthy, and
+opens http://localhost:8501. Close the window or Ctrl+C to stop. If a demo is
+already running it just opens the browser tab. (Port override:
+`ADOPTION_SIM_PORT=8765 ./Launch\ Demo.command`.)
+
+Or by hand:
+
 ```bash
 pip install -r requirements.txt      # from the repo root
 streamlit run demo/app.py
