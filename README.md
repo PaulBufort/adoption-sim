@@ -79,10 +79,12 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
 ## The science, honestly
 
 - **Every modeling choice that affects claims is logged** in
-  [docs/decisions.md](docs/decisions.md) with 2–3 alternatives and trade-offs — all
-  currently **PROVISIONAL** pending review. The figure-level claims hang mostly on
-  the threshold distribution (D1/D2) and seed budget — measured, not asserted
-  (tornado in [docs/sanity-checks.md](docs/sanity-checks.md)).
+  [docs/decisions.md](docs/decisions.md) with 2–3 alternatives and trade-offs —
+  D1–D17 **RATIFIED** at the 2026-06-10 arbitration, several with conditions
+  (dual-regime presentation, sensitivity sweeps) that the experiments implement.
+  The figure-level claims hang mostly on the threshold distribution (D1/D2) and
+  seed budget — measured, not asserted (tornado in
+  [docs/sanity-checks.md](docs/sanity-checks.md)).
 - **Negative results are reported**: scattered seeding beats cluster seeding on reach
   in this model family — robust to removing innovators entirely (D16); socially-
   reinforced decay produces no spike-then-relapse (D7); no individual pivot relays
@@ -90,8 +92,9 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
   rituals rescue cluster seeding (D17, experiment 3). Each comes with the mechanism
   analysis.
 - **Sanity checks**: Granovetter's knife-edge, Centola & Macy's weak-long-ties
-  result, and Watts' cascade boundary replicate qualitatively (4/4 PASS); a real
-  topology (SNAP email-Enron, fetched separately) reproduces the qualitative ordering.
+  result, and Watts' cascade boundary replicate qualitatively; the D3-null and the
+  exact θ/v equivalence pass too (5/5); a real topology (SNAP email-Enron, fetched
+  separately) reproduces the qualitative ordering.
 - **Every figure states its data is synthetic** — the stamp is baked into the
   plotting helper.
 
