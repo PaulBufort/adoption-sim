@@ -13,6 +13,7 @@
 | 2 | Complex contagion needs wide bridges; long ties help simple contagion but block complex (Centola & Macy 2007; Centola 2010) | ring lattice (k=8) vs degree-matched random graph, seed = one focal neighborhood (9 nodes), θ=0.25 vs θ=0.10 | complex: lattice 100% vs random 4% · simple: random reaches 90% in 3 steps vs lattice 44 | **PASS** |
 | 3 | Single-seed global cascades require vulnerable nodes, θ < 1/z (Watts 2002) | random 8-regular, N=2000, one seed, 10 graphs per θ | θ=0.10: 10/10 global cascades · θ=0.15: max 0.1% | **PASS** |
 | 4 | Headline result robust to the credibility-weight assumption (D3 null model) | all weights = 1.0 incl. comms, 10 replicates | broadcast 5.2% vs cluster 42.7% (gap survives; cluster even gains) | **PASS** |
+| 5 | D17 equivalence: global visibility v ≡ thresholds θ/v (no-broadcast scenarios) | one org, same draws, v=0.6 vs θ/0.6 — and a unit test incl. decay | trajectories identical, max \|Δ\| = 0.0 | **PASS (exact)** |
 
 **Methodological note on check 2.** A first version seeded 5% of nodes *at random* and
 the random graph cascaded to 100% — correctly: dense random seeding sits above the
@@ -59,8 +60,17 @@ this says nothing about Enron (limitations.md #11).
 
 1. **"Always seed clusters" folklore** — scattered seeding beats cluster seeding on
    reach across the explored space (D16); the claim survives only as the weaker
-   "local critical mass must come from somewhere; broadcast provides none."
+   "local critical mass must come from somewhere; broadcast provides none." The
+   ratified p_innov sweep sharpened the mechanism: the ordering survives with **zero
+   innovators** (random 42% vs cluster 20% at p=0), while broadcast's yield at p=0
+   is exactly 0.0% — entirely innovator-derived (D16 mechanism amendment).
 2. **Spike-then-relapse** — socially-reinforced decay produces lower plateaus, never
    the overshoot shape (D7 amendment); reproducing it would need non-social decay.
 3. **Individual pivot relays in generated orgs** — knockout deltas ≈ 0 everywhere;
    bridge redundancy is the norm (D12 amendment, with barbell positive control).
+4. **Visibility as cluster seeding's rescue (D17, experiment 3)** — neither global
+   v < 1 (provably equivalent to threshold inflation) nor the observable-pilots
+   intervention reorders scattered ≥ cluster; loud pilots help scattering *more*,
+   in proportion to outward credibility per seed (cluster 5.7, random 11.7,
+   champions 16.1). Below v ≈ 0.6 no strategy works at all — visibility itself is
+   the binding constraint in that regime.

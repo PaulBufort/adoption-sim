@@ -51,12 +51,24 @@ Drawn once at t = 0 (RNG order fixed: thresholds, innovators, willingness, abili
   `p_innovator` (0.025), θᵢ = 0 — *innovators* (D2).
 - **Willing** wᵢ ~ Bernoulli(`p_willing[role]`) (0.85 — a hard ceiling on adoption).
 - **Able** aᵢ ~ Bernoulli(per-department rate, default 1.0).
+- **Visibility** vᵢ = `visibility` (global, default 1.0; D17) — deterministic, not a
+  draw; the observable-pilots intervention overrides it per agent (seeds → 1.0).
 
-## 3. Dynamics (`core/dynamics.py`) — D4, D7, D8
+## 3. Dynamics (`core/dynamics.py`) — D4, D7, D8, D17
 
-Synchronous discrete steps. Let W(i) = Σ weights of i's contacts, A(i,t) = Σ weights
-of i's *adopted* contacts, and b(t) = `w_comms` (0.3) while a broadcast runs
-(t ≤ `broadcast_steps`, only under the broadcast strategy), else 0.
+**What "adoption" means (definitional note, ratified with D17).** Adoption here is
+the **costly production behavior** — genuinely reorganizing how one works around the
+tool — not shallow substitution use (search-bar replacement, spellcheck-grade
+usage). Shallow use spreads as simple contagion, needs no critical mass, and is out
+of scope; the threshold assumptions below are only coherent for the costly behavior.
+
+Synchronous discrete steps. Let W(i) = Σ weights of i's contacts,
+A(i,t) = Σ over i's *adopted* contacts j of v_j · w_ij — where v_j ∈ [0,1] is j's
+**visibility** (D17: how much of j's adoption neighbors can actually see; global
+default `visibility` = 1.0, per-agent override for interventions) — and
+b(t) = `w_comms` (0.3) while a broadcast runs (t ≤ `broadcast_steps`, only under the
+broadcast strategy), else 0. The comms term is *not* attenuated by v: a broadcast is
+loud by nature.
 
 ```
 share_i(t) = (A(i,t−1) + b(t)) / (W(i) + b(t))
@@ -64,6 +76,12 @@ ready_i(t) = share_i(t) > 0  AND  share_i(t) ≥ θ_i          (D4: awareness ga
 adopt:        ¬adopted ∧ ready ∧ willing ∧ able  →  adopted
 relapse (if ρ>0):  adopted ∧ share_i(t) < r·θ_i  →  ¬adopted with prob ρ    (D7)
 ```
+
+**Equivalence (D17, exactly tested):** for v > 0, global visibility with thresholds
+{θᵢ} produces the identical trajectory as v = 1 with thresholds {θᵢ/v}, in any
+no-broadcast scenario, including decay. Global invisibility is threshold inflation;
+only *differential* visibility (e.g. the observable-pilots intervention,
+`seeding.pilot_visibility`) can affect strategy orderings. See experiment 3.
 
 Defaults: ρ = `relapse_prob` = 0 (decay off), r = `retention_factor`. Seeds adopt
 unconditionally at t = 0 (pilot groups get access, D9) and relapse like anyone else.

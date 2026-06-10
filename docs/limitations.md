@@ -49,26 +49,44 @@ organization.
     means cluster seeding is the *best possible* strategy — only that it beats the
     compared alternatives under stated assumptions.
 
+## About visibility (D17, added at the 2026-06-10 arbitration)
+
+13. **Visibility is one number.** By default every adoption is fully visible
+    (v = 1.0); the D17 mechanism attenuates *all* of an agent's influence by the
+    same factor. Real observability varies by relationship, medium, and artifact —
+    none of that is modeled. The "observable pilots" variant is an *intervention
+    on the seeds*, not a claim about how visibility is actually distributed.
+14. **Global invisibility is mathematically identical to higher thresholds**
+    (θ → θ/v, proven and exactly tested). So "v = 0.6" claims are not separate
+    evidence from "θ̄ = 0.5" claims — the model cannot distinguish a hard-to-see
+    behavior from a hard-to-convince population. Only *differential* visibility
+    carries new information.
+
 ## Patterns this model does NOT reproduce (measured, kept on the record)
 
-13. **The "spike then relapse" rollout curve.** With socially-reinforced decay (D7),
+15. **The "spike then relapse" rollout curve.** With socially-reinforced decay (D7),
     relapse interleaves with adoption: plateaus get lower, but no visible
     overshoot-then-sag ever appears. If your mental model of rollouts includes that
     shape, this simulator will not draw it for you — reproducing it would require
     non-social novelty decay we declined to add.
-14. **"Always seed clusters."** In this model family, scattered seeding (random or
+16. **"Always seed clusters."** In this model family, scattered seeding (random or
     by degree) beats cluster seeding on raw reach across the explored parameter
     space, because every agent already sits inside a dense team (D16). Cluster
     seeding wins on *retention under decay* instead. Treat any unqualified
     cluster-seeding recommendation derived from this tool as a misreading.
-15. **Hero relays.** No generated organization showed a single person whose removal
+17. **Hero relays.** No generated organization showed a single person whose removal
     changes the outcome by more than noise (D12); robustness comes from tie
     redundancy. The pivot diagnostic is validated on a designed bottleneck and is
     most meaningful on imported real topologies.
-16. **Innovators never quit.** A measured side effect of D2 + D7: zero-threshold
+18. **Innovators never quit.** A measured side effect of D2 + D7: zero-threshold
     adopters cannot fall below their own (zero) reinforcement bar, so the 2.5%
-    innovator base never erodes. Coherent, but it slightly flatters every strategy's
-    floor under decay.
+    innovator base never erodes. Coherent (ratified: "they never needed social
+    proof"), but it slightly flatters every strategy's floor under decay.
+19. **Visibility interventions do not rescue cluster seeding.** The scientist's
+    going-in hypothesis for D17 — that usage invisibility is what devalues
+    scattered seeds — is refuted in this model family: making pilot teams loud
+    helps *scattered* strategies more (gains track outward credibility per seed:
+    cluster 5.7 < random 11.7 < champions 16.1). See experiment 3.
 
 ## Known technical limitations
 
@@ -81,4 +99,4 @@ organization.
 - The Streamlit demo runs single-core with small populations and few replicates;
   it is a pedagogical toy on top of the engine, not the experiment pipeline.
 
-*Last updated: 2026-06-10 (v0.1 build).*
+*Last updated: 2026-06-10 (post-arbitration: D1–D17 ratified; visibility entries added).*
