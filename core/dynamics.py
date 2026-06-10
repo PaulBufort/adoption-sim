@@ -45,7 +45,13 @@ ATTRIBUTION_LABELS = {
 
 @dataclasses.dataclass
 class SimParams:
-    """Dynamics parameters. Defaults trace to docs/decisions.md via core/defaults.py."""
+    """Dynamics parameters. Defaults trace to docs/decisions.md via core/defaults.py.
+
+    Regime note: the default theta_concentration (κ=8) is D1's neutral
+    parameterization, NOT the headline demonstrative regime — the published
+    figures use κ=20 (and a κ=12 companion; D1 is dual-regime). To reproduce
+    the headline behavior, build params from the scenario file:
+    ``build_sim_params(load_scenario("experiments/scenarios/headline.toml"))``."""
 
     theta_mean: float = defaults.AGENTS["theta_mean"]
     theta_concentration: float = defaults.AGENTS["theta_concentration"]

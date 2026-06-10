@@ -43,13 +43,13 @@ budget is dominated by `pip install`). It regenerates `figures/headline.png` and
 all CSVs in `experiments/results/` — **bit-for-bit under `constraints.txt`** (one
 master seed drives everything; newer numpy releases may change random streams, which
 is why the constraints file exists). After a successful run, `git status` will show
-only the executed notebook and the `.meta.json` provenance sidecars (timestamps) as
-modified — the result CSVs and the PNG should be unchanged. No notebook?
+only the executed notebook and the `.meta.json` provenance sidecars (timestamp and
+generating-commit fields) as modified — the result CSVs and the PNG should be unchanged. No notebook?
 `python experiments/run_experiment1.py` produces the same numbers in the terminal,
-and `python figures/make_all.py` regenerates **every** final figure (all nine, ~2–4
+and `python figures/make_all.py` regenerates **every** final figure (all nine, ~1–4
 min) deterministically from the master seeds.
 
-Run the test suite with plain `pytest` from the repo root (67 tests, ~15 s).
+Run the test suite with plain `pytest` from the repo root (67 tests, ~20 s).
 
 Prefer a package? `pip install -e .` installs the engine as `adoption_sim`
 (NetworkX + NumPy only); new here? start with

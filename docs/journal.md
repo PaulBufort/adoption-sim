@@ -6,6 +6,45 @@
 
 ---
 
+## 2026-06-10 — Session 3: release-readiness sprint (science frozen)
+
+**Scope:** infrastructure only, per directive. Full inventory + verification in
+**REVIEW_A.md** (repo root) — including the three things flagged for your 30
+minutes. Summary: pip-installable package (`adoption_sim`, with the import
+refactor proven numerically inert against the committed CSVs before anything
+else moved); headline re-run at 50 replicates with every narrative number
+refreshed from the regenerated data (cluster 31.9%, broadcast 5.5%,
+non-overlap intact); `figures/make_all.py` regenerating all nine final figures
+hash-deterministically by executing the notebooks (single source of truth);
+tutorial notebook 00 that loads the frozen headline TOML and recovers the
+headline ordering in ~25 s; provenance footers in all four notebooks
+(D1–D17 RATIFIED + synthetic stamp); CITATION.cff schema-valid; CI extended
+(editable install, tutorial, make_all + bit-for-bit CSV assertion).
+Independent fresh-clone audit: 5/5 conditions PASS, clone→tutorial 105 s,
+clone→nine-figures 181 s, PNGs byte-identical to committed.
+
+**Honest wobble worth recording:** the tutorial initially hand-assembled its
+scenario and silently inherited `dept_degree=3` (engine default) instead of the
+headline's 6 — producing cluster ≈ 13% and a figure that did not match its own
+"headline pattern" title. Caught by comparing tutorial output against the
+headline CSVs; fixed by making the tutorial load `headline.toml` itself, which
+is also better pedagogy (scenario files as the unit of reproducibility). The
+same class of trap (neutral defaults ≠ demonstrative regime) is REVIEW_A item 2.
+
+### Teaching note
+
+Reproducibility as shipped here is three nested contracts, each cheaper to
+state than the last: (1) *the numbers* — every CSV is a pure function of one
+master seed, asserted bit-for-bit in CI on every push; (2) *the figures* — one
+command re-executes the notebooks that drew them, and two runs yield identical
+file hashes, so "the figure in the README" is never an orphan artifact;
+(3) *the words* — provenance footers and the decision log pin which ratified
+model produced what, so a reader can trace any sentence to a D-number and any
+number to a seed. The thing to say on stage: in this repo, "trust me" has been
+replaced by `python figures/make_all.py`.
+
+---
+
 ## 2026-06-10 — Session 2: arbitration applied, D17 built, experiment 3
 
 **Scope:** your arbitration directives, in order. All six execution items done.
