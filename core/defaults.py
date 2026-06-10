@@ -1,6 +1,6 @@
 """Default model parameters — single source of truth.
 
-Every value here corresponds to a PROVISIONAL decision in docs/decisions.md
+Every value here corresponds to a ratified decision in docs/decisions.md
 (D-numbers in comments). Change the decision there, then change the value here;
 nothing else in the codebase hard-codes these numbers.
 """

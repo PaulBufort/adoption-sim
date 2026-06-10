@@ -23,11 +23,17 @@ jobs:
         run: pytest -q
       - name: Experiment 1 pipeline smoke (CI-sized, same code path as the notebook)
         run: python experiments/run_experiment1.py --smoke
+      - name: Editable install exposes the engine as adoption_sim
+        run: |
+          pip install -e .
+          python -c "import adoption_sim; print('adoption_sim', adoption_sim.__version__)"
+          cd /tmp && python -c "import adoption_sim.metrics, adoption_sim.scenario; print('submodules OK')"
 
   reproduce-headline:
-    # The README's actual reproduction path, continuously verified: execute
-    # notebook 1 under the known-good constraints and assert the committed
-    # results are reproduced bit-for-bit.
+    # The README's actual reproduction path, continuously verified: regenerate
+    # every final figure (figures/make_all.py executes notebooks 01-03 headlessly)
+    # under the known-good constraints, run the tutorial, and assert the committed
+    # result CSVs reproduce bit-for-bit.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,8 +42,11 @@ jobs:
           python-version: "3.13"
           cache: pip
       - run: pip install -r requirements-dev.txt -c constraints.txt
-      - run: python -m jupyter nbconvert --to notebook --execute --inplace experiments/01_broadcast_vs_cluster.ipynb
+      - name: Tutorial notebook executes end to end
+        run: python -m jupyter nbconvert --to notebook --execute --inplace experiments/00_tutorial.ipynb
+      - name: Regenerate all final figures (single command, master-seed deterministic)
+        run: python figures/make_all.py
       - name: Assert bit-for-bit reproduction of committed result CSVs
-        # (the PNG is regenerated too, but image bytes vary with platform font
-        # rendering — the numbers are the reproducibility contract)
+        # (PNG bytes vary with platform font rendering — the numbers are the
+        # reproducibility contract)
         run: git diff --exit-code experiments/results/*.csv

@@ -543,6 +543,9 @@ with the mechanism analysis above as testable explanation.
 silo_strength=0.85 (panel B sweeps 0.5–0.95), team_locality=0.7, dept_degree=6.0,
 θ̄=0.30, κ=20, p_innovator=0.025, p_willing=0.85, able=1.0, budget=5%, decay off,
 20 replicates with full regeneration (D14), all five strategies.
+*(Release-sprint note, 2026-06-10, owner directive: headline replicates raised
+20 → 50 for figure precision. A precision knob, not a model change — recipe
+parameters and D14 semantics untouched.)*
 
 **Alternatives considered for forcing a "cluster beats random" ordering** — tighter
 θ (κ 25–200), smaller budgets (1–2%), wider bridges (dept_degree 6, locality 0.9),

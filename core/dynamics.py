@@ -29,9 +29,9 @@ import dataclasses
 
 import numpy as np
 
-from core import defaults
-from core.orggen import CompiledOrg, _segment_sum
-from core.seeding import Seeding
+from . import defaults
+from .orggen import CompiledOrg, _segment_sum
+from .seeding import Seeding
 
 ATTR_ADOPTED, ATTR_NOT_ABLE, ATTR_NOT_WILLING, ATTR_NOT_READY, ATTR_RELAPSED = range(5)
 ATTRIBUTION_LABELS = {

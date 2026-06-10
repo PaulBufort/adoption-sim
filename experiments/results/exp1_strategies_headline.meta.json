@@ -48,18 +48,18 @@
       "champion_metric": "degree"
     },
     "run": {
-      "replicates": 20,
+      "replicates": 50,
       "master_seed": 20260610,
       "share_graph": false
     }
   },
-  "generated_utc": "2026-06-10T07:04:05.968412+00:00",
+  "generated_utc": "2026-06-10T17:41:48.687954+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "8bc2ba9",
+  "git_commit": "698b867",
   "data_is_synthetic": true
 }

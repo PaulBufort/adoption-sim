@@ -26,8 +26,8 @@ import pathlib
 import networkx as nx
 import numpy as np
 
-from core import defaults
-from core.orggen import OrgGraph
+from . import defaults
+from .orggen import OrgGraph
 
 
 def load_edgelist(path: str | pathlib.Path, delimiter: str | None = None) -> nx.Graph:

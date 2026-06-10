@@ -1,5 +1,6 @@
 # Headline scenario — experiment 1: broadcast vs cluster seeding.
-# Frozen by decision D16 (PROVISIONAL, see docs/decisions.md). All data SYNTHETIC.
+# Frozen by decision D16 (RATIFIED 2026-06-10, see docs/decisions.md). All data SYNTHETIC.
+# replicates: 50 since the v0.1 release sprint (owner directive; was 20 at ratification).
 
 [meta]
 name = "headline"
@@ -23,5 +24,5 @@ strategy = "cluster"   # experiment 1 sweeps all five strategies over this base
 budget = 0.05
 
 [run]
-replicates = 20
+replicates = 50
 master_seed = 20260610

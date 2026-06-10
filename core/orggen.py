@@ -19,7 +19,7 @@ import dataclasses
 import networkx as nx
 import numpy as np
 
-from core import defaults
+from . import defaults
 
 LEADERSHIP_TEAM = 0  # team id of the CEO + department heads group
 

@@ -10,14 +10,14 @@ which structures (silos, thresholds, relays) decide the outcome?
 > you cannot conclude is in [docs/limitations.md](docs/limitations.md), and it is
 > long on purpose.
 
-![Dual-regime headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. Two threshold-heterogeneity regimes shown. SYNTHETIC DATA.](docs/figures/headline.png)
+![Dual-regime headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. Two threshold-heterogeneity regimes shown. SYNTHETIC DATA.](figures/headline.png)
 
-*Synthetic data: N=2000, θ̄=0.30, silo strength 0.85, seed budget 5%, 20 replicates
+*Synthetic data: N=2000, θ̄=0.30, silo strength 0.85, seed budget 5%, 50 replicates
 per strategy per panel, bands = 10th–90th percentile. Broadcast (red — **0 seeds:
 it buys awareness, not adopters**) converts only the zero-threshold innovators in
 the κ=20 regime (~6%, left) and becomes a high-variance lottery in the κ=12 regime
-(5–48%, right); real-world threshold heterogeneity is unmeasured, so the regime is
-an open empirical question (D1). Cluster seeding (blue) builds local critical mass;
+(5–65%, right); real-world threshold heterogeneity is unmeasured, so the regime is
+an open empirical question (D1). Cluster seeding (blue) builds local critical mass (~32%);
 and — the negative result we report rather than hide — scattered strategies win on
 raw reach in both regimes, even with the innovator atom removed entirely.
 Experiment 1 explains all of it; experiment 3 shows why invisibility of usage
@@ -39,15 +39,21 @@ Headless equivalent of "Run All":
 
 The notebook executes in **well under a minute** on a recent laptop (an independent
 fresh-clone test measured 113 s from clone to figure, ~25 s of it the notebook; the
-budget is dominated by `pip install`). It regenerates `docs/figures/headline.png` and
+budget is dominated by `pip install`). It regenerates `figures/headline.png` and
 all CSVs in `experiments/results/` — **bit-for-bit under `constraints.txt`** (one
 master seed drives everything; newer numpy releases may change random streams, which
 is why the constraints file exists). After a successful run, `git status` will show
 only the executed notebook and the `.meta.json` provenance sidecars (timestamps) as
 modified — the result CSVs and the PNG should be unchanged. No notebook?
-`python experiments/run_experiment1.py` produces the same numbers in the terminal.
+`python experiments/run_experiment1.py` produces the same numbers in the terminal,
+and `python figures/make_all.py` regenerates **every** final figure (all nine, ~2–4
+min) deterministically from the master seeds.
 
 Run the test suite with plain `pytest` from the repo root (67 tests, ~15 s).
+
+Prefer a package? `pip install -e .` installs the engine as `adoption_sim`
+(NetworkX + NumPy only); new here? start with
+[`experiments/00_tutorial.ipynb`](experiments/00_tutorial.ipynb) (~1 minute runtime).
 
 ## The web demo
 
@@ -71,8 +77,9 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
 | path | contents |
 |---|---|
 | `core/` | engine — org generator, threshold dynamics, seeding, metrics, sweeps, ingest. **Imports NetworkX + NumPy + stdlib only** (enforced by a test) |
-| `experiments/` | three executed notebooks (headline · sanity checks · observability) + scenario TOMLs + versioned results (CSV + provenance JSON) |
+| `experiments/` | four executed notebooks (tutorial · headline · sanity checks · observability) + scenario TOMLs + versioned results (CSV + provenance JSON) |
 | `demo/` | Streamlit app (synthetic-data banner included) |
+| `figures/` | all nine final figures + `make_all.py` — one command regenerates everything from the master seeds |
 | `docs/` | [spec](docs/spec.md) · [model math](docs/model.md) · [assumptions](docs/assumptions.md) · [limitations](docs/limitations.md) · [decision log](docs/decisions.md) · [sanity checks](docs/sanity-checks.md) · [build journal](docs/journal.md) |
 | `tests/` | 67 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
 

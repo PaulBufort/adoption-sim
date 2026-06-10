@@ -11,9 +11,9 @@ import dataclasses
 import networkx as nx
 import numpy as np
 
-from core import defaults
-from core.dynamics import RunResult, SimParams, run_simulation
-from core.orggen import CompiledOrg, OrgGraph
+from . import defaults
+from .dynamics import RunResult, SimParams, run_simulation
+from .orggen import CompiledOrg, OrgGraph
 
 
 # --- Curve summaries ---------------------------------------------------------
@@ -62,7 +62,7 @@ def attribution_by_unit(result: RunResult, compiled: CompiledOrg, level: str = "
     """Why people did not adopt, per unit: counts of each attribution category.
 
     The legibility payoff of the R/W/A decomposition (spec §2.2)."""
-    from core.dynamics import ATTRIBUTION_LABELS
+    from .dynamics import ATTRIBUTION_LABELS
 
     ids = compiled.dept if level == "dept" else compiled.team
     out: dict[int, dict[str, int]] = {}
