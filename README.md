@@ -47,6 +47,12 @@ Run the test suite with plain `pytest` from the repo root (59 tests, ~15 s).
 
 ## The web demo
 
+**One click (macOS/Linux):** double-click **`Launch Demo.command`** at the repo
+root — it creates the environment on first run, starts the server, and opens your
+browser. Close the Terminal window to stop it.
+
+Or from a shell:
+
 ```bash
 streamlit run demo/app.py
 ```
