@@ -40,7 +40,8 @@ N_DEPTS = 8
 
 @st.cache_data(show_spinner=False, max_entries=64)
 def simulate(n_agents: int, silo: float, theta_mean: float, strategy: str,
-             budget: float, replicates: int, seed: int, relapse_on: bool) -> dict:
+             budget: float, replicates: int, seed: int, relapse_on: bool,
+             visibility: float = 1.0) -> dict:
     """Pure, cacheable simulation bundle (replicates × one strategy)."""
     curves, dept_mat, attribution = [], [], []
     for rep in range(replicates):
@@ -53,6 +54,7 @@ def simulate(n_agents: int, silo: float, theta_mean: float, strategy: str,
         seeding = make_seeding(strategy, compiled, budget, rng=np.random.default_rng(s_seed))
         params = SimParams(
             theta_mean=theta_mean,
+            visibility=visibility,
             relapse_prob=0.25 if relapse_on else 0.0,
             retention_factor=1.0,
             max_steps=MAX_STEPS,
@@ -107,6 +109,11 @@ with st.sidebar.expander("Advanced"):
                            help="Same seed ⇒ identical results. Change it to re-roll.")
     relapse_on = st.toggle("Usage decay (relapse when share < θ)", value=False,
                            help="D7: adopters lacking reinforcement quit with prob 0.25/step.")
+    visibility = st.slider("Visibility of adoption v", 0.2, 1.0, 1.0, step=0.05,
+                           help="D17: how much of a colleague's adoption is visible. "
+                                "Global v is exactly equivalent to raising every "
+                                "threshold to θ/v — see experiment 3. Comms (broadcast) "
+                                "stays fully visible.")
 st.sidebar.divider()
 st.sidebar.markdown(
     "**Honesty box** — every number here is synthetic and uncalibrated; "
@@ -126,11 +133,13 @@ st.warning(
 
 try:
     with st.spinner(f"Simulating {replicates} × {strategy} …"):
-        run = simulate(n_agents, silo, theta_mean, strategy, budget, replicates, int(seed), relapse_on)
+        run = simulate(n_agents, silo, theta_mean, strategy, budget, replicates,
+                       int(seed), relapse_on, visibility)
     ref = None
     if strategy != "broadcast":
         with st.spinner("Simulating broadcast reference …"):
-            ref = simulate(n_agents, silo, theta_mean, "broadcast", budget, replicates, int(seed), relapse_on)
+            ref = simulate(n_agents, silo, theta_mean, "broadcast", budget, replicates,
+                           int(seed), relapse_on, visibility)
 except ValueError as exc:
     st.error(f"Cannot run this configuration: {exc}")
     st.stop()
@@ -143,9 +152,11 @@ cols[0].metric("Final adoption", f"{final:.0%}",
 if ref is not None:
     ref_final = float(ref["curves"].mean(axis=0)[-1])
     cols[1].metric("Broadcast reference", f"{ref_final:.0%}",
-                   delta=f"{final - ref_final:+.0%} vs broadcast", delta_color="normal")
+                   delta=f"{final - ref_final:+.0%} vs broadcast", delta_color="normal",
+                   help="Reference floor: 0 seeds — broadcast buys awareness, not adopters (D8/D9).")
 else:
-    cols[1].metric("Broadcast reference", "—", help="You are looking at broadcast itself.")
+    cols[1].metric("Broadcast reference", "—",
+                   help="You are looking at broadcast itself: 0 seeds — it buys awareness, not adopters.")
 cols[2].metric("Dead departments", f"{dead} / {N_DEPTS}",
                help=f"Departments below {defaults.ANALYSIS['dead_pocket_cutoff']:.0%} "
                     "final adoption (D11).")
@@ -167,9 +178,12 @@ chart = (
     + alt.Chart(df).mark_line(strokeWidth=2.5).encode(x="step:Q", y="mean:Q", color=color)
 ).properties(height=320)
 st.altair_chart(chart, use_container_width=True)
+vis_note = "" if visibility >= 1.0 else (
+    f" · visibility v={visibility:.2f} (≡ thresholds θ/v — invisibility starves everyone, D17)")
 st.caption(f"Synthetic data · {replicates} replicates, fresh organization each · "
            f"bands = 10–90th percentile · θ ~ Beta(μ={theta_mean}, κ=20) + 2.5% innovators · "
-           f"willingness caps adoption at ~85% (D5).")
+           f"willingness caps adoption at ~85% (D5) · broadcast = 0 seeds, buys awareness "
+           f"not adopters (D9){vis_note}.")
 
 # ------------------------------------------------------- unit map + R/W/A ----
 left, right = st.columns([3, 2])

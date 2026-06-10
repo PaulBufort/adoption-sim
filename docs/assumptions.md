@@ -16,8 +16,10 @@
    is not persuadable and capacity is not fixable within a run. (D5, D6)
 4. **Innovators exist**: 2.5% of agents adopt on first awareness, after which they
    never relapse (they need no social proof — measured consequence of D2+D7).
-5. People know who in their network adopted, immediately and accurately
-   (no misperception, no signaling games).
+5. People see a fraction v of each contact's adoption (D17; default v = 1: full
+   visibility, immediate and accurate — no misperception, no signaling games).
+   "Adoption" itself means the costly production behavior, not shallow
+   substitution use (D17 definitional note).
 
 ## About organizations
 

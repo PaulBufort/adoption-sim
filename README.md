@@ -10,15 +10,19 @@ which structures (silos, thresholds, relays) decide the outcome?
 > you cannot conclude is in [docs/limitations.md](docs/limitations.md), and it is
 > long on purpose.
 
-![Headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. SYNTHETIC DATA.](docs/figures/headline.png)
+![Dual-regime headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. Two threshold-heterogeneity regimes shown. SYNTHETIC DATA.](docs/figures/headline.png)
 
-*Synthetic data: N=2000, θ̄=0.30 (κ=20, 2.5% innovators), silo strength 0.85, seed
-budget 5%, 20 replicates per strategy, bands = 10th–90th percentile. Broadcast
-(red) converts only the zero-threshold innovators (~6%); cluster seeding (blue)
-builds local critical mass (~29%); and — the negative result we report rather than
-hide — scattered strategies (grey/violet) win on raw reach here. Experiment 1
-explains all three, including why the folklore "always seed clusters" does not
-survive in this model family, and how decay reverses the ranking.*
+*Synthetic data: N=2000, θ̄=0.30, silo strength 0.85, seed budget 5%, 20 replicates
+per strategy per panel, bands = 10th–90th percentile. Broadcast (red — **0 seeds:
+it buys awareness, not adopters**) converts only the zero-threshold innovators in
+the κ=20 regime (~6%, left) and becomes a high-variance lottery in the κ=12 regime
+(5–48%, right); real-world threshold heterogeneity is unmeasured, so the regime is
+an open empirical question (D1). Cluster seeding (blue) builds local critical mass;
+and — the negative result we report rather than hide — scattered strategies win on
+raw reach in both regimes, even with the innovator atom removed entirely.
+Experiment 1 explains all of it; experiment 3 shows why invisibility of usage
+rescues nothing (it's provably just threshold inflation) and what observable-pilot
+rituals actually buy.*
 
 ## Reproduce the headline figure (target: under 15 minutes)
 
@@ -43,7 +47,7 @@ only the executed notebook and the `.meta.json` provenance sidecars (timestamps)
 modified — the result CSVs and the PNG should be unchanged. No notebook?
 `python experiments/run_experiment1.py` produces the same numbers in the terminal.
 
-Run the test suite with plain `pytest` from the repo root (59 tests, ~15 s).
+Run the test suite with plain `pytest` from the repo root (67 tests, ~15 s).
 
 ## The web demo
 
@@ -67,10 +71,10 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
 | path | contents |
 |---|---|
 | `core/` | engine — org generator, threshold dynamics, seeding, metrics, sweeps, ingest. **Imports NetworkX + NumPy + stdlib only** (enforced by a test) |
-| `experiments/` | one notebook per experiment + scenario TOMLs + versioned results (CSV + provenance JSON) |
+| `experiments/` | three executed notebooks (headline · sanity checks · observability) + scenario TOMLs + versioned results (CSV + provenance JSON) |
 | `demo/` | Streamlit app (synthetic-data banner included) |
 | `docs/` | [spec](docs/spec.md) · [model math](docs/model.md) · [assumptions](docs/assumptions.md) · [limitations](docs/limitations.md) · [decision log](docs/decisions.md) · [sanity checks](docs/sanity-checks.md) · [build journal](docs/journal.md) |
-| `tests/` | 59 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
+| `tests/` | 67 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
 
 ## The science, honestly
 
@@ -80,9 +84,11 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
   the threshold distribution (D1/D2) and seed budget — measured, not asserted
   (tornado in [docs/sanity-checks.md](docs/sanity-checks.md)).
 - **Negative results are reported**: scattered seeding beats cluster seeding on reach
-  in this model family (D16); socially-reinforced decay produces no spike-then-relapse
-  (D7); no individual pivot relays exist in generated orgs (D12). Each comes with the
-  mechanism analysis.
+  in this model family — robust to removing innovators entirely (D16); socially-
+  reinforced decay produces no spike-then-relapse (D7); no individual pivot relays
+  exist in generated orgs (D12); and neither global invisibility nor observable-pilot
+  rituals rescue cluster seeding (D17, experiment 3). Each comes with the mechanism
+  analysis.
 - **Sanity checks**: Granovetter's knife-edge, Centola & Macy's weak-long-ties
   result, and Watts' cascade boundary replicate qualitatively (4/4 PASS); a real
   topology (SNAP email-Enron, fetched separately) reproduces the qualitative ordering.
