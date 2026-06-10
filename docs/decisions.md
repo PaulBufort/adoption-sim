@@ -6,24 +6,30 @@
 > **RATIFIED** (keep), or pick another option / write a variant, and the builder updates
 > code and docs to match. Nothing PROVISIONAL should be presented publicly as settled.
 
+> **Arbitration session 2026-06-10 (scientist):** D1–D16 RATIFIED, several with
+> additions recorded under the matching entries (dual-regime headline for D1,
+> sensitivity sweeps for D2 and D8, caption rules for D9, re-verification for D16).
+> New decision D17 (observability) ratified and implemented the same day.
+
 | ID | Decision | Status |
 |----|----------|--------|
-| D1 | Threshold distribution | PROVISIONAL |
-| D2 | Innovators (zero-threshold mass) | PROVISIONAL |
-| D3 | Credibility weights | PROVISIONAL |
-| D4 | "Ready" operationalization (awareness gate) | PROVISIONAL |
-| D5 | "Willing" operationalization | PROVISIONAL |
-| D6 | "Able" operationalization | PROVISIONAL |
-| D7 | Update scheme, decay and relapse | PROVISIONAL |
-| D8 | Broadcast operationalization | PROVISIONAL |
-| D9 | Seeding strategies and budget fairness | PROVISIONAL |
-| D10 | Informal-layer generator | PROVISIONAL |
-| D11 | Dead-pocket definition | PROVISIONAL |
-| D12 | Pivot-node definition | PROVISIONAL |
-| D13 | Tenure: attribute only, inert in dynamics | PROVISIONAL |
-| D14 | Replicate semantics (what error bars mean) | PROVISIONAL |
-| D15 | Team locality (wide bridges) in within-dept ties | PROVISIONAL |
-| D16 | Headline scenario freeze + negative-result commitment | PROVISIONAL |
+| D1 | Threshold distribution | RATIFIED 2026-06-10 (+ dual-regime presentation) |
+| D2 | Innovators (zero-threshold mass) | RATIFIED 2026-06-10 (+ p_innov sweep, p=0 labeled variant) |
+| D3 | Credibility weights | RATIFIED 2026-06-10 (incl. closeness amendment, as realism feature) |
+| D4 | "Ready" operationalization (awareness gate) | RATIFIED 2026-06-10 |
+| D5 | "Willing" operationalization | RATIFIED 2026-06-10 |
+| D6 | "Able" operationalization | RATIFIED 2026-06-10 |
+| D7 | Update scheme, decay and relapse | RATIFIED 2026-06-10 (incl. amendment) |
+| D8 | Broadcast operationalization | RATIFIED 2026-06-10 (+ T_b sweep) |
+| D9 | Seeding strategies and budget fairness | RATIFIED 2026-06-10 (+ caption rule) |
+| D10 | Informal-layer generator | RATIFIED 2026-06-10 |
+| D11 | Dead-pocket definition | RATIFIED 2026-06-10 |
+| D12 | Pivot-node definition | RATIFIED 2026-06-10 (null result + positive control) |
+| D13 | Tenure: attribute only, inert in dynamics | RATIFIED 2026-06-10 |
+| D14 | Replicate semantics (what error bars mean) | RATIFIED 2026-06-10 |
+| D15 | Team locality (wide bridges) in within-dept ties | RATIFIED 2026-06-10 (as realism feature) |
+| D16 | Headline scenario freeze + negative-result commitment | RATIFIED 2026-06-10 (re-verified post-D17) |
+| D17 | Observability of adoption (visibility v) | RATIFIED 2026-06-10 |
 
 ---
 
@@ -52,7 +58,13 @@ threshold-sensitivity claims.
 **Recommendation: Option 1 (Beta(μ, κ))**, with per-role mean offsets and a single
 global κ. Defaults: μ = 0.30 for all roles (role offsets exposed but zero by default —
 we do not assume seniors are more/less resistant without evidence), κ = 8
-(sd ≈ 0.15 at μ = 0.3). **PROVISIONAL.**
+(sd ≈ 0.15 at μ = 0.3). **RATIFIED (2026-06-10).**
+
+**Arbitration addition (scientist, 2026-06-10).** The headline presentation becomes
+**dual-regime**: main panel at κ = 20 (broadcast fails cleanly), companion panel at
+κ = 12 (the "lottery" regime where broadcast is a high-variance gamble), with a
+caption stating that real-world threshold heterogeneity is unmeasured and the
+qualitative story is regime-dependent. Implemented in experiment 1.
 
 ---
 
@@ -78,7 +90,12 @@ would be rigged by construction. Real populations contain spontaneous early adop
 
 **Recommendation: Option 1** (p_innov = 0.025, θ=0 atom). It makes broadcast's failure
 mode emergent (innovators adopt, cascade stalls at silo boundaries) rather than assumed.
-Sensitivity over p_innov reported in experiments. **PROVISIONAL.**
+Sensitivity over p_innov reported in experiments. **RATIFIED (2026-06-10).**
+
+**Arbitration addition (scientist, 2026-06-10).** Default 2.5% confirmed, PLUS a
+first-class sensitivity sweep p_innov ∈ {0, 0.01, 0.025, 0.05} in experiment 1.
+The p = 0 cell **is** the "no-innovators" variant left open in D16 — always clearly
+labeled as a variant, never presented as the default.
 
 ---
 
@@ -105,7 +122,7 @@ Option 3 alone would ignore the spec, but is valuable as a robustness toggle.
 
 **Recommendation: Option 1 as the model, Option 3 retained as a built-in sensitivity
 toggle** (experiments report whether headline ordering survives uniform weights).
-**PROVISIONAL.**
+**RATIFIED (2026-06-10).**
 
 **Amendment (2026-06-10, builder, after calibration scans — needs arbitration.)**
 "Close peer" is now defined by *relationship closeness*, not team co-membership:
@@ -118,8 +135,12 @@ and measured scans showed cluster seeding *never* beating random seeding under
 any tested (θ̄, κ, silo, locality) combination. Weighting by closeness restores a
 2:1 advantage of a saturated sister team over a lone scattered seed. The original
 flat-0.6 variant remains available (`sister_close=False`) and the headline
-experiment reports the comparison. **This amendment is load-bearing for the
-headline claim — please arbitrate together with D15.**
+experiment reports the comparison. *(Original note: "load-bearing for the headline
+claim" — later downgraded; see the D15 empirical amendment.)*
+
+**Arbitration (scientist, 2026-06-10): RATIFIED including this amendment**, with
+the D15 framing — a structural-realism feature reported as an experimental
+variable, not the mechanism the headline depends on.
 
 ---
 
@@ -143,7 +164,7 @@ exposure — spontaneous ignition would contaminate all strategies.
 
 **Recommendation: Option 1.** One extra clause, large gain in interpretability:
 broadcast's *only* real power is creating awareness everywhere at once, which is
-exactly the real-world intuition being tested. **PROVISIONAL.**
+exactly the real-world intuition being tested. **RATIFIED (2026-06-10).**
 
 ---
 
@@ -167,7 +188,7 @@ attributed to a missing condition.
 **Recommendation: Option 1.** The whole point of R/W/A in this spec is *legible
 attribution*; only the static draw keeps the three conditions independent.
 Note the honest consequence: with p=0.85, max possible adoption is ~85% (the willing
-ceiling) — figures must say so. **PROVISIONAL.**
+ceiling) — figures must say so. **RATIFIED (2026-06-10).**
 
 ---
 
@@ -186,7 +207,7 @@ ceiling) — figures must say so. **PROVISIONAL.**
 
 **Recommendation: Option 1**, with the headline scenario keeping a_u = 1.0 everywhere
 (structural effects must emerge from the network, not from planted handicaps; "able"
-is demonstrated in a dedicated attribution example instead). **PROVISIONAL.**
+is demonstrated in a dedicated attribution example instead). **RATIFIED (2026-06-10).**
 
 ---
 
@@ -217,7 +238,7 @@ parameter) — reproduces the documented spike-then-relapse pattern."
 **Recommendation: synchronous updates (1) + hysteresis relapse (1).** Headline figure
 runs with decay OFF for clarity; a dedicated experiment section studies decay ON.
 Relapsed agents may re-adopt if conditions are met again (no permanent immunity).
-**PROVISIONAL.**
+**RATIFIED (2026-06-10).**
 
 **Empirical amendment (2026-06-10, builder).** Measured behavior of hysteresis
 relapse contradicts the spec's expectation in an instructive way:
@@ -230,6 +251,9 @@ relapse contradicts the spec's expectation in an instructive way:
    negative result; the model cannot currently reproduce that stylized fact.
    θ=0 innovators additionally can never relapse (share < r·0 is impossible) —
    coherent ("they never needed social proof") but worth your sign-off.
+   *Arbitration (scientist, 2026-06-10): both signed off — innovators-never-relapse
+   stands with that interpretation; the spike-then-relapse non-reproduction is
+   reported as a finding.*
 2. **Decay differentially punishes scattered adoption** (headline regime, ρ=0.25,
    r=1.0, 8 reps): random 0.73 → 0.26, champions 0.75 → 0.45, cluster 0.29 → 0.32
    (unchanged). At ρ=0.40 the cluster-vs-random ordering fully reverses (0.30 vs
@@ -261,7 +285,11 @@ relapse contradicts the spec's expectation in an instructive way:
 **Recommendation: Option 1.** Broadcast = universal awareness + a one-step credibility
 nudge from a low-credibility source. Innovators (D2) and near-zero-θ agents convert;
 everyone else needs peers. This is the mechanism the headline claim rests on, so it is
-the single most important decision to arbitrate. **PROVISIONAL.**
+the single most important decision to arbitrate. **RATIFIED (2026-06-10).**
+
+**Arbitration addition (scientist, 2026-06-10).** Headline keeps T_b = 1, PLUS a
+sensitivity sweep T_b ∈ {1, 5, 20} in experiment 1 — the "what about repeated
+campaigns?" objection, answered with data rather than argument.
 
 ---
 
@@ -294,7 +322,12 @@ canonical strategies.
 **Open question for arbitration.** Is "broadcast (0 seeds) vs cluster (k% seeds)" a
 fair headline comparison, or should the headline compare *equal-budget* strategies
 only, with broadcast as a reference floor? Recommendation: present broadcast as the
-reference floor and say so explicitly in captions. **PROVISIONAL.**
+reference floor and say so explicitly in captions. **RATIFIED (2026-06-10).**
+
+**Arbitration addition (scientist, 2026-06-10) — caption rule:** every figure that
+shows broadcast states **"0 seeds — broadcast buys awareness, not adopters."**
+Implemented as the broadcast legend label in `experiments/plotting.py`, so no figure
+can omit it.
 
 ---
 
@@ -324,7 +357,7 @@ ties, interpretable as "tenured connectors"). Formal layer = the org-chart tree
 manager links and broadcast reach — adoption never travels along it unless the same
 dyad also exists informally (manager↔report dyads are added to the informal layer
 with the D3 manager weight, since real managers do talk to their reports).
-**PROVISIONAL.**
+**RATIFIED (2026-06-10).**
 
 ---
 
@@ -342,7 +375,7 @@ with the D3 manager weight, since real managers do talk to their reports).
    prettier, fragile on few units.
 
 **Recommendation: Option 1** (default 0.25, reported alongside the threshold so the
-reader can re-cut). **PROVISIONAL.**
+reader can re-cut). **RATIFIED (2026-06-10).**
 
 ---
 
@@ -362,7 +395,7 @@ reader can re-cut). **PROVISIONAL.**
    explicitly counterfactual.
 
 **Recommendation: Option 1**, with the structural score reported alongside as the
-screening heuristic it is. **PROVISIONAL.**
+screening heuristic it is. **RATIFIED (2026-06-10).**
 
 **Empirical amendment (2026-06-10, builder).** At v0.1 parameters the knockout
 diagnostic returns a **null result**: across headline and harsher-silo variants
@@ -396,7 +429,7 @@ says tenure affects adoption.
    evidence; it would silently shape results.
 
 **Recommendation: Option 1.** v0.1 makes no behavioral claims about tenure; this is
-stated in limitations.md. **PROVISIONAL.**
+stated in limitations.md. **RATIFIED (2026-06-10).**
 
 ---
 
@@ -419,7 +452,7 @@ between replicates determines what the reported bands mean.
 **Recommendation: Option 1** for all headline claims (R = 20, seeds derived from one
 master seed via `numpy.random.SeedSequence.spawn`); Option 2 retained as an engine
 flag (`share_graph`) for the pedagogical demo, where regenerating per slider-move
-would be slow and the demo makes no quantitative claims. **PROVISIONAL.**
+would be slow and the demo makes no quantitative claims. **RATIFIED (2026-06-10).**
 
 ---
 
@@ -463,7 +496,7 @@ projects), giving adjacent teams several overlapping ties?
 experiments can show *both* regimes and report honestly when cluster seeding does
 NOT win (narrow bridges, fat low-θ tail). The headline figure must state the
 locality value; the bridge-width sensitivity becomes a first-class experiment
-section. **PROVISIONAL.**
+section. **RATIFIED (2026-06-10).**
 
 **Empirical amendment (2026-06-10, builder, after the notebook-02 tornado).** In the
 *frozen headline regime* (κ=20), `team_locality` is **not load-bearing after all**:
@@ -506,7 +539,7 @@ tie also grows the denominator). The popular "always seed clusters" heuristic is
 NOT reproduced here; experiment 1 reports this prominently rather than hiding it,
 with the mechanism analysis above as testable explanation.
 
-**Headline scenario (frozen, PROVISIONAL):** N=2000, 8 departments, mean team 8,
+**Headline scenario (frozen, RATIFIED 2026-06-10):** N=2000, 8 departments, mean team 8,
 silo_strength=0.85 (panel B sweeps 0.5–0.95), team_locality=0.7, dept_degree=6.0,
 θ̄=0.30, κ=20, p_innovator=0.025, p_willing=0.85, able=1.0, budget=5%, decay off,
 20 replicates with full regeneration (D14), all five strategies.
@@ -516,10 +549,81 @@ silo_strength=0.85 (panel B sweeps 0.5–0.95), team_locality=0.7, dept_degree=6
 closeness-weighted sisters (D3 amendment) — none produced it; the innovator atom
 plus team embedding always favored scattering. Removing the innovator atom entirely
 (p_innovator=0) would manufacture the ordering but break broadcast's realism (D2's
-rationale). **If you want that regime demonstrated, the honest lever is an explicit
-"no-innovators" sensitivity variant, clearly labeled as such — awaiting arbitration.**
+rationale). *Resolution (arbitration 2026-06-10): the no-innovators regime is
+demonstrated as the clearly-labeled p_innov = 0 cell of the D2 sensitivity sweep —
+a variant, never the default.*
+
+**Arbitration (scientist, 2026-06-10): RATIFIED** — recipe frozen, negative result
+reported prominently in experiment 1 with the mechanism analysis. Re-verified after
+the D17 implementation: with the ratified default v = 1.0 the engine consumes no
+additional randomness, and the headline result CSVs reproduce **bit-for-bit**
+(checked by CI's reproduce-headline job).
+
+**Mechanism amendment (2026-06-10, builder, from the ratified D2 sweep).** The
+original analysis credited the innovator atom as a co-cause of scattering's
+advantage ("a free scattered seeding subsidy"). The p_innov sweep **refutes the
+necessity half of that claim**: at p_innov = 0, random *still* beats cluster
+(0.42 ± 0.09 vs 0.20 ± 0.04). Team embedding plus the heterogeneous Beta tail is
+sufficient; innovators amplify the gap but do not create it. Meanwhile broadcast
+at p_innov = 0 converts **exactly 0.000** across all replicates — broadcast's
+entire yield is innovator-dependent. Both figures are in experiment 1 §4.
 
 ---
 
+## D17 — Observability of adoption (visibility v)
+
+**Context (scientist, 2026-06-10).** Real-world AI usage is largely *invisible*: it
+happens in a browser tab; colleagues see outputs, not methods. The model so far
+assumes every adopted contact generates exposure — implicitly visibility = 1.0.
+Invisibility may be exactly what devalues scattered seeds in reality, so this knob
+speaks directly to D16's negative result.
+
+**Definitional note (ratified with this decision, recorded in model.md).**
+"Adoption" in this model means the **costly production behavior** — genuinely
+reorganizing how one works around the tool — not shallow substitution use
+(search-bar replacement, spellcheck-grade usage). Shallow use spreads as simple
+contagion, needs no critical mass, and is out of scope; conflating the two would
+make every threshold assumption incoherent.
+
+**Operationalization options.**
+
+1. **Deterministic per-source attenuation:** adopted contact j contributes
+   v_j · w_ij to i's exposure numerator; the denominator (total credible contact
+   mass) is unchanged — the *person* still counts among i's credible voices, their
+   *adoption* is just partially visible. Global scalar v as the model parameter;
+   per-agent v_j as an override for interventions. Smooth, reproducible, no new
+   randomness.
+2. **Stochastic visibility:** each adopted contact is *seen* with probability v
+   per step (fresh Bernoulli draws). Arguably more literal, but in a synchronous
+   model with absorbing adoption, upward exposure fluctuations get locked in
+   (ratchet effect), so stochastic visibility systematically *inflates* adoption
+   relative to its own mean — an artifact, not a mechanism. Also adds an RNG
+   stream that breaks the bit-for-bit reproduction of all v = 1 results.
+3. **Visibility as edge property** (some relationships are show-your-screen
+   relationships). Most realistic, but another generator mechanism with no v0.1
+   evidence basis; per-agent overrides (option 1) cover the intervention use case.
+
+**Recommendation: Option 1**, default v = 1.0 (backward compatible; at v = 1 the
+implementation is the identity and all ratified results stand unchanged).
+
+**Proposition (equivalence; proof in experiment 3, verified by an exact test).**
+For v > 0 and any scenario *without a broadcast term*, the trajectory under global
+visibility v with thresholds {θᵢ} is **identical** to the trajectory under v = 1
+with thresholds {θᵢ/v} (same draws, same seeds): ready, awareness, and relapse
+conditions all transform as v·A/W ≥ θ ⟺ A/W ≥ θ/v. Consequences: (a) a *global*
+v cannot reorder the seeded strategies — it only slides everyone along the θ̄
+sensitivity axis; D16's scattered ≥ cluster ordering is provably v-invariant;
+(b) broadcast is the exception (the comms term is fully visible by nature — a
+broadcast is loud), so low v *relatively* favors broadcast; (c) the scientifically
+live question is **differential** visibility — the "observable pilots" intervention
+(seeded agents carry v = 1 while the world sits at v < 1, modeling work-out-loud
+rituals; an intervention, not a structural assumption). Experiment 3 measures
+whether that intervention rescues cluster seeding.
+
+**RATIFIED (scientist, 2026-06-10).** Implemented as `SimParams.visibility`
+(scenario key `agents.visibility`), per-agent override `run_simulation(visibility=…)`,
+and the intervention key `seeding.pilot_visibility`.
+
+---
 *All defaults above are recorded in `core/defaults.py` and surfaced in `docs/model.md`.
 Changing a decision here should change exactly one place in code.*

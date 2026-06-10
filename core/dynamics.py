@@ -4,9 +4,10 @@ The model (decisions D1–D8, defaults in core/defaults.py):
 
 - Each agent i has threshold theta_i ~ mixture( P(p_innovator): 0,
   else Beta(mean=theta_mean+role_offset, concentration=kappa) )         (D1, D2)
-- exposure share_i(t) = (sum of credibility weights of adopted contacts
-  [+ w_comms while a broadcast runs]) / (total credible contact weight
-  [+ w_comms while a broadcast runs])                                   (D3, D8)
+- exposure share_i(t) = (sum of credibility weights of adopted contacts,
+  each scaled by the source's visibility v_j (D17)
+  [+ w_comms while a broadcast runs — comms is fully visible by nature]) /
+  (total credible contact weight [+ w_comms while a broadcast runs])    (D3, D8, D17)
 - ready_i(t)   = share_i(t) > 0  AND  share_i(t) >= theta_i             (D4)
 - willing_i    ~ Bernoulli(p_willing[role]) drawn once at t=0           (D5)
 - able_i       ~ Bernoulli(able_rate[department]) drawn once at t=0     (D6)
@@ -52,6 +53,7 @@ class SimParams:
     p_innovator: float = defaults.AGENTS["p_innovator"]
     p_willing: tuple = tuple(defaults.AGENTS["p_willing"])
     able_rates: float | dict = defaults.AGENTS["able_rate_default"]
+    visibility: float = defaults.AGENTS["visibility"]
     w_comms: float = defaults.WEIGHTS["comms"]
     broadcast_steps: int = defaults.DYNAMICS["broadcast_steps"]
     retention_factor: float = defaults.DYNAMICS["retention_factor"]
@@ -64,7 +66,7 @@ class SimParams:
             raise ValueError("theta_mean must be in [0.01, 0.99]")
         if self.theta_concentration <= 0:
             raise ValueError("theta_concentration must be positive")
-        for name in ("p_innovator", "relapse_prob"):
+        for name in ("p_innovator", "relapse_prob", "visibility"):
             v = getattr(self, name)
             if not 0.0 <= v <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
@@ -135,13 +137,27 @@ def run_simulation(
     seeding: Seeding,
     rng: np.random.Generator | int = 0,
     agents: tuple[np.ndarray, np.ndarray, np.ndarray] | None = None,
+    visibility: np.ndarray | None = None,
 ) -> RunResult:
-    """Run one synchronous-update simulation to fixed point or max_steps."""
+    """Run one synchronous-update simulation to fixed point or max_steps.
+
+    ``visibility`` optionally overrides the global ``params.visibility`` with a
+    per-agent array (D17): agent j's adoption contributes v_j * w_ij to neighbor
+    exposure. Used by the "observable pilots" intervention (seeds at v=1.0 while
+    the rest of the world sits lower)."""
     params.validate()
     rng = np.random.default_rng(rng) if not isinstance(rng, np.random.Generator) else rng
     n = compiled.n
     active = compiled.active
     theta, willing, able = agents if agents is not None else draw_agents(compiled, params, rng)
+    if visibility is None:
+        vis = np.full(n, float(params.visibility))
+    else:
+        vis = np.asarray(visibility, dtype=np.float64)
+        if vis.shape != (n,):
+            raise ValueError(f"visibility array must have shape ({n},)")
+        if vis.min() < 0.0 or vis.max() > 1.0:
+            raise ValueError("visibility values must be in [0, 1]")
 
     adopted = np.zeros(n, dtype=bool)
     if seeding.initial_adopters.size:
@@ -167,7 +183,9 @@ def run_simulation(
     steps_done, converged = T, False
 
     for t in range(1, T + 1):
-        adopted_w = _segment_sum(weights * adopted[indices], indptr)
+        # D17: contact j contributes v_j * w_ij once adopted (comms term exempt:
+        # a broadcast is fully visible by nature).
+        adopted_w = _segment_sum(weights * (adopted * vis)[indices], indptr)
         bc = params.w_comms if (seeding.broadcast and t <= params.broadcast_steps) else 0.0
         denom = total_w + bc
         with np.errstate(invalid="ignore", divide="ignore"):

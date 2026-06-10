@@ -76,7 +76,15 @@ def run_job(job: dict) -> dict:
     seeding = make_seeding(
         sc["seeding"]["strategy"], compiled, sc["seeding"]["budget"], rng=rng_seed
     )
-    result = run_simulation(compiled, build_sim_params(sc), seeding, rng=rng_dyn)
+    params = build_sim_params(sc)
+    # D17 "observable pilots" intervention: seeds carry pilot_visibility while the
+    # rest of the organization sits at the global agents.visibility.
+    pilot_v = sc["seeding"].get("pilot_visibility")
+    visibility = None
+    if pilot_v is not None:
+        visibility = np.full(compiled.n, float(params.visibility))
+        visibility[seeding.initial_adopters] = float(pilot_v)
+    result = run_simulation(compiled, params, seeding, rng=rng_dyn, visibility=visibility)
     counts = result.attribution_counts()
     row = {
         **{k: v for k, v in job["labels"].items()},

@@ -43,7 +43,7 @@
       "relapse_prob": 0.0
     },
     "seeding": {
-      "strategy": "cluster",
+      "strategy": "broadcast",
       "budget": 0.05,
       "champion_metric": "degree"
     },
@@ -53,7 +53,7 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-06-10T07:04:19.846735+00:00",
+  "generated_utc": "2026-06-10T07:04:14.557569+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",

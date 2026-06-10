@@ -21,7 +21,7 @@
     },
     "agents": {
       "theta_mean": 0.3,
-      "theta_concentration": 20.0,
+      "theta_concentration": 12.0,
       "theta_role_offsets": [
         0.0,
         0.0,
@@ -53,7 +53,7 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-06-10T07:04:19.846735+00:00",
+  "generated_utc": "2026-06-10T07:04:08.671042+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",

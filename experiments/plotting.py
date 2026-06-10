@@ -23,8 +23,10 @@ STRATEGY_COLORS = {
     "cluster": "#1f77b4",
     "line_manager_first": "#2ca02c",
 }
+# D9 caption rule (arbitration 2026-06-10): every figure showing broadcast states
+# "0 seeds — broadcast buys awareness, not adopters". Baked into the legend label.
 STRATEGY_LABELS = {
-    "broadcast": "broadcast (0 seeds, comms blast)",
+    "broadcast": "broadcast (0 seeds — buys awareness, not adopters)",
     "random": "random seeding",
     "champions": "champions (top degree)",
     "cluster": "cluster (whole teams)",
