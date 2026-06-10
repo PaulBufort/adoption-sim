@@ -39,6 +39,8 @@ AGENTS = {
     "p_innovator": 0.025,               # P(theta = 0) atom (D2)
     "p_willing": [0.85, 0.85, 0.85],    # per role: ic, manager, leadership (D5)
     "able_rate_default": 1.0,           # per-department Bernoulli rate (D6)
+    "visibility": 1.0,                  # D17: fraction of an adopted contact's
+                                        # adoption that is visible to neighbors
 }
 
 # --- Dynamics (D4, D7, D8) ---------------------------------------------------

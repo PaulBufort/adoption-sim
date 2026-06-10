@@ -33,10 +33,16 @@ def main() -> int:
         n_jobs = args.n_jobs
 
     rows = exp1.run_strategy_comparison(sc, n_jobs)
-    print(f"[exp1] strategy comparison: {len(rows)} runs")
+    print(f"[exp1] strategy comparison (κ=20 main regime): {len(rows)} runs")
     for line in exp1.summary_table(rows):
         print("   ", line)
 
+    kappa12 = exp1.run_kappa_companion(sc, n_jobs)
+    print(f"[exp1] κ=12 lottery companion (D1): {len(kappa12)} runs")
+    pinnov = exp1.run_pinnov_sweep(sc, n_jobs, replicates=2 if args.smoke else 12)
+    print(f"[exp1] p_innov sweep (D2): {len(pinnov)} runs")
+    tb = exp1.run_broadcast_duration_sweep(sc, n_jobs)
+    print(f"[exp1] broadcast duration T_b sweep (D8): {len(tb)} runs")
     silo = exp1.run_silo_panel(sc, n_jobs, replicates=2 if args.smoke else 12)
     print(f"[exp1] silo panel: {len(silo)} runs")
     decay = exp1.run_decay_demo(sc, n_jobs, replicates=2 if args.smoke else 12)

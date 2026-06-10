@@ -121,6 +121,30 @@ def test_share_graph_mode_fixes_the_org():
     assert len(lens) == 1
 
 
+def test_pilot_visibility_intervention_flows_through_sweep():
+    """D17 observable pilots: low global visibility suppresses adoption; making the
+    seeds loud (pilot_visibility=1.0) recovers part of it. Same seeds throughout."""
+    base = toy_scenario(reps=3)
+    base["agents"]["visibility"] = 0.4
+    base["seeding"]["strategy"] = "cluster"
+    quiet = [r["final_rate"] for r in sweep(expand_jobs(base), n_jobs=1)]
+    loud_sc = json.loads(json.dumps(base))
+    loud_sc["seeding"]["pilot_visibility"] = 1.0
+    loud = [r["final_rate"] for r in sweep(expand_jobs(loud_sc), n_jobs=1)]
+    full_sc = json.loads(json.dumps(base))
+    full_sc["agents"]["visibility"] = 1.0
+    full = [r["final_rate"] for r in sweep(expand_jobs(full_sc), n_jobs=1)]
+    assert np.mean(full) > np.mean(quiet)          # v<1 suppresses adoption
+    assert np.mean(loud) >= np.mean(quiet)         # loud pilots never hurt
+
+
+def test_visibility_scenario_key_loads(tmp_path):
+    toml = TOY + "\n" + "[agents.visibility]\n" if False else TOY.replace(
+        "[agents]\ntheta_mean = 0.3", "[agents]\ntheta_mean = 0.3\nvisibility = 0.7")
+    sc = load_scenario(write_toml(tmp_path, toml))
+    assert build_sim_params(sc).visibility == 0.7
+
+
 def test_save_results_with_metadata(tmp_path):
     rows = [{"a": 1, "final_rate": 0.5}, {"a": 2, "final_rate": 0.6}]
     out = save_results(rows, tmp_path / "res" / "toy.csv", scenario=toy_scenario())

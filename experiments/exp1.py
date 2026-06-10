@@ -47,6 +47,46 @@ def run_strategy_comparison(sc: dict, n_jobs: int | None = None) -> list[dict]:
     return rows
 
 
+def run_kappa_companion(sc: dict, n_jobs: int | None = None) -> list[dict]:
+    """Dual-regime headline, right panel (D1 arbitration): same scenario at
+    κ = 12 — the 'lottery' regime where broadcast is a high-variance gamble."""
+    sc = set_path(sc, "agents.theta_concentration", 12.0)
+    jobs = expand_jobs(sc, {"seeding.strategy": STRATEGY_ORDER})
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_kappa12_{sc['meta']['name']}.csv", sc)
+    return rows
+
+
+PINNOV_AXIS = [0.0, 0.01, 0.025, 0.05]
+
+
+def run_pinnov_sweep(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
+    """D2 arbitration: first-class innovator-share sweep. The p = 0 cell is the
+    clearly-labeled 'no-innovators' variant from D16 — never the default."""
+    jobs = expand_jobs(
+        sc,
+        {"seeding.strategy": ["broadcast", "random", "cluster"],
+         "agents.p_innovator": PINNOV_AXIS},
+        replicates=replicates,
+    )
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_pinnov_{sc['meta']['name']}.csv", sc)
+    return rows
+
+
+TB_AXIS = [1, 5, 20]
+
+
+def run_broadcast_duration_sweep(sc: dict, n_jobs: int | None = None) -> list[dict]:
+    """D8 arbitration: the 'what about repeated campaigns?' objection — broadcast
+    with the comms term active for T_b ∈ {1, 5, 20} steps."""
+    sc = set_path(sc, "seeding.strategy", "broadcast")
+    jobs = expand_jobs(sc, {"dynamics.broadcast_steps": TB_AXIS})
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_tb_{sc['meta']['name']}.csv", sc)
+    return rows
+
+
 def run_silo_panel(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
     """Panel B data: final adoption vs silo strength for three strategies."""
     jobs = expand_jobs(

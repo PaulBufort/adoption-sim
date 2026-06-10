@@ -31,7 +31,7 @@ _SECTIONS = {
     "org": set(defaults.ORG) | _ORG_EXTRA,
     "agents": set(defaults.AGENTS),
     "dynamics": set(defaults.DYNAMICS) | {"w_comms"},
-    "seeding": set(defaults.SEEDING) | {"strategy"},
+    "seeding": set(defaults.SEEDING) | {"strategy", "pilot_visibility"},
     "run": {"replicates", "master_seed", "share_graph"},
 }
 
@@ -91,6 +91,7 @@ def build_sim_params(sc: dict) -> SimParams:
         p_innovator=a["p_innovator"],
         p_willing=tuple(a["p_willing"]),
         able_rates=able_rates,
+        visibility=a.get("visibility", defaults.AGENTS["visibility"]),
         w_comms=d.get("w_comms", defaults.WEIGHTS["comms"]),
         broadcast_steps=d["broadcast_steps"],
         retention_factor=d["retention_factor"],
