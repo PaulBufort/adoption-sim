@@ -53,13 +53,13 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-06-10T17:41:48.687954+00:00",
+  "generated_utc": "2026-06-11T16:35:32.512167+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "698b867",
+  "git_commit": "f60cbad",
   "data_is_synthetic": true
 }
