@@ -52,11 +52,11 @@ once and are reproduced bit-for-bit by CI from that point on.
 
 1. **The two identity blanks only you can fill** — *RESOLVED by arbitration
    2026-06-10:* author = Paul Bufort (ORCID 0009-0000-6080-1887) in CITATION.cff
-   and pyproject.toml; git history rewritten to your authorship (email used:
-   `paulbufort@users.noreply.github.com` — the GitHub noreply convention;
-   correct it with one more rewrite while private if your account email
-   differs). Still open: the GitHub URL in README's `git clone <REPO_URL>` line
-   and `repository-code` in CITATION.cff — fill at repo creation.
+   and pyproject.toml; git history rewritten to your authorship (final rewrite
+   2026-06-11: all commits authored `Paul Bufort
+   <292863563+PaulBufort@users.noreply.github.com>` — your real noreply).
+   README quickstart URL and CITATION `repository-code` now point at
+   github.com/PaulBufort/adoption-sim.
 2. **The κ=8 default vs κ=20 headline-regime gap** — *RESOLVED by arbitration
    2026-06-10:* engine default aligned to the ratified headline regime
    (`theta_concentration` 8 → 20; dated D1 amendment). Out-of-the-box
