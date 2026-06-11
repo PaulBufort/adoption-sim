@@ -30,8 +30,8 @@ rituals actually buy.*
 ## Reproduce the headline figure (target: under 15 minutes)
 
 ```bash
-git clone <REPO_URL>           # TODO: URL lands here at public release
-cd <the cloned directory>
+git clone https://github.com/PaulBufort/adoption-sim.git
+cd adoption-sim
 python3 -m venv .venv && source .venv/bin/activate        # Python ≥ 3.11
 pip install -r requirements-dev.txt -c constraints.txt    # ~1-4 min
 jupyter lab experiments/01_broadcast_vs_cluster.ipynb     # Run → Run All Cells

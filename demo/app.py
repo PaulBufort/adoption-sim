@@ -118,8 +118,9 @@ st.sidebar.divider()
 st.sidebar.markdown(
     "**Honesty box** — every number here is synthetic and uncalibrated; "
     "curve *shapes and orderings* are the only meaningful output. "
-    "[Model](https://github.com/) · [decisions](../docs/decisions.md) · "
-    "[limitations](../docs/limitations.md) · AGPL-3.0"
+    "[Model](https://github.com/PaulBufort/adoption-sim/blob/main/docs/model.md) · "
+    f"[decisions](https://github.com/PaulBufort/adoption-sim/blob/main/docs/decisions.md) · "
+    f"[limitations](https://github.com/PaulBufort/adoption-sim/blob/main/docs/limitations.md) · AGPL-3.0"
 )
 
 # ---------------------------------------------------------------- header -----
