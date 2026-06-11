@@ -10,6 +10,9 @@ which structures (silos, thresholds, relays) decide the outcome?
 > you cannot conclude is in [docs/limitations.md](docs/limitations.md), and it is
 > long on purpose.
 
+Built with AI assistance; every modeling decision was human-arbitrated and is
+logged with its alternatives in [docs/decisions.md](docs/decisions.md).
+
 ![Dual-regime headline figure: broadcast converts the innovators and stalls; cluster seeding builds local critical mass. Two threshold-heterogeneity regimes shown. SYNTHETIC DATA.](figures/headline.png)
 
 *Synthetic data: N=2000, θ̄=0.30, silo strength 0.85, seed budget 5%, 50 replicates

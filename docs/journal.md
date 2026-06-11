@@ -6,6 +6,34 @@
 
 ---
 
+## 2026-06-10 — Session 4: REVIEW_A arbitrations applied
+
+Two owner-ratified follow-ups, both done and verified:
+
+1. **Authorship.** CITATION.cff and pyproject.toml now name Paul Bufort
+   (ORCID 0009-0000-6080-1887). Git history rewritten to your authorship
+   (email: GitHub-noreply convention — one-command fix while private if your
+   account address differs; commit messages and Co-Authored-By trailers kept,
+   consistent with the new README disclosure line you dictated). Provenance
+   sidecars regenerated post-rewrite so no `git_commit` field references a
+   pre-rewrite hash; CSVs bit-identical throughout.
+2. **κ default 8 → 20** (dated D1 amendment): `SimParams()` out of the box now
+   matches the published headline regime; κ=8 stays documented as the
+   sensitivity value. Published results unaffected (every scenario file pins κ).
+   Honest catch recorded in the amendment: the demo had been running κ=8 under
+   a caption claiming κ=20 — caption and code now agree. 67/67 tests pass.
+
+### Teaching note
+
+Defaults are claims. Whatever a library does when called with no arguments is,
+in practice, its most-published result — more people will run `SimParams()` than
+will ever open a scenario file. Aligning the default to the ratified regime (and
+logging the alignment as a dated amendment rather than a silent edit) closes the
+gap between "what the figures show" and "what the code does when you don't ask"
+— the same provenance discipline, applied to the argument you didn't pass.
+
+---
+
 ## 2026-06-10 — Session 3: release-readiness sprint (science frozen)
 
 **Scope:** infrastructure only, per directive. Full inventory + verification in

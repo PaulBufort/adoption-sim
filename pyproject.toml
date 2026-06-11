@@ -9,7 +9,7 @@ description = "Complex contagion on synthetic organizational networks — resear
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "AGPL-3.0-only" }
-authors = [{ name = "adoption-sim project contributors" }]
+authors = [{ name = "Paul Bufort" }]
 keywords = ["complex contagion", "threshold models", "organizational networks", "diffusion"]
 dependencies = [
     "networkx>=3.2",

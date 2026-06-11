@@ -34,9 +34,10 @@ WEIGHTS = {
 # --- Agent states and thresholds (D1, D2, D5, D6) ---------------------------
 AGENTS = {
     "theta_mean": 0.30,                 # Beta mean (D1)
-    "theta_concentration": 8.0,         # Beta kappa (D1); sd ~= 0.15 at mean 0.3.
-                                        # NOTE: neutral default — the headline
-                                        # regime uses kappa=20 (scenario file)
+    "theta_concentration": 20.0,        # Beta kappa (D1 amendment 2026-06-10):
+                                        # aligned to the ratified headline regime
+                                        # for least surprise; kappa=8 remains the
+                                        # documented sensitivity value
     "theta_role_offsets": [0.0, 0.0, 0.0],  # ic, manager, leadership (D1; neutral)
     "p_innovator": 0.025,               # P(theta = 0) atom (D2)
     "p_willing": [0.85, 0.85, 0.85],    # per role: ic, manager, leadership (D5)

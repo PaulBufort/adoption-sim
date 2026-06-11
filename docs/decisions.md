@@ -66,6 +66,15 @@ we do not assume seniors are more/less resistant without evidence), κ = 8
 caption stating that real-world threshold heterogeneity is unmeasured and the
 qualitative story is regime-dependent. Implemented in experiment 1.
 
+**Amendment (scientist, 2026-06-10, release sprint).** The engine *default*
+`theta_concentration` is aligned to the ratified headline regime (8 → 20) for
+least surprise: `SimParams()` out of the box now behaves like the published
+figures. κ = 8 remains the documented sensitivity value (and κ = 12 the lottery
+companion); published experiment results are unaffected — every scenario file
+pins κ explicitly. Side effect worth recording: the Streamlit demo had been
+running on the κ=8 default while its caption claimed κ=20; this amendment makes
+the caption true.
+
 ---
 
 ## D2 — Innovators (zero-threshold mass)
