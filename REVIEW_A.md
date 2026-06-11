@@ -50,22 +50,19 @@ once and are reproduced bit-for-bit by CI from that point on.
 
 ## 4. The 3 things most worth 30 minutes of your attention
 
-1. **The two identity blanks only you can fill** (10 min): the real author
-   (+ ORCID) in `CITATION.cff` and `pyproject.toml [project] authors`, and the
-   GitHub URL in README's `git clone <REPO_URL>` line (plus `repository-code` in
-   CITATION.cff). They are the only places where the repo's self-description
-   points at something that isn't true yet — and commit authorship is currently
-   "Claude (builder)"; if you want your name on the history, rewrite before the
-   repo flips public (one command; afterwards it's effectively permanent).
-2. **The κ=8 default vs κ=20 headline-regime gap** (10 min): the *engine default*
-   threshold concentration is D1's neutral κ=8; the published figures use the
-   scenario file's κ=20. A first-touch API user calling `SimParams()` gets
-   different qualitative behavior than the README figure (at κ=8, broadcast can
-   beat cluster). The release-audit agent flagged it; I mitigated with docstring
-   notes and by making the tutorial load the scenario file — but whether the
-   *default itself* should move to 20 is a D1-adjacent call that is yours, not
-   mine (science freeze). If you want it changed, it's a one-line defaults edit
-   plus a decisions.md note next sprint.
+1. **The two identity blanks only you can fill** — *RESOLVED by arbitration
+   2026-06-10:* author = Paul Bufort (ORCID 0009-0000-6080-1887) in CITATION.cff
+   and pyproject.toml; git history rewritten to your authorship (email used:
+   `paulbufort@users.noreply.github.com` — the GitHub noreply convention;
+   correct it with one more rewrite while private if your account email
+   differs). Still open: the GitHub URL in README's `git clone <REPO_URL>` line
+   and `repository-code` in CITATION.cff — fill at repo creation.
+2. **The κ=8 default vs κ=20 headline-regime gap** — *RESOLVED by arbitration
+   2026-06-10:* engine default aligned to the ratified headline regime
+   (`theta_concentration` 8 → 20; dated D1 amendment). Out-of-the-box
+   `SimParams()` now matches the published figures; κ=8 remains the documented
+   sensitivity value. Bonus truth-restoration: the Streamlit demo had been
+   running κ=8 under a caption that claimed κ=20 — now caption and code agree.
 3. **Read notebook 01's §3–§5 narrative once as a hostile reviewer** (10 min):
    the 50-rep refresh changed several sentences (ranges, the κ=12 lottery max of
    65%, T_b lift 5.5→11.6%). Every number was patched from the regenerated CSVs

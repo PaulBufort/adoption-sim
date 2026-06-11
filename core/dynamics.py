@@ -47,10 +47,11 @@ ATTRIBUTION_LABELS = {
 class SimParams:
     """Dynamics parameters. Defaults trace to docs/decisions.md via core/defaults.py.
 
-    Regime note: the default theta_concentration (κ=8) is D1's neutral
-    parameterization, NOT the headline demonstrative regime — the published
-    figures use κ=20 (and a κ=12 companion; D1 is dual-regime). To reproduce
-    the headline behavior, build params from the scenario file:
+    Regime note: the default theta_concentration (κ=20) matches the ratified
+    headline regime (D1 amendment, 2026-06-10), so out-of-the-box behavior
+    matches the published figures. D1 is dual-regime — κ=12 is the documented
+    "lottery" companion and κ=8 the original neutral sensitivity value. For full
+    published scenarios, prefer building params from the scenario file:
     ``build_sim_params(load_scenario("experiments/scenarios/headline.toml"))``."""
 
     theta_mean: float = defaults.AGENTS["theta_mean"]
