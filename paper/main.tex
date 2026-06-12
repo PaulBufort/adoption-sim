@@ -1,0 +1,222 @@
+% COMPLEX NETWORKS 2026 — extended abstract track (Springer LLNCS format,
+% template CNALatexTemplate_Abstract; recommended 2-3 pages, hard max 4).
+% Build: tectonic main.tex   (figures referenced from ../figures, regenerated
+% by `python figures/make_all.py`; all statistics derive from
+% paper/numbers.json via paper/extract_numbers.py — no hand-typed numbers).
+\documentclass{llncs}
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts}
+\usepackage[bottom]{footmisc}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\textfraction}{.05}
+\renewcommand{\floatpagefraction}{.9}
+\setcounter{topnumber}{2}
+\setlength{\textfloatsep}{9pt plus 2pt minus 3pt}
+\setlength{\abovecaptionskip}{5pt}
+
+\begin{document}
+
+\title{Seeding complex contagions in modular organizations:\\
+a reach--retention trade-off}
+\titlerunning{Seeding complex contagions in modular organizations}
+\author{Paul Bufort}
+\authorrunning{P. Bufort}
+\institute{Independent Researcher --- ORCID 0009-0000-6080-1887\\
+\email{paulbufort@paulbufort.com}}
+
+\maketitle
+
+\begin{abstract}
+Folklore holds that costly behaviors are best spread by seeding dense
+clusters; the wide-bridges literature supplies the rationale. We revisit this
+on synthetic two-layer organizations---a formal hierarchy and an informal
+network of dense small teams---with fractional-threshold dynamics:
+heterogeneous thresholds, a zero-threshold innovator atom,
+credibility-weighted exposure, ready/willing/able gating. Under equal
+budgets: (i)~broadcast converts only innovators (exactly zero adoption
+without them), and sustained campaigning does not repair the threshold
+arithmetic; (ii)~contrary to folklore, \emph{scattered} seeding robustly beats
+cluster seeding on reach---every scattered seed is already embedded in a dense
+team---and this survives removing the innovator atom; (iii)~the ordering
+\emph{reverses} under reinforcement-dependent decay: scattered gains evaporate
+while cluster-seeded adoption persists---a reach--retention trade-off, not a
+dominant strategy; (iv)~global visibility of adoption is exactly threshold
+inflation ($\theta/v$): invisibility starves all strategies uniformly, while
+seed-targeted visibility helps seeds in proportion to their outward
+credibility; (v)~knockouts find no load-bearing individuals. All data are
+synthetic; results are bit-for-bit reproducible from one master seed.
+\keywords{complex contagion, threshold models, seeding strategies,
+organizational networks, agent-based simulation}
+\end{abstract}
+
+\section{Introduction and related work}
+
+Threshold models~\cite{granovetter1978} formalize why costly behaviors spread
+differently from information: adoption requires reinforcement from multiple
+credible sources. Cascades on random graphs obey a vulnerability
+boundary~\cite{watts2002}; \emph{complex contagions} need wide bridges of
+overlapping ties, which long-range shortcuts destroy~\cite{centola2007,centola2010}.
+Network-intervention practice~\cite{valente2012} distilled this into a popular
+prescription: \emph{seed dense clusters, never scatter}---evidenced largely in
+populations not otherwise embedded in cohesive groups. Real organizations are
+\emph{modular}: nearly everyone already sits inside a dense small team. What
+does cluster seeding buy when every possible seed is already surrounded by a
+cluster? We study this with a transparent mechanistic agent-based model (not
+LLM personas, whose validity is contested~\cite{argyle2023,bisbee2024,wu2025}),
+with every modeling decision logged publicly (Sect.~\ref{sec:discussion}).
+
+\section{Model}
+\label{sec:model}
+
+A generator produces two-layer organizations: a formal hierarchy (CEO, 8
+departments, $\sim$250 teams of mean size 8) and an informal influence
+network---dense within teams ($p{=}0.9$), locally concentrated between
+ring-adjacent ``sister'' teams, sparse across departments (silo strength
+$s{=}0.85$), plus tenure-homophilous noise. Adoption propagates only on the
+informal layer. Agent $i$ holds threshold
+$\theta_i \sim \mathrm{Beta}(\mu\kappa,(1-\mu)\kappa)$, $\mu{=}0.30$, and with
+probability $p_{\mathrm{innov}}{=}0.025$ is an \emph{innovator}
+($\theta_i{=}0$). Exposure is the credibility-weighted share of contacts whose
+adoption is visible,
+\begin{equation}
+\mathrm{share}_i(t) = \frac{\sum_{j\in N(i)} v_j\, w_{ij}\, a_j(t{-}1) + b(t)}
+                           {\sum_{j\in N(i)} w_{ij} + b(t)},
+\label{eq:share}
+\end{equation}
+with credibility $w$ (close collaborator $1.0>$ manager $0.7>$ distant peer
+$0.6>$ central comms $0.3$), source visibility $v_j\in[0,1]$ (default 1), and
+$b(t)$ a transient comms term active only while a broadcast runs. Adoption
+requires \emph{ready} ($\mathrm{share}_i\ge\theta_i$ and $\mathrm{share}_i>0$,
+i.e.\ awareness), \emph{willing} (Bernoulli $0.85$), and \emph{able} ($1.0$
+here); updates are synchronous. Optional decay: adopters relapse with
+probability $\rho$ per step while $\mathrm{share}_i<\theta_i$. Five
+equal-budget strategies ($5\%$ of $N{=}2000$): \emph{broadcast} (zero
+seeds---one step of universal awareness via comms), \emph{random},
+\emph{champions} (top informal degree), \emph{cluster} (whole teams),
+\emph{line-managers-first}. Each condition: 50 replicates (sweeps: 12), fresh
+organization each, all from one master seed.
+
+\section{Results}
+\label{sec:results}
+
+\textbf{Reach (Fig.~\ref{fig:headline}).} At $\kappa{=}20$, broadcast converts
+essentially only the innovators, stalling at $5.5\pm3.4\%$ (range
+1.8--14.5\%); cluster seeding builds local critical mass and reaches
+$31.9\pm9.2\%$ before silos cap it---the distributions do not overlap across
+$2\times50$ replicates (broadcast max $14.5\%<$ cluster min $17.1\%$). But the
+folklore part fails: \emph{scattered} strategies dominate reach (random
+$69.5\pm11.1\%$, champions $73.4\pm7.0\%$). In a population of dense small
+teams every scattered seed is already a latent cluster seed; one hundred
+team-ignition lotteries beat twelve guaranteed saturations. Under broader heterogeneity ($\kappa{=}12$) broadcast becomes a lottery
+($19.8\pm12.5\%$, range 4.9--64.5\%); the ordering is unchanged. Which regime
+a real organization inhabits is open: thresholds are unobserved.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.78\textwidth,trim={0 0 0 0.55in},clip]{../figures/headline.png}
+\caption{\textbf{Synthetic data.} Five equal-budget strategies in two
+threshold-heterogeneity regimes ($N{=}2000$, $\bar\theta{=}0.30$, silo $0.85$,
+budget $5\%$; 50 replicates/strategy/panel, fresh organization each; bands =
+10th--90th pct). Broadcast (0 seeds---buys awareness, not adopters) fails
+cleanly at $\kappa{=}20$, gambles at $\kappa{=}12$; scattered beats cluster in
+both.}
+\label{fig:headline}
+\end{figure}
+
+\textbf{Innovators carry broadcast---not the scattering advantage
+(Fig.~\ref{fig:pinnov}).} At $p_{\mathrm{innov}}{=}0$, broadcast converts
+\emph{exactly} $0.0\%$ in every replicate---its entire yield is
+innovator-derived---yet random still beats cluster ($41.4\pm9.3\%$ vs
+$20.1\pm4.3\%$): team embedding plus the heterogeneous threshold tail
+suffices. Sustained campaigning does not repair the arithmetic: a 20-step
+campaign lifts broadcast only to $11.6\%$---a third of cluster, a sixth of
+scattering.
+
+
+\begin{figure}[t]
+\begin{minipage}[t]{.38\textwidth}
+\centering
+\includegraphics[width=\textwidth,trim={0 0 0 0.42in},clip]{../figures/exp1_pinnov.png}
+\caption{\textbf{Synthetic data.} Final adoption vs innovator share (12
+replicates/point; otherwise as Fig.~\ref{fig:headline}, $\kappa{=}20$). At
+$p{=}0$ broadcast is exactly zero; scattered $>$ cluster survives.}
+\label{fig:pinnov}
+\end{minipage}\hfill
+\begin{minipage}[t]{.54\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../figures/exp1_decay.png}
+\caption{\textbf{Synthetic data.} Reinforcement-dependent decay
+($\rho{=}0.25$; 12 replicates; otherwise as Fig.~\ref{fig:headline},
+$\kappa{=}20$). Left: curves. Right: decay off/on with relative drops.
+Scattered reach is fragile; clustered adoption is locked in.}
+\label{fig:decay}
+\end{minipage}
+\end{figure}
+
+\textbf{Decay reverses the ranking (Fig.~\ref{fig:decay}).} With
+reinforcement-dependent relapse ($\rho{=}0.25$ while
+$\mathrm{share}<\theta$), scattered gains largely evaporate---random
+$69.5\%\rightarrow30.1\%$ ($-57\%$), champions $-40\%$---while cluster-seeded
+adoption barely moves ($31.9\%\rightarrow31.1\%$, $-2.7\%$): everyone a pilot
+team converts remains surrounded by adopters. No strategy dominates both
+objectives: seeding design faces a \emph{reach--retention trade-off}. (Decay
+never produces the documented ``spike-then-relapse'' shape here---relapse
+interleaves with adoption; a negative result we report rather than hide.)
+
+
+\textbf{Visibility: a theorem and an intervention (Fig.~\ref{fig:pilots}).}
+From Eq.~\eqref{eq:share}, the trajectory under global visibility
+$(\{\theta_i\},v)$ is \emph{identical} to $(\{\theta_i/v\},1)$ in any
+broadcast-free scenario, decay included (exact; machine-verified to bit
+equality). Invisible usage is threshold inflation: it starves every strategy
+uniformly (at $v\le0.6$ no strategy exceeds $8.8\%$) and provably cannot
+reorder them; broadcast alone is exempt (a broadcast is loud by nature). Only
+\emph{differential} visibility can matter: making seeds fully visible
+(``observable pilots,'' a work-out-loud intervention) at
+$v_{\mathrm{global}}{=}0.8$ yields $+4.0$\,pp for cluster seeds, $+9.5$\,pp
+for random, $+15.0$\,pp for champions---proportional to outward credibility
+per seed ($5.7$ / $11.7$ / $16.1$): a pilot team's megaphone mostly points at
+people who already adopted. The intervention does \emph{not} rescue cluster
+seeding.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.62\textwidth,trim={0 0 0 0.32in},clip]{../figures/exp3_pilots.png}
+\caption{\textbf{Synthetic data.} Observable pilots: seeds at $v{=}1$, world
+at $v_{\mathrm{global}}$ (12 replicates; otherwise as
+Fig.~\ref{fig:headline}, $\kappa{=}20$). Hatched: intervention on. Gains track
+outward credibility per seed; cluster benefits least.}
+\label{fig:pilots}
+\end{figure}
+
+\section{Discussion}
+\label{sec:discussion}
+
+The meso-structure overturns the micro-level prescription: when everyone
+already lives in a dense team, guaranteed local reinforcement---cluster
+seeding's defining asset---is no longer scarce, and scattering buys more
+ignition surface per budget. What survives of the folklore is conditional:
+cluster seeding is the \emph{retention} strategy, not the reach strategy.
+Knockouts of any top-12 betweenness node (CEO included) shift the plateau by
+less than replicate noise---no individual is load-bearing (the diagnostic
+fires correctly on a designed bottleneck). All of this holds \emph{within a
+synthetic, uncalibrated model family}: thresholds are unobserved, time is
+abstract, one behavior spreads in isolation; a 19-entry limitations document
+accompanies the code. Future work: imported real topologies; a stylized
+historical backtest.
+
+\emph{Reproducibility.} Every modeling decision (D1--D17) is logged with its
+alternatives and arbitration status in a public decision log
+(\texttt{docs/decisions.md}); limitations and measured non-reproductions in
+\texttt{docs/limitations.md}. One master seed; continuous integration
+re-executes the notebooks and fails if any published number changes; every
+statistic above is extracted programmatically from the versioned result
+files. Repository (AGPL-3.0) public upon publication.
+
+\bibliographystyle{splncs03}
+\bibliography{refs}
+
+\end{document}

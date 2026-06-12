@@ -6,6 +6,48 @@
 
 ---
 
+## 2026-06-12 — Session 5: COMPLEX NETWORKS 2026 extended abstract
+
+**Scope:** submission-ready draft, science frozen. Done; REVIEW_B.md (repo
+root) is the review companion.
+
+- **CfP verified live** (complexnetworks.org): both tracks exist → built for
+  the extended-abstract track per directive (recommended 2–3 pages, hard max
+  4 — we compile at exactly 4); Springer LLNCS via the official CNA template
+  (llncs.cls vendored); submission via Microsoft CMT, deadline 2026-09-02 AoE.
+- **`/paper`**: main.tex (title/author/abstract as dictated, compressed to
+  limits), refs.bib (8 entries, every one web-verified — incl. Valente 2012
+  and three real LLM-validity critiques), main.pdf, build via tectonic (no
+  TeX install needed).
+- **Anti-drift contract made mechanical:** `paper/extract_numbers.py` derives
+  every statistic from the versioned CSVs into `numbers.json`; a checker pass
+  verified all 20 quantitative statements in the text match (two borderline
+  half-up roundings were aligned to the extractor: 41.4/20.1).
+- **Figures:** the four committed `figures/` PNGs (make_all pipeline), no
+  hand-made plots; LaTeX-side cropping removes only internal title bands
+  (captions carry the parameters; bottom synthetic stamps preserved); every
+  caption opens with "Synthetic data." + key parameters.
+- **Premise correction flagged:** the tasking cited "LLM critiques in
+  docs/decisions.md" — none exist there (only spec.md's out-of-scope line).
+  Real citations were sourced and verified instead; decision-log anchoring
+  (a D18 note) left to you. See REVIEW_B §3.
+
+### Teaching note
+
+A short paper is a chain of claims, and every link must hold under oral
+attack. The apparatus built here makes that mechanical: each number in the
+text is a lookup in `numbers.json` (itself derived from the versioned CSVs),
+each claim has a notebook address (REVIEW_B's C1–C17), and the two claims
+containing the word "exactly" are the two that are machine-verified — say
+"machine-verified," never "approximately." The referee-facing insight worth
+internalizing: your three weakest points (generator-artifact, regime-locality,
+decay-rule tautology) are all variants of one question — *what in your result
+is discovered, and what is assumed?* — and the honest answer is the decision
+log: D-numbers separate the assumed from the emergent, in public, with the
+alternatives attached.
+
+---
+
 ## 2026-06-10 — Session 4: REVIEW_A arbitrations applied
 
 Two owner-ratified follow-ups, both done and verified:

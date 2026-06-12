@@ -1,0 +1,465 @@
+{
+  "_provenance": "derived from experiments/results/*.csv (50-replicate headline, 12-replicate sweeps unless stated); regenerate via figures/make_all.py",
+  "headline_k20": {
+    "broadcast": {
+      "mean": 0.0549,
+      "sd": 0.0339,
+      "min": 0.018,
+      "max": 0.145,
+      "n": 50
+    },
+    "random": {
+      "mean": 0.6954,
+      "sd": 0.1107,
+      "min": 0.412,
+      "max": 0.8615,
+      "n": 50
+    },
+    "champions": {
+      "mean": 0.7337,
+      "sd": 0.0703,
+      "min": 0.5785,
+      "max": 0.8665,
+      "n": 50
+    },
+    "cluster": {
+      "mean": 0.3193,
+      "sd": 0.0919,
+      "min": 0.171,
+      "max": 0.5935,
+      "n": 50
+    },
+    "line_manager_first": {
+      "mean": 0.6157,
+      "sd": 0.1622,
+      "min": 0.215,
+      "max": 0.8425,
+      "n": 50
+    }
+  },
+  "headline_k12": {
+    "broadcast": {
+      "mean": 0.1983,
+      "sd": 0.125,
+      "min": 0.0485,
+      "max": 0.6455,
+      "n": 50
+    },
+    "random": {
+      "mean": 0.8038,
+      "sd": 0.0345,
+      "min": 0.692,
+      "max": 0.8585,
+      "n": 50
+    },
+    "champions": {
+      "mean": 0.8108,
+      "sd": 0.0445,
+      "min": 0.649,
+      "max": 0.875,
+      "n": 50
+    },
+    "cluster": {
+      "mean": 0.4961,
+      "sd": 0.1372,
+      "min": 0.239,
+      "max": 0.797,
+      "n": 50
+    },
+    "line_manager_first": {
+      "mean": 0.7956,
+      "sd": 0.0464,
+      "min": 0.671,
+      "max": 0.8625,
+      "n": 50
+    }
+  },
+  "nonoverlap_k20": {
+    "broadcast_max": 0.145,
+    "cluster_min": 0.171,
+    "holds": true
+  },
+  "pinnov": {
+    "broadcast@p=0": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 12
+    },
+    "broadcast@p=0.01": {
+      "mean": 0.0149,
+      "sd": 0.0125,
+      "min": 0.0065,
+      "max": 0.0525,
+      "n": 12
+    },
+    "broadcast@p=0.025": {
+      "mean": 0.043,
+      "sd": 0.0276,
+      "min": 0.018,
+      "max": 0.112,
+      "n": 12
+    },
+    "broadcast@p=0.05": {
+      "mean": 0.2627,
+      "sd": 0.15,
+      "min": 0.113,
+      "max": 0.648,
+      "n": 12
+    },
+    "random@p=0": {
+      "mean": 0.4145,
+      "sd": 0.0926,
+      "min": 0.199,
+      "max": 0.583,
+      "n": 12
+    },
+    "random@p=0.01": {
+      "mean": 0.5345,
+      "sd": 0.1897,
+      "min": 0.2425,
+      "max": 0.826,
+      "n": 12
+    },
+    "random@p=0.025": {
+      "mean": 0.6775,
+      "sd": 0.1203,
+      "min": 0.412,
+      "max": 0.8455,
+      "n": 12
+    },
+    "random@p=0.05": {
+      "mean": 0.7964,
+      "sd": 0.0478,
+      "min": 0.696,
+      "max": 0.8585,
+      "n": 12
+    },
+    "cluster@p=0": {
+      "mean": 0.2005,
+      "sd": 0.0432,
+      "min": 0.136,
+      "max": 0.305,
+      "n": 12
+    },
+    "cluster@p=0.01": {
+      "mean": 0.2397,
+      "sd": 0.0533,
+      "min": 0.1525,
+      "max": 0.347,
+      "n": 12
+    },
+    "cluster@p=0.025": {
+      "mean": 0.2886,
+      "sd": 0.076,
+      "min": 0.148,
+      "max": 0.4165,
+      "n": 12
+    },
+    "cluster@p=0.05": {
+      "mean": 0.4772,
+      "sd": 0.1341,
+      "min": 0.278,
+      "max": 0.6885,
+      "n": 12
+    }
+  },
+  "tb": {
+    "Tb=1": {
+      "mean": 0.0549,
+      "sd": 0.0339,
+      "min": 0.018,
+      "max": 0.145,
+      "n": 50
+    },
+    "Tb=5": {
+      "mean": 0.0902,
+      "sd": 0.0597,
+      "min": 0.0185,
+      "max": 0.315,
+      "n": 50
+    },
+    "Tb=20": {
+      "mean": 0.1162,
+      "sd": 0.0704,
+      "min": 0.018,
+      "max": 0.2505,
+      "n": 50
+    }
+  },
+  "decay": {
+    "broadcast": {
+      "mean": 0.0539,
+      "sd": 0.0345,
+      "min": 0.0235,
+      "max": 0.1295,
+      "n": 12
+    },
+    "random": {
+      "mean": 0.3015,
+      "sd": 0.0815,
+      "min": 0.155,
+      "max": 0.4715,
+      "n": 12
+    },
+    "champions": {
+      "mean": 0.4376,
+      "sd": 0.0844,
+      "min": 0.337,
+      "max": 0.6305,
+      "n": 12
+    },
+    "cluster": {
+      "mean": 0.3107,
+      "sd": 0.1197,
+      "min": 0.1535,
+      "max": 0.5375,
+      "n": 12
+    }
+  },
+  "decay_drop_pct": {
+    "random": -56.6,
+    "champions": -40.4,
+    "cluster": -2.7
+  },
+  "globalv": {
+    "broadcast@v=0.4": {
+      "mean": 0.0219,
+      "sd": 0.0033,
+      "min": 0.016,
+      "max": 0.026,
+      "n": 12
+    },
+    "broadcast@v=0.6": {
+      "mean": 0.0232,
+      "sd": 0.0022,
+      "min": 0.0195,
+      "max": 0.0275,
+      "n": 12
+    },
+    "broadcast@v=0.8": {
+      "mean": 0.0215,
+      "sd": 0.0036,
+      "min": 0.0175,
+      "max": 0.028,
+      "n": 12
+    },
+    "broadcast@v=1": {
+      "mean": 0.053,
+      "sd": 0.0308,
+      "min": 0.018,
+      "max": 0.108,
+      "n": 12
+    },
+    "random@v=0.4": {
+      "mean": 0.0614,
+      "sd": 0.0028,
+      "min": 0.0585,
+      "max": 0.0695,
+      "n": 12
+    },
+    "random@v=0.6": {
+      "mean": 0.0659,
+      "sd": 0.0035,
+      "min": 0.0595,
+      "max": 0.0725,
+      "n": 12
+    },
+    "random@v=0.8": {
+      "mean": 0.1259,
+      "sd": 0.04,
+      "min": 0.07,
+      "max": 0.2265,
+      "n": 12
+    },
+    "random@v=1": {
+      "mean": 0.6937,
+      "sd": 0.083,
+      "min": 0.559,
+      "max": 0.827,
+      "n": 12
+    },
+    "champions@v=0.4": {
+      "mean": 0.0634,
+      "sd": 0.0036,
+      "min": 0.0575,
+      "max": 0.0685,
+      "n": 12
+    },
+    "champions@v=0.6": {
+      "mean": 0.0877,
+      "sd": 0.0128,
+      "min": 0.0715,
+      "max": 0.112,
+      "n": 12
+    },
+    "champions@v=0.8": {
+      "mean": 0.2214,
+      "sd": 0.0405,
+      "min": 0.148,
+      "max": 0.286,
+      "n": 12
+    },
+    "champions@v=1": {
+      "mean": 0.6983,
+      "sd": 0.0772,
+      "min": 0.5785,
+      "max": 0.823,
+      "n": 12
+    },
+    "cluster@v=0.4": {
+      "mean": 0.056,
+      "sd": 0.0018,
+      "min": 0.053,
+      "max": 0.059,
+      "n": 12
+    },
+    "cluster@v=0.6": {
+      "mean": 0.062,
+      "sd": 0.0029,
+      "min": 0.0565,
+      "max": 0.0675,
+      "n": 12
+    },
+    "cluster@v=0.8": {
+      "mean": 0.1085,
+      "sd": 0.019,
+      "min": 0.082,
+      "max": 0.1525,
+      "n": 12
+    },
+    "cluster@v=1": {
+      "mean": 0.2838,
+      "sd": 0.0598,
+      "min": 0.171,
+      "max": 0.3875,
+      "n": 12
+    },
+    "line_manager_first@v=0.4": {
+      "mean": 0.0628,
+      "sd": 0.0021,
+      "min": 0.06,
+      "max": 0.0665,
+      "n": 12
+    },
+    "line_manager_first@v=0.6": {
+      "mean": 0.068,
+      "sd": 0.0045,
+      "min": 0.0605,
+      "max": 0.078,
+      "n": 12
+    },
+    "line_manager_first@v=0.8": {
+      "mean": 0.0994,
+      "sd": 0.0209,
+      "min": 0.0675,
+      "max": 0.1265,
+      "n": 12
+    },
+    "line_manager_first@v=1": {
+      "mean": 0.634,
+      "sd": 0.1531,
+      "min": 0.231,
+      "max": 0.79,
+      "n": 12
+    }
+  },
+  "pilots": {
+    "cluster@v=0.4": {
+      "mean": 0.0844,
+      "sd": 0.0066,
+      "min": 0.071,
+      "max": 0.093,
+      "n": 12
+    },
+    "cluster@v=0.6": {
+      "mean": 0.0976,
+      "sd": 0.0109,
+      "min": 0.0825,
+      "max": 0.1195,
+      "n": 12
+    },
+    "cluster@v=0.8": {
+      "mean": 0.1484,
+      "sd": 0.0159,
+      "min": 0.1165,
+      "max": 0.173,
+      "n": 12
+    },
+    "random@v=0.4": {
+      "mean": 0.0834,
+      "sd": 0.0051,
+      "min": 0.078,
+      "max": 0.0965,
+      "n": 12
+    },
+    "random@v=0.6": {
+      "mean": 0.1143,
+      "sd": 0.0164,
+      "min": 0.088,
+      "max": 0.1515,
+      "n": 12
+    },
+    "random@v=0.8": {
+      "mean": 0.2208,
+      "sd": 0.0596,
+      "min": 0.137,
+      "max": 0.312,
+      "n": 12
+    },
+    "champions@v=0.4": {
+      "mean": 0.1307,
+      "sd": 0.0113,
+      "min": 0.113,
+      "max": 0.1505,
+      "n": 12
+    },
+    "champions@v=0.6": {
+      "mean": 0.1758,
+      "sd": 0.0173,
+      "min": 0.1505,
+      "max": 0.2175,
+      "n": 12
+    },
+    "champions@v=0.8": {
+      "mean": 0.3717,
+      "sd": 0.0442,
+      "min": 0.2985,
+      "max": 0.472,
+      "n": 12
+    }
+  },
+  "pilot_gain_pp_at_v0.8": {
+    "cluster": 4.0,
+    "random": 9.5,
+    "champions": 15.0
+  },
+  "outward_credibility_per_seed": {
+    "cluster": {
+      "mean": 5.69,
+      "sd": 0.22
+    },
+    "random": {
+      "mean": 11.74,
+      "sd": 0.21
+    },
+    "champions": {
+      "mean": 16.11,
+      "sd": 0.28
+    }
+  },
+  "scenario": {
+    "n_agents": 2000,
+    "n_departments": 8,
+    "silo_strength": 0.85,
+    "team_locality": 0.7,
+    "dept_degree": 6.0,
+    "theta_mean": 0.3,
+    "theta_concentration": 20.0,
+    "p_innovator": 0.025,
+    "budget": 0.05,
+    "replicates": 50,
+    "master_seed": 20260610
+  }
+}
