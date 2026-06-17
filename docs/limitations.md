@@ -71,9 +71,15 @@ organization.
     non-social novelty decay we declined to add.
 16. **"Always seed clusters."** In this model family, scattered seeding (random or
     by degree) beats cluster seeding on raw reach across the explored parameter
-    space, because every agent already sits inside a dense team (D16). Cluster
-    seeding wins on *retention under decay* instead. Treat any unqualified
-    cluster-seeding recommendation derived from this tool as a misreading.
+    space, because every agent already sits inside a dense team (D16). Under decay,
+    cluster seeding does **not** win — the two reach *parity*: scattered adoption
+    collapses (random −39 pp from its no-decay reach, highly significant) while
+    cluster is decay-proof (−0.9 pp, not significant), and the difference between
+    them under decay is indistinguishable from zero (95% CI of the gap [−8.1, +10.0]
+    pp, n=12). The honest contrast is **wide-but-fragile (scattered) vs small-but-stable
+    (cluster)**, not a cluster victory. A clean ordering *reversal* appears only at
+    higher relapse (ρ≈0.40; D7), a scenario outside the committed headline. Treat any
+    unqualified cluster-seeding recommendation derived from this tool as a misreading.
 17. **Hero relays.** No generated organization showed a single person whose removal
     changes the outcome by more than noise (D12); robustness comes from tie
     redundancy. The pivot diagnostic is validated on a designed bottleneck and is
@@ -99,4 +105,6 @@ organization.
 - The Streamlit demo runs single-core with small populations and few replicates;
   it is a pedagogical toy on top of the engine, not the experiment pipeline.
 
-*Last updated: 2026-06-10 (post-arbitration: D1–D17 ratified; visibility entries added).*
+*Last updated: 2026-06-17 (#16 decay claim corrected to parity after the 50-rep
+re-verification — see RESULTS_VERIFIED.md; prior: 2026-06-10 post-arbitration,
+D1–D17 ratified, visibility entries added).*
