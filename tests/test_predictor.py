@@ -83,8 +83,6 @@ def test_seeds_adopt_unconditionally_but_gates_bind_everyone_else():
 
 
 def test_ignition_is_monotone_in_the_seed_count():
-    rng = np.random.default_rng(4)
-    ext = measure_external_mass  # noqa: F841 — kept out of this pure-analytic test
     fracs = []
     for s in range(0, 7):
         stats = p_ignite(s, 6, np.random.default_rng(11), n_draws=250, w_ext=4.0)
@@ -92,7 +90,6 @@ def test_ignition_is_monotone_in_the_seed_count():
     assert fracs == sorted(fracs), f"P_ig must not decrease with more seeds: {fracs}"
     assert fracs[0] < fracs[-1]
     assert fracs[-1] == 1.0            # a fully seeded team is ignited by definition
-    assert rng is not None
 
 
 def test_visibility_scales_exposure():

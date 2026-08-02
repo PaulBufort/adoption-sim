@@ -768,14 +768,20 @@ RESULTS_VERIFIED.md per the honesty rules, never quietly edited away.
 **Amendment (user arbitration, 2026-08-02 — pre-declared BEFORE any paired
 run executes; audit findings integrated).**
 
-1. **Decay family correction, pre-declared.** The decay grid's primary family
-   is the **seven** paired random − cluster contrasts: one per (r, ρ) cell
-   with ρ > 0 (2 r × 3 ρ), plus the shared ρ = 0 baseline (its two r arms are
-   bit-identical by construction — r is inert without relapse — and count
-   once). The family is Holm-corrected and classified with the same 3-class
-   scheme (±2 pp band) as the regime map. Contrasts involving champions are
-   reported descriptively (means, per-cell CIs) with no corrected
-   win/equivalence claim attached.
+1. **Decay family correction, pre-declared.** The grid **executes 24 arms**
+   (3 strategies × 2 r × 4 ρ; 1 200 sims at n = 50), but the primary family
+   contains only the **seven unique** paired random − cluster contrasts: one
+   per (r, ρ) cell with ρ > 0 (2 r × 3 ρ), plus the shared ρ = 0 baseline
+   (its two r arms are bit-identical by construction — r is inert without
+   relapse — and count once; the duplication is kept as a free bit-identity
+   self-check). The family is Holm-corrected and classified with the same
+   3-class scheme (±2 pp band) as the regime map. **Primary endpoint:
+   `final_rate`** (terminal reach among active agents). The two D19 outcome
+   metrics `cumulative_rate` and `retention_rate` are **secondary**: reported
+   descriptively (means, per-cell paired CIs), with no Holm-corrected
+   win/equivalence claim attached — any corrected claim on a secondary metric
+   would require its own pre-declared family. Contrasts involving champions
+   are likewise descriptive only.
 2. **Reporting policy: the paper cites the PAIRED runs exclusively** for every
    seeded-strategy mean and contrast. The independent 50-replicate panel
    remains the source for broadcast (not part of the paired design) and serves
@@ -863,12 +869,15 @@ P_ig(s, m=8) at headline parameters: s=1 → 0.021, s=2 → 0.210, s=3 → 0.676
 s≥4 → 1.0. Folding: cluster buys 13.0 near-certain local ignitions; random
 buys ~100 tickets at ~2% across ~84 teams (E ≈ 4.9 locally ignited teams).
 Confronted with the committed meso diagnostic: for random, **98% of observed
-ignited teams and 90% of observed reach are NOT accounted for by local
-ignition** (two different denominators — teams vs reach — never to be
+ignited teams and 90% of observed reach are not explained by the level-1
+local predictor** (two different denominators — teams vs reach — never to be
 interchanged; an earlier exploratory run quoted 97% for teams, superseded by
-the official seeded run). Level 1 models the ignition kernel, not final
-reach; the sign of Δ(random − cluster) at the headline point is nonetheless
-reproduced (+1.6 pp local vs +37.6 pp observed). **Expected verdict:
+the official seeded run). The phrasing is deliberate: "not explained by the
+local predictor" is what was measured; whether the residual is inter-team
+spillover, model error, or both is exactly what level 2 would have to decide.
+Level 1 models the ignition kernel, not final reach; the sign of
+Δ(random − cluster) at the headline point is nonetheless reproduced
+(+1.6 pp local vs +37.6 pp observed). **Expected verdict:
 *partial*.** The V1/V2 gates and the go/partial/no-go rule are NOT modified
 and will be applied verbatim to the validation data at CP1; the case
 "V1 passes, V2 fails" is read as *partial* (local ignition validated, map
