@@ -53,25 +53,40 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-08-02T20:44:15.257320+00:00",
+  "generated_utc": "2026-08-02T20:13:34.261685+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "d0b33f0",
+  "git_commit": "4d7a9fe",
   "data_is_synthetic": true,
-  "design": "independent",
+  "design": "paired_within_replicate",
   "axes": {
-    "seeding.strategy": [
-      "broadcast",
-      "random",
-      "champions",
-      "cluster",
-      "line_manager_first"
+    "agents.theta_mean": [
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5
+    ],
+    "seeding.budget": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.15
     ]
   },
-  "pair_axes": {},
+  "pair_axes": {
+    "seeding.strategy": [
+      "random",
+      "cluster"
+    ]
+  },
   "replicates_used": 50
 }

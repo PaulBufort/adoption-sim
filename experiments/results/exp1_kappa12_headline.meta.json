@@ -53,13 +53,25 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-08-01T19:47:23.518756+00:00",
+  "generated_utc": "2026-08-02T20:44:21.440841+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "0e2d260",
-  "data_is_synthetic": true
+  "git_commit": "d0b33f0",
+  "data_is_synthetic": true,
+  "design": "independent",
+  "axes": {
+    "seeding.strategy": [
+      "broadcast",
+      "random",
+      "champions",
+      "cluster",
+      "line_manager_first"
+    ]
+  },
+  "pair_axes": {},
+  "replicates_used": 50
 }

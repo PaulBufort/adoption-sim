@@ -164,12 +164,19 @@ def run_job(job: dict) -> dict:
         visibility[seeding.initial_adopters] = float(pilot_v)
     result = run_simulation(compiled, params, seeding, rng=rng_dyn, visibility=visibility)
     counts = result.attribution_counts()
+    # Cumulative reach (D19): ever-adopted share among ACTIVE agents — read
+    # directly from the engine tracker, same denominator as final_rate/curve.
+    # retention_rate = terminal / cumulative; blank when nothing ever adopted.
+    cumulative = float(result.ever_adopted[compiled.active].mean())
+    retention = round(result.final_rate / cumulative, 6) if cumulative > 0 else ""
     row = {
         **{k: v for k, v in job["labels"].items()},
         "rep": job["rep"],
         "strategy": sc["seeding"]["strategy"],
         "final_rate": round(result.final_rate, 6),
         "peak_rate": round(result.peak_rate, 6),
+        "cumulative_rate": round(cumulative, 6),
+        "retention_rate": retention,
         "plateau": round(plateau(result.curve), 6),
         "relapse": round(relapse_magnitude(result.curve), 6),
         "steps_to_fixed_point": result.steps_to_fixed_point,
@@ -178,6 +185,7 @@ def run_job(job: dict) -> dict:
         "curve": json.dumps(np.round(result.curve, 5).tolist()),
         "dept_rates": json.dumps({str(k): round(v, 4) for k, v in dept_rates(result, compiled).items()}),
         "team_rates": json.dumps(np.round(result.team_final, 4).tolist()),
+        "seeded_teams": json.dumps(sorted({int(t) for t in compiled.team[seeding.initial_adopters]})),
     }
     return row
 
