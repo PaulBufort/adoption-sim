@@ -359,7 +359,7 @@ def fig_paper_crossover(reg: dict, dec: dict) -> None:
     axb.axhspan(-2, 2, color="#eee", zorder=0)
     axb.axhline(0, color="k", lw=0.7)
     axb.set_xlabel(r"relapse probability $\rho$", fontsize=10)
-    axb.set_ylabel(r"paired $\Delta$ terminal adoption (pp)", fontsize=9)
+    axb.set_ylabel(r"$\Delta$ terminal adoption (pp)", fontsize=9)
     axb.set_title("(b) decay crossover", fontsize=10)
     axb.legend(fontsize=8)
     axb.tick_params(labelsize=9)
