@@ -1,7 +1,7 @@
 {
   "scenario": {
     "meta": {
-      "name": "headline",
+      "name": "eucore",
       "description": "Broadcast fails where cluster seeding succeeds; silos cap the spread (synthetic org, D16 regime)."
     },
     "org": {
@@ -53,25 +53,44 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-08-02T20:44:15.257320+00:00",
+  "generated_utc": "2026-08-02T20:15:17.473282+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "d0b33f0",
+  "git_commit": "4d7a9fe",
   "data_is_synthetic": true,
-  "design": "independent",
-  "axes": {
+  "design": "paired_within_replicate",
+  "pair_axes": {
     "seeding.strategy": [
-      "broadcast",
       "random",
       "champions",
-      "cluster",
-      "line_manager_first"
+      "cluster"
     ]
   },
-  "pair_axes": {},
-  "replicates_used": 50
+  "replicates_used": 50,
+  "master_seed_entropy": [
+    20260610,
+    4
+  ],
+  "topology_is_real": true,
+  "framing": "replication on a real modular topology with synthetic behavioral attributes \u2014 NOT an empirical validation of a real diffusion (D22, limitations #11)",
+  "d14_deviation": "topology fixed across replicates; bands mean 'across attribute draws on this topology'",
+  "graph": {
+    "source": "https://snap.stanford.edu/data/email-Eu-core.html",
+    "symmetrization": "union (undirected edge iff >=1 email either direction)",
+    "n_nodes_after_symmetrization": 986,
+    "n_edges_after_symmetrization": 16064,
+    "n_nodes_compiled": 986,
+    "dropped_isolates": 0,
+    "n_departments": 42,
+    "dept_size_min_median_max": [
+      1,
+      14.0,
+      107
+    ],
+    "labels": "SNAP ground-truth departments (never inferred communities)"
+  }
 }

@@ -53,25 +53,24 @@
       "share_graph": false
     }
   },
-  "generated_utc": "2026-08-02T20:44:15.257320+00:00",
+  "generated_utc": "2026-08-02T20:15:42.347424+00:00",
   "versions": {
     "python": "3.13.13",
     "numpy": "2.4.6",
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "d0b33f0",
+  "git_commit": "4d7a9fe",
   "data_is_synthetic": true,
-  "design": "independent",
-  "axes": {
+  "design": "paired_within_replicate",
+  "axes": {},
+  "pair_axes": {
     "seeding.strategy": [
-      "broadcast",
       "random",
       "champions",
       "cluster",
-      "line_manager_first"
+      "one_per_team"
     ]
   },
-  "pair_axes": {},
   "replicates_used": 50
 }

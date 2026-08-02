@@ -11,6 +11,17 @@
 > sensitivity sweeps for D2 and D8, caption rules for D9, re-verification for D16).
 > New decision D17 (observability) ratified and implemented the same day.
 
+> **Arbitration session 2026-08-02 (scientist, CP1).** Based on the paired S2
+> results (`paper/cp1/CP1_ARBITRATION.md`): Route A retained, recentered on a
+> **decay-driven crossover** (working title "Disperse to ignite, concentrate to
+> endure"). D17(a) corrigendum, D18 (paired upgrade), D19, D21 (verdict
+> **no_go**), D22 (sign replication) RATIFIED; D20 RATIFIED with a wording
+> amendment (the ±2 pp equivalence of one_per_team vs random is NOT
+> established — only "no clear difference was detected"). Terminology fixed:
+> `final_rate` is reported as **terminal (active) adoption**, `cumulative_rate`
+> as **cumulative reach**; the crossover is located between tested ρ values,
+> never as an estimated threshold.
+
 | ID | Decision | Status |
 |----|----------|--------|
 | D1 | Threshold distribution | RATIFIED 2026-06-10 (+ dual-regime presentation) |
@@ -29,12 +40,12 @@
 | D14 | Replicate semantics (what error bars mean) | RATIFIED 2026-06-10 |
 | D15 | Team locality (wide bridges) in within-dept ties | RATIFIED 2026-06-10 (as realism feature) |
 | D16 | Headline scenario freeze + negative-result commitment | RATIFIED 2026-06-10 (re-verified post-D17) |
-| D17 | Observability of adoption (visibility v) | RATIFIED 2026-06-10 — ⚠ corrigendum pending on consequence (a), see D18 |
-| D18 | Regime map: dispersed-vs-cluster boundary (θ̄ × budget) | PROVISIONAL 2026-08-01 (+ paired upgrade path 2026-08-02) |
-| D19 | Paired replicate protocol (common random numbers) | PROVISIONAL 2026-08-02 |
-| D20 | Coverage seeding strategy: one_per_team | PROVISIONAL 2026-08-02 |
-| D21 | Team-level ignition predictor (semi-analytic) | PROVISIONAL 2026-08-02 |
-| D22 | Real-topology replication: email-Eu-core (pre-declaration) | PROVISIONAL 2026-08-02 — pre-declared BEFORE execution |
+| D17 | Observability of adoption (visibility v) | RATIFIED 2026-06-10; consequence (a) RETRACTED by ratified amendment 2026-08-02 (CP1) |
+| D18 | Regime map: dispersed-vs-cluster boundary (θ̄ × budget) | RATIFIED 2026-08-02 (CP1) as the paired n=50 3-class upgrade |
+| D19 | Paired replicate protocol (common random numbers) | RATIFIED 2026-08-02 (CP1), incl. amendments |
+| D20 | Coverage seeding strategy: one_per_team | RATIFIED 2026-08-02 (CP1) with amendment: "no clear difference detected", NOT equivalence |
+| D21 | Team-level ignition predictor (semi-analytic) | RATIFIED 2026-08-02 (CP1) — verdict **no_go** accepted as-is |
+| D22 | Real-topology replication: email-Eu-core (pre-declaration) | RATIFIED 2026-08-02 (CP1) as SIGN replication on a real topology, not mechanism validation |
 
 ---
 
@@ -674,22 +685,22 @@ ignition band (θ̄ 0.25→0.40 as budget rises 1%→15%) where dispersion wins 
 cluster-favoured cells appear (≈ −1 pp). The folklore prescription is right
 only where the campaign is doomed regardless.
 
-**⚠ Corrigendum needed on D17(a) — arbitration requested.** D17 infers "a
-global v cannot reorder the seeded strategies; the ordering is provably
-v-invariant". The equivalence v ≡ θ→θ/v is exact (the proposition stands), but
-the *no-reordering corollary does not follow*: this map shows the
-random-vs-cluster ordering changes sign along the θ̄ axis (e.g. +44 pp at
-θ̄=0.30/5% vs −1 pp significant at θ̄=0.35/1%), and sliding θ̄→θ̄/v crosses that
-boundary. External review reached the same conclusion independently. The paper
-text has been corrected to the weaker true statement ("acts only through
-rescaled thresholds; can in principle reorder; never flips scattered-vs-cluster
-in the tested v range"). D17's consequence (a) needs a ratified amendment;
-consequences (b) and (c) are unaffected.
+**D17(a) corrigendum — RATIFIED amendment (scientist, 2026-08-02, CP1).** D17
+inferred "a global v cannot reorder the seeded strategies; the ordering is
+provably v-invariant". The equivalence v ≡ θ→θ/v is exact (the proposition
+stands, unit-tested), but the *no-reordering corollary is RETRACTED*: the
+regime map shows the random-vs-cluster ordering changes along the θ̄ axis, and
+sliding θ̄→θ̄/v moves the organization across that map. Correct use of the
+theorem: a global visibility drop relocates the organization on the regime
+map; it does not preserve orderings. Consequences (b) and (c) unaffected.
 
-**PROVISIONAL (builder, 2026-08-01).** Axes, replicate count, and the D17
-amendment await scientist arbitration. Artifacts:
-`experiments/results/exp1_regime_headline.csv`, `figures/exp1_regime.png`,
-notebook 01 §10, `exp1.run_regime_map`.
+**RATIFIED (scientist, 2026-08-02, CP1) in the paired-upgrade form below.**
+Final counts (n=50 pairs/cell, Holm two families, ±2 pp band): **14 dispersion
+wins** (+4 to +43 pp), **23 proven equivalences** (within ±2 pp, for the
+tested cells and model), **3 uncertain**, **0 cluster wins** — the two n=12
+cluster-favoured cells did not survive the corrected design. Canonical
+artifact: `experiments/results/exp1_regime_paired_headline.csv`; the n=12
+map is superseded (never committed).
 
 **Upgrade path (builder, 2026-08-02 — pending CP1 arbitration).** The n=12
 independent-samples map is superseded by `exp1.run_paired_regime` under D19:
@@ -763,7 +774,11 @@ BEFORE any paired result was inspected. Whatever the paired runs show is
 reported; if they contradict a previously cited number, that is flagged in
 RESULTS_VERIFIED.md per the honesty rules, never quietly edited away.
 
-**PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+**RATIFIED (scientist, 2026-08-02, CP1), including the amendments below and
+the reporting outcome:** the paired protocol resolved the decay question the
+n=12 unpaired design could not — see D18 and RESULTS_VERIFIED for the
+crossover finding and the flagged contradiction with the previously cited
+"parity".
 
 **Amendment (user arbitration, 2026-08-02 — pre-declared BEFORE any paired
 run executes; audit findings integrated).**
@@ -827,7 +842,12 @@ one_per_team ≈ random would suggest random's Poisson spread already achieves
 effective coverage at this budget. Either outcome is reported; neither is
 described as "proving" the mechanism.
 
-**PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+**RATIFIED with amendment (scientist, 2026-08-02, CP1).** Observed paired
+contrast one_per_team − random: −1.4 pp, 95% CI [−5.1, +2.2] (n=50). The CI
+extends beyond the ±2 pp band, so **equivalence is NOT established**; the only
+authorized wording is "**no clear difference was detected**" (consistent with
+— not proving — random's Poisson spread already covering teams effectively).
+Never write "proved equivalent" for this contrast.
 
 ## D21 — Team-level ignition predictor (semi-analytic, level 1)
 
@@ -883,6 +903,19 @@ and will be applied verbatim to the validation data at CP1; the case
 "V1 passes, V2 fails" is read as *partial* (local ignition validated, map
 sign structure not) — flagged for arbitration, not silently resolved.
 
+**RATIFIED (scientist, 2026-08-02, CP1) — actual verdict: `no_go`, accepted
+as-is.** Gates applied verbatim to the paired data
+(`paper/cp1/predictor_validation.json`): V1 pooled AUC **0.642** over 12 789
+seeded-team units (< 0.70, below even the partial band; observed ignition
+rate of seeded teams 90.7%), V2 sign agreement 1.000 on 14 decisive cells,
+zero opposite-sign errors. Per-strategy AUCs (descriptive): cluster 0.996,
+champions 0.694, random 0.631, one_per_team 0.591 — consistent with, not
+demonstrating, local ignition being predictable exactly where seeding is
+concentrated. Paper consequence = the pre-drafted no-go variant: the meso
+mechanism stays MEASURED (CSV-derived); the predictor is named as
+pre-registered and failed at its gate (one transparency sentence in the body,
+never the abstract); level-2 modeling is future work.
+
 ## D22 — Real-topology replication: email-Eu-core (pre-declaration)
 
 **Context (user arbitration, 2026-08-02).** The #1 admitted weakness of the
@@ -919,8 +952,16 @@ given, never inferred (no Louvain).
    The only drop condition is a *technical* failure (download/format), and a
    drop would itself be stated in the paper's repo. No re-runs with new seeds.
 
-**PROVISIONAL (builder logging user arbitration, 2026-08-02).** Execution in
-week 2; results to CP1.
+**RATIFIED (scientist, 2026-08-02, CP1) — as a SIGN replication on a real
+modular topology with synthetic behavioral attributes, NOT a mechanism
+demonstration.** Outcome (reporting commitment honored): paired
+random − cluster **+13.5 pp, 95% CI [+1.0, +26.0]**, p=0.034, n=50 attribute
+draws; the regime on this topology is a bimodal ignition lottery (draws end
+near ~9% or ~83%; random ignites in 62% of draws vs 42% for cluster;
+champions saturates at 84.4% ± 1.3). Authorized claim: *the sign of the
+dispersed-vs-clustered contrast replicates on a real modular topology with
+synthetic behavioral attributes*; magnitudes are not comparable across
+topologies and the mechanism is not empirically validated.
 
 ---
 *All defaults above are recorded in `core/defaults.py` and surfaced in `docs/model.md`.
