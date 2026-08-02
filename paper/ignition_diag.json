@@ -1,0 +1,132 @@
+{
+  "_provenance": "machine-derived; mirrors core.sweep.run_job on headline.toml (50 reps, master_seed 20260610, decay off). Synthetic data.",
+  "n_line_teams": null,
+  "runtime_secs": 25.9,
+  "aggregates": {
+    "broadcast": {
+      "final_rate": [
+        0.055,
+        0.034
+      ],
+      "n_seeded_teams": [
+        0.0,
+        0.0
+      ],
+      "n_ignited50": [
+        10.18,
+        10.183
+      ],
+      "n_ignited25": [
+        13.34,
+        10.334
+      ],
+      "n_ignited50_unseeded": [
+        10.18,
+        10.183
+      ],
+      "reps": 50,
+      "final_rate_published": 0.0549,
+      "final_rate_delta_pp": 0.01
+    },
+    "random": {
+      "final_rate": [
+        0.695,
+        0.112
+      ],
+      "n_seeded_teams": [
+        83.62,
+        3.023
+      ],
+      "n_ignited50": [
+        197.24,
+        34.299
+      ],
+      "n_ignited25": [
+        201.76,
+        32.289
+      ],
+      "n_ignited50_unseeded": [
+        124.6,
+        25.89
+      ],
+      "reps": 50,
+      "final_rate_published": 0.6954,
+      "final_rate_delta_pp": -0.04
+    },
+    "champions": {
+      "final_rate": [
+        0.734,
+        0.071
+      ],
+      "n_seeded_teams": [
+        59.88,
+        4.801
+      ],
+      "n_ignited50": [
+        207.2,
+        21.762
+      ],
+      "n_ignited25": [
+        210.62,
+        21.084
+      ],
+      "n_ignited50_unseeded": [
+        150.74,
+        18.662
+      ],
+      "reps": 50,
+      "final_rate_published": 0.7337,
+      "final_rate_delta_pp": 0.03
+    },
+    "cluster": {
+      "final_rate": [
+        0.319,
+        0.093
+      ],
+      "n_seeded_teams": [
+        13.02,
+        0.915
+      ],
+      "n_ignited50": [
+        88.82,
+        26.792
+      ],
+      "n_ignited25": [
+        91.8,
+        26.689
+      ],
+      "n_ignited50_unseeded": [
+        75.94,
+        26.567
+      ],
+      "reps": 50,
+      "final_rate_published": 0.3193,
+      "final_rate_delta_pp": -0.03
+    },
+    "line_manager_first": {
+      "final_rate": [
+        0.616,
+        0.164
+      ],
+      "n_seeded_teams": [
+        100.0,
+        0.0
+      ],
+      "n_ignited50": [
+        173.62,
+        50.187
+      ],
+      "n_ignited25": [
+        179.04,
+        48.427
+      ],
+      "n_ignited50_unseeded": [
+        96.94,
+        32.147
+      ],
+      "reps": 50,
+      "final_rate_published": 0.6157,
+      "final_rate_delta_pp": 0.03
+    }
+  }
+}

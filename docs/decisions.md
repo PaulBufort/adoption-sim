@@ -636,6 +636,56 @@ whether that intervention rescues cluster seeding.
 (scenario key `agents.visibility`), per-agent override `run_simulation(visibility=…)`,
 and the intervention key `seeding.pilot_visibility`.
 
+## D18 — Regime map: dispersed-vs-cluster boundary (θ̄ × budget)
+
+**Context (builder, 2026-08-01).** External review of the COMPLEX NETWORKS
+abstract (critical-review pass) argued the headline "scattered beats cluster"
+rests on a chosen regime: two κ values at one (θ̄, budget) point do not locate a
+boundary, and the tornado (exp 2) already shows θ̄ and budget are the two most
+decisive parameters. Requested: an explicit 2D map of
+ΔR = mean final reach (random − cluster).
+
+**Options considered.**
+
+1. **θ̄ × budget grid at frozen κ=20** (chosen): 8 θ̄ values (0.15–0.50
+   bracketing the frozen 0.30) × 5 budgets (1–15% bracketing the frozen 5%) ×
+   {random, cluster} × 12 replicates (sweep standard, D14) = 960 runs, ~20 s.
+   Directly answers the review; slots into exp 1 and `make_all` unchanged.
+2. **θ̄ × intra-team density:** mechanistically interesting (embedding is the
+   claimed mechanism) but does not answer the budget half of the objection.
+3. **3D (adding κ):** ~3× cost and an unreadable figure; κ=12 companion already
+   exists for the headline.
+
+**Statistics.** Per-cell Welch test with the conservative critical value
+t₀.₉₇₅(df=11)=2.201 (no scipy in the stack — stack policy); non-significant
+cells hatched in the figure. Cell (0.30, 5%) at n=12 (72.4% vs 28.6%) is
+consistent with the 50-replicate headline (69.5% vs 31.9%).
+
+**Findings (synthetic; orderings, not magnitudes).** (i) θ̄ ≤ 0.20: both
+strategies saturate at the willing ceiling — no contrast. (ii) A diagonal
+ignition band (θ̄ 0.25→0.40 as budget rises 1%→15%) where dispersion wins by
++7 to +44 pp; the frozen headline point sits inside it. (iii) A starved corner
+(θ̄ ≥ 0.35, budget ≤ 5%) where nothing spreads and the only significant
+cluster-favoured cells appear (≈ −1 pp). The folklore prescription is right
+only where the campaign is doomed regardless.
+
+**⚠ Corrigendum needed on D17(a) — arbitration requested.** D17 infers "a
+global v cannot reorder the seeded strategies; the ordering is provably
+v-invariant". The equivalence v ≡ θ→θ/v is exact (the proposition stands), but
+the *no-reordering corollary does not follow*: this map shows the
+random-vs-cluster ordering changes sign along the θ̄ axis (e.g. +44 pp at
+θ̄=0.30/5% vs −1 pp significant at θ̄=0.35/1%), and sliding θ̄→θ̄/v crosses that
+boundary. External review reached the same conclusion independently. The paper
+text has been corrected to the weaker true statement ("acts only through
+rescaled thresholds; can in principle reorder; never flips scattered-vs-cluster
+in the tested v range"). D17's consequence (a) needs a ratified amendment;
+consequences (b) and (c) are unaffected.
+
+**PROVISIONAL (builder, 2026-08-01).** Axes, replicate count, and the D17
+amendment await scientist arbitration. Artifacts:
+`experiments/results/exp1_regime_headline.csv`, `figures/exp1_regime.png`,
+notebook 01 §10, `exp1.run_regime_map`.
+
 ---
 *All defaults above are recorded in `core/defaults.py` and surfaced in `docs/model.md`.
 Changing a decision here should change exactly one place in code.*

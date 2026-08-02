@@ -119,6 +119,28 @@ def run_decay_demo(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
     return rows
 
 
+# Regime map (referee request 2026-08-01): axes chosen to bracket the frozen
+# headline point (θ̄=0.30, budget 0.05). PROVISIONAL D18 — pending arbitration.
+REGIME_THETA_AXIS = [0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+REGIME_BUDGET_AXIS = [0.01, 0.02, 0.05, 0.10, 0.15]
+
+
+def run_regime_map(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
+    """ΔR map: mean final reach, random − cluster, over θ̄ × seed budget at
+    otherwise-frozen headline parameters (κ=20). Turns the scoped claim
+    "scattered wins in this regime" into an explicit boundary."""
+    jobs = expand_jobs(
+        sc,
+        {"agents.theta_mean": REGIME_THETA_AXIS,
+         "seeding.budget": REGIME_BUDGET_AXIS,
+         "seeding.strategy": ["random", "cluster"]},
+        replicates=replicates,
+    )
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_regime_{sc['meta']['name']}.csv", sc)
+    return rows
+
+
 # --- Aggregation helpers (used by the notebook and the demo) -------------------
 
 def curves_by(rows: list[dict], key: str = "strategy") -> dict[str, np.ndarray]:
