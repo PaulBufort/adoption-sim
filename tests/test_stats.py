@@ -90,6 +90,50 @@ def test_tost_paired():
         tost_paired([1.0, 2.0], [1.0, 2.0], band=0.0)
 
 
+def paired_with(mean_d, se, n=50):
+    """Deterministic sample with EXACTLY the requested mean and standard error."""
+    z = np.tile([1.0, -1.0], n // 2)
+    z = z / z.std(ddof=1)                      # mean 0, sd 1 exactly
+    return mean_d + se * math.sqrt(n) * z
+
+
+def test_tost_reports_the_interval_that_matches_its_own_decision():
+    """A TOST decision at alpha corresponds to the (1-2*alpha) interval, so
+    ci_tost is what an equivalence claim may quote — ci (95%) is wider and can
+    poke past the band on a cell that is legitimately TOST-equivalent."""
+    # se chosen so 0.010 + t(.95,49)*se < 0.02 < 0.010 + t(.975,49)*se.
+    d = paired_with(0.010, 0.0055)
+    r = tost_paired(d, np.zeros(50), band=0.02)
+    assert r["mean_d"] == pytest.approx(0.010)
+    assert r["ci_tost"][1] - r["ci_tost"][0] < r["ci"][1] - r["ci"][0]
+    assert r["p_tost"] < 0.05                        # declared equivalent...
+    assert r["ci_tost"][1] < 0.02                    # ...and the 90% CI agrees
+    assert r["ci"][1] > 0.02                         # while the 95% CI does not
+    assert r["exceeds_band"] is False
+
+
+def test_exceeds_band_separates_significant_from_practically_large():
+    z50 = np.zeros(50)
+    # Big effect, tight CI: practically established beyond the band.
+    big = classify_cells([(paired_with(0.10, 0.002), z50)], band=0.02)[0]
+    assert big["cls"] == "win_x" and big["exceeds_band"]
+    # Estimate just past the band, wide CI: a "win" under the pre-declared rule
+    # (p < .05 vs zero, |mean_d| >= band) yet compatible with a negligible
+    # effect — exactly the cell the paper must not describe as "large".
+    cell = classify_cells([(paired_with(0.025, 0.008), z50)], band=0.02)[0]
+    assert cell["cls"] == "win_x"
+    assert cell["p"] < 0.05 and cell["mean_d"] >= 0.02
+    assert not cell["exceeds_band"]
+    assert cell["ci_tost"][0] < 0.02
+
+
+def test_paired_stats_rejects_non_finite_input():
+    with pytest.raises(ValueError, match="non-finite"):
+        paired_stats([0.1, 0.2, np.nan], np.zeros(3))
+    with pytest.raises(ValueError, match="non-finite"):
+        paired_stats([0.1, 0.2, 0.3], [0.0, np.inf, 0.0])
+
+
 def test_holm_textbook():
     adj = holm([0.01, 0.04, 0.03, 0.005])
     np.testing.assert_allclose(adj, [0.03, 0.06, 0.06, 0.02])
