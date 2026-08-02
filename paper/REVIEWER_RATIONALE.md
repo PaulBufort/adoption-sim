@@ -1,5 +1,50 @@
 # Reviewer-response rationale — CN 2026 extended abstract
 
+## v2 (2026-08-02, post-CP1) — the crossover manuscript
+
+> Current manuscript: "Disperse to ignite, concentrate to endure: a
+> decay-driven crossover in modular complex contagions". Everything below this
+> block describes the June build and is retained as history; where it
+> conflicts with v2, **v2 wins** (notably: "parity" is superseded by the
+> paired CROSSOVER — RESULTS_VERIFIED.md v2).
+
+**The three objections, v2 answers:**
+
+1. *"Already known (Centola/Valente)."* The prescription literature says seed
+   clusters; we show that in organizations — where everyone already sits in a
+   cluster — dispersion wins the entire ignition regime (14/40 cells, up to
+   +43 pp, cluster wins none) AND that the folklore's core intuition
+   resurfaces as a decay crossover, quantified with paired CIs. The
+   contribution is the crossover map, not a rehash of either side.
+2. *"Artifact of your generator."* One-at-a-time robustness (8 variants, sign
+   stable +14.7…+48.3 pp) + a SIGN replication on a real modular topology
+   (email-Eu-core, ground-truth departments, synthetic attributes, +13.5 pp
+   [1.0, 26.0]). Concession kept honest: mechanism not empirically validated;
+   magnitudes not comparable across topologies (bimodal lottery regime).
+3. *"You chose the regime."* The regime map IS the answer (paired n=50/cell,
+   Holm two families, ±2 pp TOST band, three-way verdicts); the headline point
+   sits in the ignition band, and the saturation/starvation cells are now
+   *provably equivalent within ±2 pp* rather than unexplored. For decay: a
+   2×3 (r × ρ>0) pre-declared grid brackets the crossover instead of one
+   stipulated ρ.
+
+**New surfaces a referee may probe (v2):**
+- *"Your predictor failed."* Yes — pre-registered, gates applied verbatim,
+  no_go reported in the paper (one transparency sentence). The mechanism
+  claims rest on measured meso counts only. This is a strength to defend, not
+  hide: pre-registration with a published negative outcome.
+- *"champions beats random — why isn't that the story?"* Descriptive (+3.9 pp,
+  outside the confirmatory families); one clause in §3.1, never in the
+  abstract, per CP1 arbitration.
+- *"Crossover location?"* Only bracketed between tested ρ values — never an
+  estimated threshold (CP1 constraint; the paper's wording matches).
+- *"Paired vs independent numbers differ (72.0 vs 69.5)."* Disjoint
+  organization samples by seed layout; the paper cites paired exclusively for
+  seeded strategies, the independent panel only for broadcast and the
+  p_innov=0 ablation (D19 source policy; sidecars + audit_numbers enforce).
+
+---
+
 > Companion to `paper/main.tex` (corrected 2026-06-19). For oral defense and the
 > camera-ready pass. Builds on `REVIEW_B.md`; updated for the decay **parity**
 > correction. Every number traces to `paper/numbers.json` / `RESULTS_VERIFIED.md`.

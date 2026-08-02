@@ -1,5 +1,69 @@
 # RESULTS_VERIFIED.md
 
+## v2 — Paired S2 verification and the crossover finding (2026-08-02, CP1)
+
+> The **canonical numbers are now the PAIRED results** (D19, ratified at CP1):
+> single successful full-pipeline execution (6 350 simulations, frozen seeds,
+> master 20260610 / exp4 (20260610, 4)); a control re-run of the paired
+> headline was **bit-identical**; the mechanical regeneration of the 8 legacy
+> CSVs (adding the cumulative_rate / retention_rate / seeded_teams columns)
+> was verified **bit-identical on every historical column**. Sources:
+> `experiments/results/exp1_paired_headline.csv`, `exp1_regime_paired_headline.csv`,
+> `exp1_decay_paired_headline.csv`, `exp1_robustness_headline.csv`,
+> `exp4_eucore.csv`; analysis `experiments/cp1_analysis.py`; manuscript trace
+> `paper/extract_numbers.py` → `paper/numbers.json` → `paper/audit_numbers.py`
+> (35 claims verified). Technical note: one earlier pipeline launch aborted on
+> a multiprocessing/stdin issue before any CSV was written
+> (`paper/cp1/CP1_ARBITRATION.md` §7).
+
+### ⚠ FLAGGED CONTRADICTION with the 2026-06-17 verification below
+
+The v1 verdict "**parity, not reversal** under decay (cluster−random +0.9 pp,
+95% CI [−8.1, +10.0], n=12 unpaired)" is **superseded**: the paired n=50
+design resolves what that ±9 pp interval could not. At the very parameters of
+the old decay run (r=1.0, ρ=0.25), the paired contrast is a **significant
+modest reversal**: random − cluster = **−5.3 pp, 95% CI [−9.0, −1.5]**
+(Holm-corrected within the pre-declared 7-contrast family; horizon effects
+excluded — 98–100% of runs reach their fixed point in ~30–45 steps). The full
+family shows an ordered **crossover**: +39.6 pp at ρ=0 → sign flip between
+ρ=0.10 and 0.25 (r=1.0; later for r=0.5) → −11.4 pp at ρ=0.40. Nothing was
+re-run with new seeds; the old CSV remains reproducible; the old *conclusion*
+was a power limitation, not a data error. Also superseded: the two n=12
+cluster-favoured regime cells (−1.2/−0.6 pp, uncorrected) — under n=50 +
+Holm + the ±2 pp band, **no cell where cluster wins survives** (14 dispersion
+wins / 23 equivalences / 3 uncertain). Rounding note: one_per_team−random CI
+lower bound is −5.045 → quoted as −5.0 (an earlier −5.1 was a
+double-rounding artifact).
+
+### Canonical paired numbers (95% CIs; n=50 organization pairs)
+
+- Headline (θ̄=0.30, 5%, κ=20, no decay): random 72.0±9.2%, champions
+  75.9±8.2%, cluster 32.4±11.0%, one_per_team 70.6±10.4% (terminal adoption,
+  mean±sd); **random − cluster +39.7 pp [35.4, 43.9]**; champions − random
+  +3.9 pp [0.6, 7.1] (descriptive); one_per_team − random −1.4 pp
+  [−5.0, +2.2] ("no clear difference", D20 amendment). Broadcast 5.5±3.4%
+  and exactly 0.0% ×12 at p_innov=0 (independent panel — the only two
+  independent-panel citations, per the D19 source policy).
+- Regime map (40 cells): 14 dispersion wins (+2.8 to +42.6 pp; headline cell
+  +42.6 [39.1, 46.0], an independent paired sample), 23 TOST-equivalent
+  within ±2 pp, 3 uncertain, 0 cluster wins.
+- Decay family (terminal adoption): see crossover above; secondary
+  descriptive at (r=1, ρ=0.25): cumulative reach random 29.0% vs cluster
+  30.9%; retention ratio 0.86 vs 0.99.
+- Robustness (one-at-a-time, paired): Δ from +14.7 [9.8, 19.7] (N=500) to
+  +48.3 [46.5, 50.1] (N=8000); all 8 CIs exclude zero.
+- email-Eu-core (real topology, synthetic attributes, D22): random − cluster
+  +13.5 pp [1.0, 26.0]; ignition in 62% vs 42% of draws; SIGN replication
+  only.
+- Predictor (D21): verdict **no_go** — V1 pooled AUC 0.642 < 0.70 (12 789
+  units), V2 sign agreement 14/14; per-strategy AUCs descriptive (cluster
+  0.996, dispersed 0.59–0.69).
+
+The v1 report below is retained verbatim as the historical record of the
+2026-06-17 verification.
+
+---
+
 > Clean-room re-verification of the v0.1 headline numbers, run **2026-06-17**.
 > Method: full integral re-run of every condition from scratch via
 > `figures/make_all.py` (executes notebooks 01/02/03 → regenerates all CSVs and

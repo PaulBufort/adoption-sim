@@ -69,17 +69,23 @@ organization.
     overshoot-then-sag ever appears. If your mental model of rollouts includes that
     shape, this simulator will not draw it for you — reproducing it would require
     non-social novelty decay we declined to add.
-16. **"Always seed clusters."** In this model family, scattered seeding (random or
-    by degree) beats cluster seeding on raw reach across the explored parameter
-    space, because every agent already sits inside a dense team (D16). Under decay,
-    cluster seeding does **not** win — the two reach *parity*: scattered adoption
-    collapses (random −39 pp from its no-decay reach, highly significant) while
-    cluster is decay-proof (−0.9 pp, not significant), and the difference between
-    them under decay is indistinguishable from zero (95% CI of the gap [−8.1, +10.0]
-    pp, n=12). The honest contrast is **wide-but-fragile (scattered) vs small-but-stable
-    (cluster)**, not a cluster victory. A clean ordering *reversal* appears only at
-    higher relapse (ρ≈0.40; D7), a scenario outside the committed headline. Treat any
-    unqualified cluster-seeding recommendation derived from this tool as a misreading.
+16. **"Always seed clusters."** In this model family, dispersed seeding beats
+    cluster seeding on terminal adoption wherever a cascade can ignite at all
+    (paired D19 protocol: +39.7 pp [35.4, 43.9] at the headline setting; 14 of
+    40 regime-map cells won, 23 equivalent within ±2 pp, cluster wins none),
+    because every agent already sits inside a dense team. Under
+    reinforcement-dependent decay there is a **crossover**, not a parity: the
+    advantage shrinks with ρ and reverses *between the tested values* — at
+    r=1.0, between ρ=0.10 and 0.25 (−5.3 pp [−9.0, −1.5] at ρ=0.25); at
+    r=0.5 later (parity still uncertain at ρ=0.25, reversal −7.7 pp at
+    ρ=0.40). The reversal is modest and asymmetric: clustered adoption barely
+    moves (~32→29%) while dispersed adoption collapses (72→18%) — cluster
+    *endures*, it does not win big. (The 2026-06-17 "parity, no reversal"
+    wording came from an unpaired n=12 design whose ±9 pp CI could not
+    resolve the crossover; superseded 2026-08-02, flagged in
+    RESULTS_VERIFIED.md.) Treat any unqualified cluster-seeding
+    recommendation derived from this tool as a misreading — and any
+    unqualified dispersion recommendation too, once decay is strong.
 17. **Hero relays.** No generated organization showed a single person whose removal
     changes the outcome by more than noise (D12); robustness comes from tie
     redundancy. The pivot diagnostic is validated on a designed bottleneck and is
@@ -93,6 +99,23 @@ organization.
     scattered seeds — is refuted in this model family: making pilot teams loud
     helps *scattered* strategies more (gains track outward credibility per seed:
     cluster 5.7 < random 11.7 < champions 16.1). See experiment 3.
+20. **The local-ignition predictor failed its pre-declared gate (D21:
+    no_go).** A semi-analytic within-team cascade model, pre-registered with
+    validation gates before execution, reached pooled AUC 0.642 (< 0.70) on
+    seeded-team ignition: ~90% of seeded teams end ignited under dispersed
+    strategies, which the isolated-team model does not predict. Most ignition
+    under dispersed seeding is **not explained by the local predictor** —
+    consistent with, but not demonstrating, inter-team spillover as the
+    dominant channel. The measured meso counts (CSV-derived) are the only
+    mechanism claims the paper makes; the predictor is reported as a failed
+    pre-registration, and per-strategy AUCs (cluster 0.996 vs dispersed ~0.6)
+    are descriptive only.
+21. **email-Eu-core is a sign replication, not a validation (D22).** Real
+    topology (986 nodes, 42 ground-truth departments), ALL behavioral
+    attributes synthetic; the paired random−cluster contrast keeps its sign
+    (+13.5 pp [1.0, 26.0]) in a bimodal ignition-lottery regime unlike the
+    synthetic one. Magnitudes are not comparable across topologies; nothing
+    about the real organization's actual adoption is claimed.
 
 ## Known technical limitations
 
@@ -105,6 +128,8 @@ organization.
 - The Streamlit demo runs single-core with small populations and few replicates;
   it is a pedagogical toy on top of the engine, not the experiment pipeline.
 
-*Last updated: 2026-06-17 (#16 decay claim corrected to parity after the 50-rep
-re-verification — see RESULTS_VERIFIED.md; prior: 2026-06-10 post-arbitration,
-D1–D17 ratified, visibility entries added).*
+*Last updated: 2026-08-02 (CP1: #16 rewritten for the paired decay CROSSOVER —
+the 2026-06-17 "parity" wording is superseded and flagged in RESULTS_VERIFIED;
+#20 predictor no_go and #21 eu-core sign replication added; terminology:
+final_rate = terminal adoption, cumulative_rate = cumulative reach. Prior:
+2026-06-17 parity correction; 2026-06-10 post-arbitration.)*
