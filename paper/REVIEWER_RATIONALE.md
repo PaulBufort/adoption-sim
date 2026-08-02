@@ -29,10 +29,13 @@
    stipulated ρ.
 
 **New surfaces a referee may probe (v2):**
-- *"Your predictor failed."* Yes — pre-registered, gates applied verbatim,
-  no_go reported in the paper (one transparency sentence). The mechanism
-  claims rest on measured meso counts only. This is a strength to defend, not
-  hide: pre-registration with a published negative outcome.
+- *"Your predictor failed."* Yes — pre-specified in the version-controlled
+  decision log before execution, gates applied verbatim (AUC 0.642, below
+  even the 0.70 partial threshold), no_go reported in the paper (one
+  transparency sentence). The mechanism claims rest on measured meso counts
+  only. This is a strength to defend, not hide: a pre-specified analysis
+  with a published negative outcome. (Wording: "pre-specified", never
+  "pre-registered" — there is no external registry.)
 - *"champions beats random — why isn't that the story?"* Descriptive (+3.9 pp,
   outside the confirmatory families); one clause in §3.1, never in the
   abstract, per CP1 arbitration.

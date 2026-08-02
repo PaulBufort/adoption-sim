@@ -913,8 +913,11 @@ champions 0.694, random 0.631, one_per_team 0.591 — consistent with, not
 demonstrating, local ignition being predictable exactly where seeding is
 concentrated. Paper consequence = the pre-drafted no-go variant: the meso
 mechanism stays MEASURED (CSV-derived); the predictor is named as
-pre-registered and failed at its gate (one transparency sentence in the body,
-never the abstract); level-2 modeling is future work.
+pre-specified in this decision log and failed at its gates — AUC below even
+the partial threshold (one transparency sentence in the body, never the
+abstract); level-2 modeling is future work. Wording rule: "pre-specified in
+a version-controlled decision log", never "pre-registered" (no external
+registry was used).
 
 ## D22 — Real-topology replication: email-Eu-core (pre-declaration)
 

@@ -75,7 +75,8 @@ def claims() -> list[tuple[str, str]]:
         ("eucore CI", f"[{r1(euc['contrast_random_cluster']['ci_pp'][0])}, {r1(euc['contrast_random_cluster']['ci_pp'][1])}]"),
         ("eucore graph", f"{euc['graph']['n_nodes_compiled']} nodes, {euc['graph']['n_departments']} ground-truth"),
         ("eucore ignition", f"{100*euc['ignition_share']['random']:.0f}\\% of draws, cluster in {100*euc['ignition_share']['cluster']:.0f}\\%"),
-        ("predictor gate", f"{pred['v1_auc']:.2f}<{pred['gate_go']:.2f}"),
+        ("predictor gate", f"AUC ${pred['v1_auc']:.2f}$, below even the "
+                           f"${pred['gate_partial']:.2f}$ partial threshold"),
         ("scenario N", f"N{{=}}{N['scenario']['n_agents']}"),
         ("line teams", f"{ph['n_line_teams']} line teams"),
     ]

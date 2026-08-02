@@ -100,15 +100,16 @@ organization.
     helps *scattered* strategies more (gains track outward credibility per seed:
     cluster 5.7 < random 11.7 < champions 16.1). See experiment 3.
 20. **The local-ignition predictor failed its pre-declared gate (D21:
-    no_go).** A semi-analytic within-team cascade model, pre-registered with
-    validation gates before execution, reached pooled AUC 0.642 (< 0.70) on
-    seeded-team ignition: ~90% of seeded teams end ignited under dispersed
+    no_go).** A semi-analytic within-team cascade model, pre-specified with
+    its validation gates in the version-controlled decision log before
+    execution, reached pooled AUC 0.642 — below even the 0.70 *partial*
+    threshold — on seeded-team ignition: ~90% of seeded teams end ignited under dispersed
     strategies, which the isolated-team model does not predict. Most ignition
     under dispersed seeding is **not explained by the local predictor** —
     consistent with, but not demonstrating, inter-team spillover as the
     dominant channel. The measured meso counts (CSV-derived) are the only
     mechanism claims the paper makes; the predictor is reported as a failed
-    pre-registration, and per-strategy AUCs (cluster 0.996 vs dispersed ~0.6)
+    pre-specification, and per-strategy AUCs (cluster 0.996 vs dispersed ~0.6)
     are descriptive only.
 21. **email-Eu-core is a sign replication, not a validation (D22).** Real
     topology (986 nodes, 42 ground-truth departments), ALL behavioral

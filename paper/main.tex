@@ -4,8 +4,9 @@
 % statistics derive from paper/numbers.json via paper/extract_numbers.py and
 % are checked by paper/audit_numbers.py — no hand-typed numbers).
 % Source policy (D19, ratified at CP1): every seeded-strategy mean/contrast is
-% PAIRED (same 50 organizations, identical agent draws per condition); the
-% independent panel is cited only for broadcast and the p_innov=0 ablation.
+% PAIRED (within each condition cell, the same 50 organizations and agent
+% draws; cells may use independent samples); the independent panel is cited
+% only for broadcast and the p_innov=0 ablation.
 \documentclass{llncs}
 \usepackage{mathptmx}
 \usepackage{helvet}
@@ -35,21 +36,21 @@ a decay-driven crossover in modular complex contagions}
 \begin{abstract}
 Should a costly new practice be seeded into a few dense teams, or scattered
 across the organization? We study this on synthetic two-layer organizations
-of dense small teams, using fractional-threshold contagion with
-heterogeneous thresholds, an innovator atom, and credibility-weighted
-exposure, under a \emph{paired} protocol: every strategy runs on the same 50
-organizations with identical agent draws. Without decay, dispersed seeding
-dominates wherever a
-cascade can ignite: $+39.7$ percentage points of terminal adoption over
-cluster seeding at the headline setting (95\% CI $[35.4, 43.9]$), winning 14
-of 40 cells of a threshold$\times$budget map (up to $+43$\,pp; equivalent
-within $\pm2$\,pp in 23; cluster wins none). Under
+of dense small teams, using fractional-threshold contagion (heterogeneous
+thresholds, innovator atom, credibility-weighted exposure) under a
+\emph{paired} protocol: within each condition, every strategy runs on the
+same 50 organizations with identical agent draws. Without decay, dispersed
+seeding dominates wherever a cascade can ignite: $+39.7$ percentage points
+of terminal adoption over cluster seeding at the headline setting (95\% CI
+$[35.4, 43.9]$), winning 14 of 40 cells of a threshold--budget map and
+losing none (23 cells equivalent within $\pm2$\,pp). Under
 reinforcement-dependent decay the advantage shrinks
 and \emph{reverses} between the tested relapse rates: dispersed cascades stop
-growing, while clustered adoption stays near 30\% almost regardless of decay
-strength. The sign of the contrast replicates on a real modular topology
-(email-Eu-core, synthetic behavioral attributes). All data are synthetic
-and bit-for-bit reproducible from one master seed.
+growing, while clustered adoption stays near 30\% almost regardless of
+decay. The sign of the contrast replicates on a real modular topology
+(email-Eu-core, synthetic behavioral attributes). All diffusion outcomes are
+simulated and all behavioral attributes synthetic; released code with frozen
+seeds reproduces every number.
 \keywords{complex contagion, threshold models, seeding strategies,
 organizational networks, agent-based simulation}
 \end{abstract}
@@ -60,21 +61,22 @@ Threshold models~\cite{granovetter1978} make costly adoption require
 reinforcement from multiple credible sources. Cascades on random graphs obey a vulnerability
 boundary~\cite{watts2002}; \emph{complex contagions} need wide bridges of
 overlapping ties, which long-range shortcuts destroy~\cite{centola2007,centola2010}.
-Network-intervention practice~\cite{valente2012} distilled this into
-\emph{seed dense clusters, never scatter}---evidenced largely in populations
-not already embedded in cohesive groups. Adjacent results
+Network-intervention taxonomies~\cite{valente2012} stress matching the
+intervention to context; the expectation that \emph{clustered seeding should
+win} follows from those wide-bridges results---evidenced largely in
+populations not already embedded in cohesive groups. Adjacent results
 strain it: modularity aids cascades only up to an
 optimum~\cite{nematzadeh2014}; dispersed neighbor seeding beats clustered
 seeding in threshold models~\cite{ou2022}; seed placement is its own
 measurement problem~\cite{guilbeault2021,tanase2026}; random ties match or
 beat clustered ties unless interest decays
 fast~\cite{wan2025,sassine2024}---a structural reach--reinforcement
-trade-off. We test its \emph{seeding-strategy} analogue at fixed topology and
-ask \emph{when decay reverses the ordering}. Real organizations are
+trade-off whose \emph{seeding-strategy} analogue we test at fixed topology,
+asking \emph{when decay reverses the ordering}. Real organizations are
 modular---nearly everyone already sits inside a dense small team---so what
 does cluster seeding buy when every seed is already surrounded by a cluster?
-We answer with a transparent mechanistic agent-based model under a paired,
-pre-declared protocol (decision log ships with the code).\looseness=-1
+We answer with a transparent agent-based model under a paired protocol
+pre-specified in a version-controlled decision log.\looseness=-1
 
 \section{Model and paired protocol}
 \label{sec:model}
@@ -101,24 +103,25 @@ transient comms term during a broadcast. Adoption requires
 synchronous. Decay (off unless stated): an adopter relapses with probability
 $\rho$ per step while $\mathrm{share}_i<r\,\theta_i$, where $r$ sets how much
 reinforcement retention requires. We report \emph{terminal adoption} (adopted
-share among active agents at the fixed point; 98--100\% of runs converge)
-and, secondarily, \emph{cumulative reach} (ever-adopted share). Four seeded
+share among active agents at the fixed point; 98--100\% converge) and,
+secondarily, \emph{cumulative reach} (ever-adopted share). Four seeded
 strategies share a 5\% budget (100 seeds): \emph{random}, \emph{champions}
 (top informal degree), \emph{cluster} (whole teams), \emph{one-per-team}
 (round-robin coverage); \emph{broadcast} is a zero-seed awareness
 baseline---fixed heuristics, not influence-maximization
 optima~\cite{kempe2003,ou2022}.\looseness=-1
 
-\emph{Paired protocol.} Every condition runs on the \emph{same} 50 fresh
-organizations with \emph{identical} threshold\slash willingness\slash ability
-draws (common random numbers), so strategy contrasts are paired
-differences---between-organization variance (9--16\,pp) cancels. Two
-confirmatory families (regime map, decay grid) were pre-declared and
-Holm-corrected for both difference and TOST-equivalence against a
-$\pm2$\,pp practical band; each cell gets a three-way verdict: \emph{win},
-\emph{equivalent} (within $\pm2$\,pp, for the tested cells and model), or
-\emph{uncertain}. Seeds were frozen before execution; all results come from
-a single successful full-pipeline execution ($6\,350$
+\emph{Paired protocol.} Within each condition cell, every strategy runs on
+the \emph{same} 50 fresh organizations with \emph{identical} agent draws
+(common random numbers; cells may use independent samples), so contrasts
+are paired differences from which the shared between-organization variance
+component (9--16\,pp) drops out. Two confirmatory families (regime map,
+decay grid) were pre-specified in a version-controlled decision log before
+execution and Holm-corrected for both difference and TOST-equivalence
+against a $\pm2$\,pp practical band; each cell gets a three-way verdict:
+\emph{win}, \emph{equivalent} (within $\pm2$\,pp, for the tested cells and
+model), or \emph{uncertain}. Seeds were frozen before execution; all paired
+results come from a single successful full-pipeline execution ($6\,350$
 simulations).\looseness=-1
 
 \begin{figure}[t]
@@ -129,9 +132,8 @@ simulations).\looseness=-1
 pairs/cell; Holm-corrected difference and TOST families): red = dispersion
 wins; ``$\approx$'' = equivalent within $\pm2$\,pp; hatched = uncertain;
 box = headline setting. (b)~The same contrast under decay (95\% CIs;
-$\pm2$\,pp band): the advantage shrinks and reverses between tested $\rho$.
-(c)~Absolute levels: clustered adoption barely moves; dispersed
-collapses.}
+$\pm2$\,pp band). (c)~Absolute levels: clustered adoption barely moves;
+dispersed collapses.}
 \label{fig:crossover}
 \end{figure}
 
@@ -144,9 +146,10 @@ headline setting, random seeding reaches $72.0\pm9.2$\% terminal adoption
 difference of $\mathbf{+39.7}$\,pp, 95\% CI $[35.4, 43.9]$. Degree targeting
 adds ${\sim}3.9$\,pp (descriptive, outside the confirmatory families), and
 coverage with one seed per team yields no clear difference from random
-($-1.4$\,pp, CI $[-5.0, +2.2]$)---random already lands seeds in $82$ of 249
-line teams (${\sim}205$ end at majority) vs.\ $13$ (${\sim}91$) for
-cluster. Across the map (Fig.~\ref{fig:crossover}a), dispersion wins 14 of
+($-1.4$\,pp, CI $[-5.0, +2.2]$)---on average, random already lands seeds in
+$82$ of 249 line teams (${\sim}205$ end at majority) vs.\ $13$
+(${\sim}91$) for cluster. Across the map (Fig.~\ref{fig:crossover}a),
+dispersion wins 14 of
 40 cells---the diagonal ignition band, $+2.8$ to $+42.6$\,pp ($[39.1,
 46.0]$ at the boxed headline cell, an independent paired sample at the same
 parameters)---the strategies are equivalent within $\pm2$\,pp (TOST) in 23
@@ -166,18 +169,18 @@ $+13.9$\,pp $[9.6, 18.3]$ at $\rho{=}0.10$, parity still uncertain at
 $\rho{=}0.25$ ($-0.3$\,pp $[-4.1, +3.5]$), reversal at $\rho{=}0.40$
 ($-7.7$\,pp $[-11.5, -3.9]$). The mechanism is asymmetric: clustered
 adoption barely moves ($32.4\%$ at $\rho{=}0$ to $29.3\%$ at the harshest
-setting) while dispersed adoption collapses ($72.0\%$ to $17.9\%$).
-Cumulative reach shows \emph{why}: at ($r{=}1$, $\rho{=}0.25$) random's
-ever-adopted share is only $29.0$\% (vs.\ $72$\% without decay)---relapse
-throttles the dispersed cascade \emph{while it grows}; retention ratios
-(descriptive) are $0.99$ (cluster) vs.\ $0.86$ (random). Concentration does
-not become a high performer under decay; it \emph{endures} near 30\% while
-dispersion loses everything.\looseness=-1
+setting)---it \emph{endures} rather than wins---while dispersed adoption
+collapses ($72.0\%$ to $17.9\%$). Cumulative reach shows \emph{why}: at
+($r{=}1$, $\rho{=}0.25$) random's ever-adopted share is only $29.0$\% (vs.\
+$72$\% without decay)---relapse throttles the dispersed cascade \emph{while
+it grows}; retention ratios (descriptive) are $0.99$ (cluster) vs.\ $0.86$
+(random).\looseness=-1
 
 \textbf{Robustness and a real topology.} The no-decay contrast keeps its
 sign across one-at-a-time organization variants ($N\in\{500, 2000, 8000\}$,
-team size $\{5, 12\}$, silo $\{0.5, 0.7, 0.95\}$): paired $\Delta$ from
-$+14.7$ to $+48.3$\,pp, all CIs excluding zero. On the real email-Eu-core
+team size $\{5, 12\}$, silo $\{0.5, 0.7, 0.95\}$; descriptive): paired
+$\Delta$ from $+14.7$ to $+48.3$\,pp, all CIs excluding zero. On the real
+email-Eu-core
 topology (986 nodes, 42 ground-truth departments; \emph{all behavioral
 attributes synthetic}) the contrast keeps its sign: $+13.5$\,pp
 $[1.0, 26.0]$ over 50 paired attribute draws. Adoption there is a bimodal
@@ -190,32 +193,31 @@ mechanism.\looseness=-1
 \label{sec:discussion}
 
 Once everyone already lives in a dense team, guaranteed local
-reinforcement---cluster seeding's defining asset---is no longer scarce, and
-scattering buys more ignition surface per seed. Decay changes not who wins
-ignition but \emph{whether ignition survives}: dispersed adoption needs
-continuing growth that relapse throttles; clustered adoption sits on local
-critical mass that relapse barely touches. The prescription is conditional
+reinforcement---cluster seeding's defining asset---is no longer scarce;
+scattering buys more ignition surface per seed, and decay then decides
+\emph{whether dispersed ignitions compound into organization-wide growth}:
+relapse throttles the growing cascade, while clustered adoption sits on
+local critical mass relapse barely touches. The prescription is conditional
 and asymmetric: \emph{disperse to ignite} when
 adoption reinforces itself; \emph{concentrate to endure} when reinforcement
-erodes quickly. Global visibility rescales
-thresholds exactly ($\theta/v$, unit-tested), so low visibility slides the
-organization across Fig.~\ref{fig:crossover}a and can change which strategy
-wins (correcting an earlier corollary). A pre-registered local-ignition
-predictor failed its validation gate (AUC $0.64<0.80$): most
-dispersed-seeding ignition is \emph{not explained by the local predictor};
-two-level modeling is future work. All of this holds within a synthetic, uncalibrated
+erodes quickly. A local-ignition predictor,
+pre-specified in the same decision log, failed its validation gates (AUC
+$0.64$, below even the $0.70$ partial threshold): most dispersed-seeding
+ignition is \emph{not explained by the local predictor}; a two-level model
+is future work. All of this holds within a synthetic, uncalibrated
 model family---thresholds unobserved, time abstract, decay parameters
-stipulated on a grid; a 19-entry limitations file ships with the
+stipulated on a grid; a 21-entry limitations file ships with the
 code.\looseness=-1
 
+\vspace{-4pt}
 \emph{Reproducibility.} Every modeling decision (D1--D22) is logged with
-alternatives and status; analysis families pre-declared, seeds frozen, one
-successful full-pipeline execution. CI fails if any published number
-changes; every statistic is machine-extracted and audited against the
-manuscript. Repository: AGPL-3.0, public at publication.\looseness=-1
+alternatives; analysis families pre-specified in that log; seeds
+frozen; one successful full-pipeline execution for the paired results. CI
+fails if any published number changes; every statistic is machine-extracted
+and audited. Repository: AGPL-3.0, public at publication.\looseness=-1
 
 \bibliographystyle{splncs03}
-\vspace{-16pt}
+\vspace{-14pt}
 \bibliography{refs}
 
 \end{document}

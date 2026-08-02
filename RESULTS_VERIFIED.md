@@ -3,7 +3,8 @@
 ## v2 — Paired S2 verification and the crossover finding (2026-08-02, CP1)
 
 > The **canonical numbers are now the PAIRED results** (D19, ratified at CP1):
-> single successful full-pipeline execution (6 350 simulations, frozen seeds,
+> single successful full-pipeline execution of the paired protocol (6 350
+> simulations, frozen seeds,
 > master 20260610 / exp4 (20260610, 4)); a control re-run of the paired
 > headline was **bit-identical**; the mechanical regeneration of the 8 legacy
 > CSVs (adding the cumulative_rate / retention_rate / seeded_teams columns)
