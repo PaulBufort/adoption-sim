@@ -748,6 +748,14 @@ cumulative (undefined/NaN when cumulative = 0). The ratio is always reported
 next to the absolute levels: a high retention ratio on a tiny base is not a
 win (docs/limitations.md #16).
 
+*Why the tracker is mandatory, not a convenience (found while testing,
+2026-08-02):* the attribution shortcut (n_adopted + n_relapsed) **undercounts**
+cumulative reach. Seeds adopt unconditionally (D9), so a non-willing or
+non-able seed that later relapses is attributed NOT_WILLING/NOT_ABLE, not
+RELAPSED — those ever-adopters vanish from the shortcut (≈1–2% of agents at
+headline parameters). `tests/test_run_job_columns.py` pins both the exact
+tracker identity and the shortcut's bounded undercount.
+
 **Anti-seed-fishing commitment.** master_seed stays 20260610; the seed layout
 (SeedSequence children indexed by (base-combo, replicate), one triple per
 block) was frozen at implementation time — commits `d86efba` and `09724dc`,
