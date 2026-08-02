@@ -313,7 +313,7 @@ def fig_paper_crossover(reg: dict, dec: dict) -> None:
         cls_grid[i, j] = c["cls"]
 
     fig, (ax, axb, axc) = plt.subplots(
-        1, 3, figsize=(8.0, 2.45), dpi=300,
+        1, 3, figsize=(8.0, 1.95), dpi=300,
         gridspec_kw={"width_ratios": [1.35, 1.0, 1.0]})
 
     vmax = np.nanmax(np.abs(delta))
