@@ -18,7 +18,7 @@ import numpy as np
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from core.scenario import load_scenario, save_results, set_path  # noqa: E402
-from core.sweep import expand_jobs, sweep  # noqa: E402
+from core.sweep import expand_jobs, expand_paired_jobs, sweep, sweep_meta  # noqa: E402
 
 HERE = pathlib.Path(__file__).resolve().parent
 RESULTS = HERE / "results"
@@ -41,9 +41,11 @@ def smoke_variant(sc: dict) -> dict:
 
 def run_strategy_comparison(sc: dict, n_jobs: int | None = None) -> list[dict]:
     """Panel A data: all five strategies at the frozen headline parameters."""
-    jobs = expand_jobs(sc, {"seeding.strategy": STRATEGY_ORDER})
+    axes = {"seeding.strategy": STRATEGY_ORDER}
+    jobs = expand_jobs(sc, axes)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_strategies_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_strategies_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -51,9 +53,11 @@ def run_kappa_companion(sc: dict, n_jobs: int | None = None) -> list[dict]:
     """Dual-regime headline, right panel (D1 arbitration): same scenario at
     κ = 12 — the 'lottery' regime where broadcast is a high-variance gamble."""
     sc = set_path(sc, "agents.theta_concentration", 12.0)
-    jobs = expand_jobs(sc, {"seeding.strategy": STRATEGY_ORDER})
+    axes = {"seeding.strategy": STRATEGY_ORDER}
+    jobs = expand_jobs(sc, axes)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_kappa12_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_kappa12_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -63,14 +67,12 @@ PINNOV_AXIS = [0.0, 0.01, 0.025, 0.05]
 def run_pinnov_sweep(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
     """D2 arbitration: first-class innovator-share sweep. The p = 0 cell is the
     clearly-labeled 'no-innovators' variant from D16 — never the default."""
-    jobs = expand_jobs(
-        sc,
-        {"seeding.strategy": ["broadcast", "random", "cluster"],
-         "agents.p_innovator": PINNOV_AXIS},
-        replicates=replicates,
-    )
+    axes = {"seeding.strategy": ["broadcast", "random", "cluster"],
+            "agents.p_innovator": PINNOV_AXIS}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_pinnov_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_pinnov_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -81,22 +83,22 @@ def run_broadcast_duration_sweep(sc: dict, n_jobs: int | None = None) -> list[di
     """D8 arbitration: the 'what about repeated campaigns?' objection — broadcast
     with the comms term active for T_b ∈ {1, 5, 20} steps."""
     sc = set_path(sc, "seeding.strategy", "broadcast")
-    jobs = expand_jobs(sc, {"dynamics.broadcast_steps": TB_AXIS})
+    axes = {"dynamics.broadcast_steps": TB_AXIS}
+    jobs = expand_jobs(sc, axes)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_tb_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_tb_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
 def run_silo_panel(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
     """Panel B data: final adoption vs silo strength for three strategies."""
-    jobs = expand_jobs(
-        sc,
-        {"seeding.strategy": ["broadcast", "random", "cluster"],
-         "org.silo_strength": SILO_AXIS},
-        replicates=replicates,
-    )
+    axes = {"seeding.strategy": ["broadcast", "random", "cluster"],
+            "org.silo_strength": SILO_AXIS}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_silo_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_silo_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -109,13 +111,11 @@ def run_decay_demo(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
     sc = set_path(sc, "dynamics.relapse_prob", 0.25)
     sc = set_path(sc, "dynamics.retention_factor", 1.0)
     sc = set_path(sc, "dynamics.max_steps", 80)
-    jobs = expand_jobs(
-        sc,
-        {"seeding.strategy": ["broadcast", "random", "champions", "cluster"]},
-        replicates=replicates,
-    )
+    axes = {"seeding.strategy": ["broadcast", "random", "champions", "cluster"]}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_decay_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_decay_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -128,17 +128,103 @@ REGIME_BUDGET_AXIS = [0.01, 0.02, 0.05, 0.10, 0.15]
 def run_regime_map(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
     """ΔR map: mean final reach, random − cluster, over θ̄ × seed budget at
     otherwise-frozen headline parameters (κ=20). Turns the scoped claim
-    "scattered wins in this regime" into an explicit boundary."""
-    jobs = expand_jobs(
-        sc,
-        {"agents.theta_mean": REGIME_THETA_AXIS,
-         "seeding.budget": REGIME_BUDGET_AXIS,
-         "seeding.strategy": ["random", "cluster"]},
-        replicates=replicates,
-    )
+    "scattered wins in this regime" into an explicit boundary.
+
+    SUPERSEDED by run_paired_regime (D19: 50 paired replicates, Holm-corrected
+    3-class cells). Kept only until notebook 01 switches over at the CP1
+    regeneration commit; its n=12 CSV was never committed."""
+    axes = {"agents.theta_mean": REGIME_THETA_AXIS,
+            "seeding.budget": REGIME_BUDGET_AXIS,
+            "seeding.strategy": ["random", "cluster"]}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / f"exp1_regime_{sc['meta']['name']}.csv", sc)
+    save_results(rows, RESULTS / f"exp1_regime_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, axes))
     return rows
+
+
+# --- Paired protocol (D19, PROVISIONAL): common random numbers ------------------
+# Same organizations + same theta/willing/able draws across the conditions of a
+# pair block (core/sweep.expand_paired_jobs); contrasts analyzed as paired
+# differences (experiments/stats.py). Seed layout frozen at implementation time
+# (2026-08-02), BEFORE any paired result was inspected — no seed-fishing.
+
+PAIRED_STRATEGIES = ["random", "champions", "cluster", "one_per_team"]
+DECAY_R_AXIS = [0.5, 1.0]
+DECAY_RHO_AXIS = [0.0, 0.10, 0.25, 0.40]
+ROBUSTNESS_AXES = {
+    "org.n_agents": [500, 2000, 8000],
+    "org.mean_team_size": [5, 8, 12],
+    "org.silo_strength": [0.5, 0.7, 0.85, 0.95],
+}
+
+
+def run_paired_headline(sc: dict, n_jobs: int | None = None,
+                        replicates: int | None = None) -> list[dict]:
+    """Paired strategy contrasts at the frozen headline point: the four seeded
+    strategies evaluated on identical organizations (broadcast excluded — its
+    zero-seed floor is established by the independent panel)."""
+    axes = {"seeding.strategy": PAIRED_STRATEGIES}
+    jobs = expand_paired_jobs(sc, axes, replicates=replicates)
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_paired_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, {}, pair_axes=list(axes)))
+    return rows
+
+
+def run_paired_regime(sc: dict, n_jobs: int | None = None,
+                      replicates: int | None = None) -> list[dict]:
+    """D18 upgraded: paired ΔR map over θ̄ × budget — random vs cluster on
+    identical organizations in every cell, 50 pairs/cell by default. Analyzed
+    with the 3-class Holm-corrected scheme (stats.classify_cells)."""
+    base = {"agents.theta_mean": REGIME_THETA_AXIS,
+            "seeding.budget": REGIME_BUDGET_AXIS}
+    paired = {"seeding.strategy": ["random", "cluster"]}
+    jobs = expand_paired_jobs(sc, paired, base_axes=base, replicates=replicates)
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_regime_paired_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, base, pair_axes=list(paired)))
+    return rows
+
+
+def run_paired_decay(sc: dict, n_jobs: int | None = None,
+                     replicates: int | None = None) -> list[dict]:
+    """Paired decay grid (D7 × D19): strategies × retention_factor r × relapse ρ
+    on identical organizations. max_steps stays at the headline 100 (supersedes
+    the 80-step n=12 demo). ρ=0 arms are the within-design baseline; they are
+    run under BOTH r values on purpose — r is inert at ρ=0, so the duplicated
+    arms must be bit-identical, a free self-check for the notebook. Cumulative
+    (ever-adopted) vs terminal reach separates suppressed growth from erosion."""
+    paired = {"seeding.strategy": ["random", "champions", "cluster"],
+              "dynamics.retention_factor": DECAY_R_AXIS,
+              "dynamics.relapse_prob": DECAY_RHO_AXIS}
+    jobs = expand_paired_jobs(sc, paired, replicates=replicates)
+    rows = sweep(jobs, n_jobs)
+    save_results(rows, RESULTS / f"exp1_decay_paired_{sc['meta']['name']}.csv", sc,
+                 extra_meta=sweep_meta(jobs, {}, pair_axes=list(paired)))
+    return rows
+
+
+def run_robustness(sc: dict, n_jobs: int | None = None,
+                   replicates: int | None = None) -> list[dict]:
+    """One-at-a-time robustness of the paired random − cluster contrast around
+    the frozen headline point: org size, team size, silo strength (κ=12 and the
+    T_b/p_innov sweeps already exist as independent panels). One CSV, long
+    format: (param, value, pair_id, strategy, ...)."""
+    paired = {"seeding.strategy": ["random", "cluster"]}
+    all_rows: list[dict] = []
+    for axis, values in ROBUSTNESS_AXES.items():
+        jobs = expand_paired_jobs(sc, paired, base_axes={axis: values},
+                                  replicates=replicates)
+        for r in sweep(jobs, n_jobs):
+            value = r.pop(axis)
+            all_rows.append({"param": axis.split(".", 1)[1], "value": value, **r})
+    save_results(all_rows, RESULTS / f"exp1_robustness_{sc['meta']['name']}.csv", sc,
+                 extra_meta={"design": "paired_within_replicate",
+                             "axes": {k: list(v) for k, v in ROBUSTNESS_AXES.items()},
+                             "pair_axes": list(paired),
+                             "replicates_used": max(r["rep"] for r in all_rows) + 1})
+    return all_rows
 
 
 # --- Aggregation helpers (used by the notebook and the demo) -------------------
