@@ -134,6 +134,14 @@ def paired_stats(x, y, alpha: float = 0.05) -> dict:
     n = x.size
     if n < 2:
         raise ValueError("need at least 2 pairs")
+    if not (np.isfinite(x).all() and np.isfinite(y).all()):
+        # retention_rate is legitimately blank when cumulative reach is 0 (D19);
+        # such rows must be dropped or imputed by the caller, deliberately —
+        # never silently averaged into a contrast.
+        raise ValueError(
+            "non-finite values in paired input: drop or impute them explicitly "
+            "(retention_rate is blank when cumulative reach is 0)"
+        )
     d = x - y
     mean_d = float(d.mean())
     sd_d = float(d.std(ddof=1))
@@ -190,6 +198,16 @@ def tost_paired(x, y, band: float, alpha: float = 0.05) -> dict:
     p = max of the two one-sided p-values; equivalence is claimed when p < alpha
     (after any family correction applied by the caller). Degenerate case se = 0:
     p = 0.0 when |mean_d| < band, else 1.0.
+
+    Reporting note. A TOST decision at level ``alpha`` corresponds to the
+    **(1-2*alpha) interval**, not the (1-alpha) one: at alpha=0.05 that is the
+    90% CI, returned as ``ci_tost``. Quote ``ci_tost`` next to an equivalence
+    claim — a cell can be TOST-equivalent while its 95% ``ci`` pokes just past
+    the band, and quoting ``ci`` there would state something stronger than what
+    was tested. ``exceeds_band`` is the mirror image for difference claims: True
+    only when the same (1-2*alpha) interval lies entirely beyond +-band, i.e.
+    the effect is established as practically large rather than merely
+    significant with a large point estimate.
     """
     if band <= 0:
         raise ValueError("band must be positive")
@@ -197,11 +215,15 @@ def tost_paired(x, y, band: float, alpha: float = 0.05) -> dict:
     mean_d, se, df = ps["mean_d"], ps["se"], ps["df"]
     if se == 0.0:
         p = 0.0 if abs(mean_d) < band else 1.0
-        return {**ps, "band": band, "p_lower": p, "p_upper": p, "p_tost": p}
+        return {**ps, "band": band, "p_lower": p, "p_upper": p, "p_tost": p,
+                "ci_tost": (mean_d, mean_d), "exceeds_band": abs(mean_d) > band}
     p_lower = t_sf((mean_d + band) / se, df)   # H0: mean_d <= -band
     p_upper = t_sf((band - mean_d) / se, df)   # H0: mean_d >= +band
+    tc = t_crit(df, 1.0 - alpha)               # one-sided -> (1-2*alpha) interval
+    ci_tost = (mean_d - tc * se, mean_d + tc * se)
     return {**ps, "band": band, "p_lower": p_lower, "p_upper": p_upper,
-            "p_tost": max(p_lower, p_upper)}
+            "p_tost": max(p_lower, p_upper), "ci_tost": ci_tost,
+            "exceeds_band": bool(ci_tost[0] > band or ci_tost[1] < -band)}
 
 
 # --- Multiple comparisons --------------------------------------------------------
@@ -244,8 +266,21 @@ def classify_cells(pairs: list[tuple], band: float = 0.02, alpha: float = 0.05) 
     TOST (even pre-correction) forces |mean_d| < band, while victory requires
     |mean_d| >= band.
 
-    Returns one dict per cell with the paired_stats fields plus band, p_tost,
-    p_diff_holm, p_tost_holm, cls.
+    Scope of a "win" (pre-declared criterion, D18 upgrade path — stated here so
+    it is not over-read): it combines significance against ZERO with a point
+    estimate past the band. It is NOT a test that the effect exceeds the band;
+    a cell with mean_d = 2.1 pp and CI [0.4, 3.8] qualifies while remaining
+    compatible with a practically negligible true effect. The additive
+    ``exceeds_band`` field marks the stronger cells whose (1-2*alpha) interval
+    lies wholly beyond the band; use it when the text claims practical size,
+    and see ``ci_tost`` for the interval matching an equivalence decision.
+
+    Family-wise error is controlled at ``alpha`` within EACH family, so the
+    two families together carry up to 2*alpha; they answer disjoint questions
+    and no cell can be claimed under both.
+
+    Returns one dict per cell with the tost_paired fields plus p_diff_holm,
+    p_tost_holm, cls.
     """
     cells = [tost_paired(x, y, band=band, alpha=alpha) for x, y in pairs]
     p_diff_holm = holm([c["p"] for c in cells], alpha=alpha)
