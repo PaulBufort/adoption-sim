@@ -74,6 +74,35 @@ def test_line_manager_top_up_when_budget_exceeds_managers():
     assert (seeded_roles == defaults.ROLE_MANAGER).sum() == n_managers
 
 
+def test_one_per_team_covers_distinct_teams():
+    c = compiled()
+    s = make_seeding("one_per_team", c, budget=0.05, rng=6)
+    k = int(np.floor(0.05 * c.n))
+    seed_teams = c.team[s.initial_adopters]
+    assert LEADERSHIP_TEAM not in seed_teams
+    # One pass: k < n_line_teams -> k distinct teams, exactly one seed each.
+    assert np.unique(seed_teams).size == k
+    assert s.meta["teams_covered"] == k
+    assert s.meta["passes"] == 1
+
+
+def test_one_per_team_second_pass_when_budget_exceeds_teams():
+    c = compiled()
+    n_line_teams = c.n_teams - 1
+    k = n_line_teams + 5
+    s = make_seeding("one_per_team", c, budget=(k + 0.5) / c.n, rng=6)  # floor-proof
+    assert s.initial_adopters.size == k
+    seed_teams = c.team[s.initial_adopters]
+    counts = np.bincount(seed_teams, minlength=c.n_teams)
+    assert counts[LEADERSHIP_TEAM] == 0
+    line = np.array([t for t in range(c.n_teams) if t != LEADERSHIP_TEAM])
+    assert (counts[line] >= 1).all()          # every line team covered
+    assert (counts[line] <= 2).all()          # second pass only just started
+    assert (counts[line] == 2).sum() == 5
+    assert s.meta["teams_covered"] == n_line_teams
+    assert s.meta["passes"] == 2
+
+
 def test_validation_errors():
     c = compiled()
     with pytest.raises(ValueError):
@@ -86,7 +115,7 @@ def test_validation_errors():
 
 def test_seeding_determinism():
     c = compiled()
-    for strategy in ("random", "cluster", "champions", "line_manager_first"):
+    for strategy in ("random", "cluster", "champions", "line_manager_first", "one_per_team"):
         a = make_seeding(strategy, c, 0.05, rng=9).initial_adopters
         b = make_seeding(strategy, c, 0.05, rng=9).initial_adopters
         np.testing.assert_array_equal(a, b)

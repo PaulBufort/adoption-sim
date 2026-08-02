@@ -23,6 +23,7 @@ STRATEGIES = {
     "champions": "budget spent on the most-connected agents (informal degree)",
     "cluster": "budget spent filling whole line teams, one team at a time",
     "line_manager_first": "budget spent on randomly chosen line managers",
+    "one_per_team": "budget spread round-robin, one seed per line team (coverage)",
 }
 
 
@@ -94,6 +95,35 @@ def make_seeding(
                 break
         seeds = np.array(chosen, dtype=np.int64)
         meta = {"teams_seeded": teams_used}
+
+    elif strategy == "one_per_team":
+        # Coverage strategy (decision D20): one random member per line team,
+        # teams visited in random order; budget beyond the team count starts a
+        # second round-robin pass, and so on. Maximally dispersed WITH a
+        # guarantee of touching min(k, n_line_teams) distinct teams.
+        team_ids = [t for t in range(compiled.n_teams) if t != LEADERSHIP_TEAM]
+        rng.shuffle(team_ids)
+        queues = []
+        for t in team_ids:
+            members = np.flatnonzero((compiled.team == t) & compiled.active)
+            if members.size:
+                queues.append(rng.permutation(members))
+        if sum(q.size for q in queues) < k:
+            raise ValueError(
+                f"budget {budget} needs {k} seeds but line teams only hold "
+                f"{sum(q.size for q in queues)} active agents"
+            )
+        chosen = []
+        rnd = 0
+        while len(chosen) < k:
+            for q in queues:
+                if rnd < q.size:
+                    chosen.append(int(q[rnd]))
+                    if len(chosen) >= k:
+                        break
+            rnd += 1
+        seeds = np.array(chosen, dtype=np.int64)
+        meta = {"teams_covered": min(k, len(queues)), "passes": rnd}
 
     elif strategy == "line_manager_first":
         managers = np.flatnonzero((compiled.role == defaults.ROLE_MANAGER) & compiled.active)
