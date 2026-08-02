@@ -29,7 +29,12 @@
 | D14 | Replicate semantics (what error bars mean) | RATIFIED 2026-06-10 |
 | D15 | Team locality (wide bridges) in within-dept ties | RATIFIED 2026-06-10 (as realism feature) |
 | D16 | Headline scenario freeze + negative-result commitment | RATIFIED 2026-06-10 (re-verified post-D17) |
-| D17 | Observability of adoption (visibility v) | RATIFIED 2026-06-10 |
+| D17 | Observability of adoption (visibility v) | RATIFIED 2026-06-10 — ⚠ corrigendum pending on consequence (a), see D18 |
+| D18 | Regime map: dispersed-vs-cluster boundary (θ̄ × budget) | PROVISIONAL 2026-08-01 (+ paired upgrade path 2026-08-02) |
+| D19 | Paired replicate protocol (common random numbers) | PROVISIONAL 2026-08-02 |
+| D20 | Coverage seeding strategy: one_per_team | PROVISIONAL 2026-08-02 |
+| D21 | Team-level ignition predictor (semi-analytic) | PROVISIONAL 2026-08-02 |
+| D22 | Real-topology replication: email-Eu-core (pre-declaration) | PROVISIONAL 2026-08-02 — pre-declared BEFORE execution |
 
 ---
 
@@ -685,6 +690,166 @@ consequences (b) and (c) are unaffected.
 amendment await scientist arbitration. Artifacts:
 `experiments/results/exp1_regime_headline.csv`, `figures/exp1_regime.png`,
 notebook 01 §10, `exp1.run_regime_map`.
+
+**Upgrade path (builder, 2026-08-02 — pending CP1 arbitration).** The n=12
+independent-samples map is superseded by `exp1.run_paired_regime` under D19:
+50 paired replicates per cell (random and cluster on identical organizations),
+two Holm-corrected test families (paired difference; paired TOST against a
+±2 pp practical band), and a 3-class cell verdict — *win* (Holm difference
+p < 0.05 AND |Δ̂| ≥ 2 pp), *equivalence* (Holm TOST p < 0.05: the contrast is
+provably inside ±2 pp — "strategy irrelevant here" as a positive claim),
+*uncertain* (neither). The old (n=12, uncorrected) and new cell counts will be
+recorded side by side at the CP1 regeneration commit; the n=12 CSV was never
+committed, so the supersession leaves no divergent published artifact.
+
+## D19 — Paired replicate protocol (common random numbers)
+
+**Context (builder, 2026-08-02).** External review of the CN2026 abstract,
+priority 1: the decay comparison behind the "reach–retention" framing was an
+*unpaired* n=12-vs-n=50 contrast across two different sweeps — different
+organizations, different agent draws — leaving the decisive quantity
+(cluster − random under decay) at +0.9 pp with a ±9 pp CI: parity claimed on an
+inconclusive interval. The regime map had the same weakness cell by cell
+(random and cluster drawn on different orgs). Between-organization variance
+(sd ≈ 9–16 pp) dominates these contrasts; pairing removes it.
+
+**Options.**
+
+1. **Independent sampling, more replicates.** Precision grows only as 1/√n;
+   reaching a ±2 pp CI on the decay contrast would need n in the hundreds.
+2. **Common random numbers (chosen):** `core/sweep.expand_paired_jobs` — within
+   each (base-combo, replicate) block, every condition of the paired axes
+   reuses the same pre-spawned (org, seeding, dynamics) seed triple: identical
+   organization, identical θ/willing/able draws, identical seed sets where the
+   strategy coincides; decay arms diverge only at the first relapse draw
+   (verified bit-exact in tests/test_paired.py). Contrasts become paired
+   differences; between-org variance cancels.
+3. **share_graph (rejected):** D14 option 2 fixes the org across replicates
+   *within* a condition — the opposite design; bending it would silently revisit
+   ratified D14. `expand_paired_jobs` raises if share_graph is set.
+
+**D14 untouched.** A replicate is still a fully regenerated organization; error
+bands still mean "across organizations of this kind". Pairing operates *within*
+a replicate, *across* conditions.
+
+**Analysis toolkit** (`experiments/stats.py`, numpy + stdlib — no scipy, stack
+policy): paired t with hand-coded Student-t tails (regularized incomplete beta,
+pinned to the repo's 2.201/df=11 and 2.0096/df=49), 95% CIs, effect size d_z,
+paired TOST against a ±2 pp practical-negligibility band, Holm step-down
+applied SEPARATELY to the difference family and the equivalence family, and the
+3-class cell verdict (see D18 upgrade).
+
+**Outcome measures (user arbitration, 2026-08-02).** Alongside terminal reach
+(`final_rate`), the decay analyses report **cumulative reach** — ever-adopted
+share among active agents, read directly from the engine's `ever_adopted`
+tracker (`RunResult.ever_adopted`; denominator = active agents, consistent with
+`final_rate` and the seed budget) — and **retention_rate** = terminal /
+cumulative (undefined/NaN when cumulative = 0). The ratio is always reported
+next to the absolute levels: a high retention ratio on a tiny base is not a
+win (docs/limitations.md #16).
+
+**Anti-seed-fishing commitment.** master_seed stays 20260610; the seed layout
+(SeedSequence children indexed by (base-combo, replicate), one triple per
+block) was frozen at implementation time — commits `d86efba` and `09724dc`,
+BEFORE any paired result was inspected. Whatever the paired runs show is
+reported; if they contradict a previously cited number, that is flagged in
+RESULTS_VERIFIED.md per the honesty rules, never quietly edited away.
+
+**PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+
+## D20 — Coverage seeding strategy: one_per_team
+
+**Context (builder, 2026-08-02).** External review, priority 5: random and
+cluster are mechanism probes, not credible best-practice baselines. Degree
+targeting already exists (`champions` = top-k informal degree). The live
+mechanistic question is whether random's advantage is simply *touching many
+teams* — its Poisson seed spread covers ~84 of 249 line teams at the headline
+budget. `one_per_team` makes coverage explicit: maximal dispersion WITH a
+coverage guarantee.
+
+**Spec** (`core/seeding.py`): one uniformly chosen member per line team, teams
+visited in random order; budget beyond the team count starts a second
+round-robin pass; exact-budget assert inherited from D9; leadership team
+excluded on synthetic orgs (imported real graphs treat unit 0 as ordinary —
+see D22). Greedy influence maximization stays explicitly out of scope for the
+abstract (cited as a non-goal; Kempe–Kleinberg–Tardos).
+
+**Pre-declared reading grid (before paired results were inspected):**
+one_per_team ≥ random would be *consistent with* the team-coverage mechanism;
+one_per_team ≈ random would suggest random's Poisson spread already achieves
+effective coverage at this budget. Either outcome is reported; neither is
+described as "proving" the mechanism.
+
+**PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+
+## D21 — Team-level ignition predictor (semi-analytic, level 1)
+
+**Context (builder, 2026-08-02).** External review, priority 3: the meso
+diagnostic (seeded/ignited team counts) *measures* the mechanism but predicts
+nothing. The upgrade with the best originality-to-risk ratio: a semi-analytic
+per-team ignition rule validated against the simulations.
+
+**Scope (level 1, the paper-facing deliverable).** Within-team Granovetter
+cascade computed exactly on the team's members (θ draws incl. innovator atom,
+willing/able gates, within-team credibility weights) under an external-mass
+dilution term (each member's denominator includes their out-of-team credible
+mass); P_ig(s, m) tabulated by vectorized Monte Carlo off-network; folded
+through each strategy's seeds-per-team distribution (hypergeometric for
+random; ⌊k/m̄⌋ fully seeded teams for cluster; s=1 in min(k, n_teams) teams
+for one_per_team; champions excluded — no clean closed form). Level 2
+(spillover bootstrap on the team-quotient graph) is a stretch goal with a hard
+stop on 2026-08-19; it is full-paper material.
+
+**Pre-declared validation gates.** V1: per-team ignition AUC ≥ 0.80 on seeded
+teams (level 1's claim is local ignition, not spillover). V2: sign agreement
+with ≥ 90% of the *decisive* paired regime-map cells, zero opposite-sign
+errors. Verdicts: **go** (predictor sentence + ignition-boundary overlay on
+the regime figure), **partial** (AUC 0.70–0.80: overlay framed as "consistent
+with", no AUC claim), **no-go** (measured meso mechanism only; predictor named
+as future work). All three text variants are pre-drafted before CP1 so the
+checkpoint is a selection, not a rewrite. Language rule in all variants:
+results are "consistent with" the mechanism — never "prove" it.
+
+**PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+
+## D22 — Real-topology replication: email-Eu-core (pre-declaration)
+
+**Context (user arbitration, 2026-08-02).** The #1 admitted weakness of the
+abstract (REVIEWER_RATIONALE §1): no real-topology replication of the headline
+contrast. The user chose email-Eu-core (SNAP) over Enron because it ships
+**ground-truth department labels** (42 departments) — community structure is
+given, never inferred (no Louvain).
+
+**Pre-declared design — written and committed BEFORE the experiment is run.**
+
+1. **Topology.** email-Eu-core is a *directed* email graph; the model runs on
+   undirected weighted graphs. Symmetrization: **union** — undirected edge
+   u–v iff at least one email in either direction; self-loops dropped;
+   isolates dropped (exposure share undefined; core/ingest.py contract).
+   Mutual-only symmetrization is an optional robustness variant if time
+   allows, not a headline arm.
+2. **Units.** SNAP department labels attach via `as_org(..., team_attr=…)`.
+   On imported graphs, unit 0 is an **ordinary seedable department** — the
+   LEADERSHIP_TEAM exclusion is a synthetic-generator semantic and does not
+   apply (cluster and one_per_team both treat it as seedable; tested).
+3. **Agents.** ALL behavioral attributes are synthetic (headline θ, willing,
+   able, credibility mapping from core/ingest.py). Framing is fixed:
+   *"replication on a real modular topology with synthetic behavioral
+   attributes"* — NEVER an empirical validation of a real diffusion
+   (docs/limitations.md #11 applies verbatim).
+4. **Protocol.** Fixed real topology; 50 fresh attribute+seed draws; within
+   each draw, every compared strategy (random, cluster; champions if cheap)
+   sees exactly the same topology and the same agent attributes (CRN, D19);
+   paired contrast with 95% CI. The D14 deviation (topology fixed across
+   replicates) is intrinsic to a real-graph arm and recorded here: bands mean
+   "across attribute draws on THIS topology".
+5. **Reporting commitment.** The result is reported whichever way it comes
+   out — **including if the random-vs-cluster ordering fails to reproduce**.
+   The only drop condition is a *technical* failure (download/format), and a
+   drop would itself be stated in the paper's repo. No re-runs with new seeds.
+
+**PROVISIONAL (builder logging user arbitration, 2026-08-02).** Execution in
+week 2; results to CP1.
 
 ---
 *All defaults above are recorded in `core/defaults.py` and surfaced in `docs/model.md`.
