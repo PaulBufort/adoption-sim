@@ -35,6 +35,17 @@ class Seeding:
     meta: dict
 
 
+def _seedable_teams(compiled: CompiledOrg) -> list[int]:
+    """Team ids eligible for team-based seeding (cluster, one_per_team).
+
+    Synthetic orgs exclude the leadership team (team 0). Imported real graphs
+    (compiled.meta["kind"] == "real") have no leadership semantics — unit 0 is
+    an ordinary community and stays seedable (decision D22)."""
+    if compiled.meta.get("kind") == "real":
+        return list(range(compiled.n_teams))
+    return [t for t in range(compiled.n_teams) if t != LEADERSHIP_TEAM]
+
+
 def make_seeding(
     strategy: str,
     compiled: CompiledOrg,
@@ -76,7 +87,7 @@ def make_seeding(
         meta = {"metric": "custom" if scores is not None else "degree"}
 
     elif strategy == "cluster":
-        team_ids = [t for t in range(compiled.n_teams) if t != LEADERSHIP_TEAM]
+        team_ids = _seedable_teams(compiled)
         rng.shuffle(team_ids)
         chosen: list[int] = []
         teams_used = []
@@ -101,7 +112,7 @@ def make_seeding(
         # teams visited in random order; budget beyond the team count starts a
         # second round-robin pass, and so on. Maximally dispersed WITH a
         # guarantee of touching min(k, n_line_teams) distinct teams.
-        team_ids = [t for t in range(compiled.n_teams) if t != LEADERSHIP_TEAM]
+        team_ids = _seedable_teams(compiled)
         rng.shuffle(team_ids)
         queues = []
         for t in team_ids:
