@@ -843,7 +843,7 @@ effective coverage at this budget. Either outcome is reported; neither is
 described as "proving" the mechanism.
 
 **RATIFIED with amendment (scientist, 2026-08-02, CP1).** Observed paired
-contrast one_per_team − random: −1.4 pp, 95% CI [−5.1, +2.2] (n=50). The CI
+contrast one_per_team − random: −1.4 pp, 95% CI [−5.0, +2.2] (n=50; the exact bound is −5.045 — an earlier −5.1 was a double-rounding artifact). The CI
 extends beyond the ±2 pp band, so **equivalence is NOT established**; the only
 authorized wording is "**no clear difference was detected**" (consistent with
 — not proving — random's Poisson spread already covering teams effectively).

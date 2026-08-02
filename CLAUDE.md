@@ -21,24 +21,49 @@ The v0.1 hardening items below are done and verified by a clean-room re-run:
 4. **`docs/` + `CITATION.cff`**: complete and mutually consistent (CITATION schema-valid). ✅
 5. **Key numbers**: re-confirmed against a clean run; all CSVs/figures/`numbers.json` reproduce **bit-for-bit**. ✅
 
-## Confirmed key numbers (50-replicate, machine-derived)
-Source of truth: `paper/numbers.json` (regenerate via `figures/make_all.py` → `paper/extract_numbers.py`).
-Full deltas-vs-cited and 95% CIs are in `RESULTS_VERIFIED.md`. Values below are means with 95% CI.
-- Broadcast reach **5.5%** [4.5, 6.5] (κ=20); **0.0%** at p_innov=0 (exact); **11.6%** [9.6, 13.6] at T_b=20
-- random **69.5%** [66.4, 72.7] · champions **73.4%** [71.4, 75.4] · cluster **31.9%** [29.3, 34.6] · line-manager **61.6%** [56.9, 66.2]
-- no-innovator: random **41.5%** [35.3, 47.6] vs cluster **20.0%** [17.2, 22.9]
-- decay (committed params, n=12): **scattered seeding is differentially punished** — random **69.5→30.2%** (−39 pp, highly significant) while cluster **31.9→31.1%** (−0.9 pp, not significant). Under decay random and cluster reach **statistical parity** (diff +0.9 pp, 95% CI [−8, +10]); cluster does **not** significantly overtake random at these params — do not claim an ordering "reversal" without a higher-ρ scenario (see `RESULTS_VERIFIED.md`).
-- visibility: reach fully collapsed to the broadcast floor (~6%) for **v ≤ 0.6**; sharp transition in (0.8, 1.0]; theorem: global v ≡ rescaling θ→θ/v (D17 invariant, exact test)
-- loud-pilot Δreach @v=0.8: champions **+15** · dispersed **+10** · cluster **+4**; outbound credibility/seed: cluster **5.7** · random **11.7** · champions **16.1**
-- barbell bridge removal (positive control): relay knockout cuts off ~45% of mass (Δplateau > 0.3, unit-tested); top-M central removal ≈ no effect (D12 null)
+## Confirmed key numbers (PAIRED protocol D19, ratified at CP1 2026-08-02)
+Source of truth: `paper/numbers.json` (via `paper/extract_numbers.py`, audited by
+`paper/audit_numbers.py` — 35 claims). **The paper cites PAIRED results exclusively
+for seeded strategies**; the independent panel only for broadcast + the p_innov=0
+ablation. Full v2 record + the flagged parity→crossover contradiction:
+`RESULTS_VERIFIED.md`. Terminology: final_rate = **terminal adoption**,
+cumulative_rate = **cumulative reach**.
+- Paired headline (n=50 orgs, terminal adoption, mean±sd): random **72.0±9.2%** ·
+  champions **75.9±8.2%** · cluster **32.4±11.0%** · one_per_team **70.6±10.4%**;
+  **random − cluster +39.7 pp [35.4, 43.9]**; champions−random +3.9 [0.6, 7.1]
+  (descriptive only); one_per_team−random −1.4 [−5.0, +2.2] ("no clear
+  difference", D20 amendment — NOT "equivalent")
+- Broadcast **5.5±3.4%**; exactly **0.0%** ×12 at p_innov=0 (independent panel)
+- Regime map (40 cells, Holm ×2 families, ±2 pp band): **14 dispersion wins**
+  (+2.8…+42.6 pp) · **23 TOST-equivalent** · 3 uncertain · **0 cluster wins**
+- Decay **CROSSOVER** (7-contrast family, terminal adoption): r=1.0: +8.4 [4.2,
+  12.7] @ρ=.10 → **−5.3 [−9.0, −1.5]** @ρ=.25 → −11.4 [−14.8, −8.0] @ρ=.40;
+  r=0.5: +13.9 @.10, uncertain @.25, −7.7 @.40. Crossover located BETWEEN tested
+  ρ values only. Asymmetry: cluster ~32→29% (barely moves), random 72→18%
+  (collapses). Secondary @(1, .25): cumulative 29.0 vs 30.9%; retention 0.86 vs 0.99
+- Robustness (8 paired variants): Δ **+14.7…+48.3 pp**, all CIs > 0
+- email-Eu-core (D22, real topology + synthetic attributes): **sign replication**
+  +13.5 pp [1.0, 26.0]; ignition 62% vs 42% of draws; bimodal lottery — never
+  "empirical validation"
+- Predictor (D21): verdict **no_go** (V1 AUC 0.642 < 0.70; V2 14/14) — one
+  transparency sentence in the paper body, never the abstract; residual is "not
+  explained by the local predictor", never auto-attributed to spillover
+- Visibility theorem: global v ≡ θ→θ/v (exact, unit-tested); the no-reordering
+  corollary is RETRACTED (D17(a) amendment) — low v slides the org across the map
 
-Params (verified): 2000 nodes · 8 depts · teams ~8 · innovators 2.5% (θ=0) · willing 85% · able 100% · credibility 1.0/0.6/0.7/0.3 · mean θ 30% · κ=20 · seed budget 5% (100/2000) · silo 0.85 · locality 0.7 · **50 full-regeneration replicates** (D14; each replicate = a fresh org. The earlier "20 graphs × 20 runs" wording is superseded.).
+Params (frozen): 2000 nodes · 8 depts · 249 line teams (~8) · innovators 2.5% (θ=0)
+· willing 85% · able 100% · credibility 1.0/0.6/0.7/0.3 · θ̄ 0.30 · κ=20 · budget 5%
+· silo 0.85 · locality 0.7 · 50 paired full-regeneration replicates (D14+D19) ·
+master seed 20260610 (exp4: [20260610, 4]).
 
-## Figures (regenerated; bit-identical to committed PNGs)
-- **F1** final reach by strategy (bars + CI) — exp.1
-- **F2** reach vs retention under decay (random vs cluster)
-- **F3** visibility phase curve (reach vs v; collapse < ~0.6)
-- **F4** outbound credibility by seed type + loud-pilot Δ
+## Figures
+- **Paper figure (CN2026): `figures/exp1_crossover.png`** — (a) paired 3-class
+  regime map, (b) decay crossover, (c) asymmetry. Generated by
+  `experiments/cp1_analysis.py` (fig_paper_crossover). CP1 audit figures live in
+  `paper/cp1/`.
+- Legacy notebook figures (headline bars, pinnov, silo, decay time-series,
+  visibility, pilots) still regenerate via `figures/make_all.py`; no longer in
+  the paper.
 - ⚠ **Do NOT** present a "spike & decay" curve as model output — it does not emerge from the model (stated limitation).
 
 ## Honesty requirements (non-negotiable)
