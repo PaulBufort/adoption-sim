@@ -118,17 +118,19 @@ def expand_paired_jobs(scenario: dict, paired_axes: dict[str, list],
     return jobs
 
 
-def sweep_meta(jobs: list[dict], axes: dict, pair_axes: list[str] | None = None) -> dict:
+def sweep_meta(jobs: list[dict], axes: dict, pair_axes: dict[str, list] | None = None) -> dict:
     """Sidecar provenance block describing the ACTUAL sweep design.
 
     Fixes the historical sidecar ambiguity where scenario run.replicates (50)
-    was echoed for sweeps that overrode replicates= (12). Pass as
-    ``save_results(..., extra_meta=sweep_meta(jobs, axes))``.
+    was echoed for sweeps that overrode replicates= (12). Both ``axes`` and
+    ``pair_axes`` are {dotted-path: [values]} — the sidecar records the full
+    value lists, so the design is reconstructible without reading the CSV.
+    Pass as ``save_results(..., extra_meta=sweep_meta(jobs, axes))``.
     """
     return {
         "design": "paired_within_replicate" if pair_axes else "independent",
         "axes": {k: list(v) for k, v in axes.items()},
-        "pair_axes": list(pair_axes or []),
+        "pair_axes": {k: list(v) for k, v in (pair_axes or {}).items()},
         "replicates_used": max(j["rep"] for j in jobs) + 1,
     }
 

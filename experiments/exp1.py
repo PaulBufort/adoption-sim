@@ -174,7 +174,7 @@ def run_paired_headline(sc: dict, n_jobs: int | None = None,
     jobs = expand_paired_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
     save_results(rows, RESULTS / f"exp1_paired_{sc['meta']['name']}.csv", sc,
-                 extra_meta=sweep_meta(jobs, {}, pair_axes=list(axes)))
+                 extra_meta=sweep_meta(jobs, {}, pair_axes=axes))
     return rows
 
 
@@ -189,7 +189,7 @@ def run_paired_regime(sc: dict, n_jobs: int | None = None,
     jobs = expand_paired_jobs(sc, paired, base_axes=base, replicates=replicates)
     rows = sweep(jobs, n_jobs)
     save_results(rows, RESULTS / f"exp1_regime_paired_{sc['meta']['name']}.csv", sc,
-                 extra_meta=sweep_meta(jobs, base, pair_axes=list(paired)))
+                 extra_meta=sweep_meta(jobs, base, pair_axes=paired))
     return rows
 
 
@@ -197,17 +197,23 @@ def run_paired_decay(sc: dict, n_jobs: int | None = None,
                      replicates: int | None = None) -> list[dict]:
     """Paired decay grid (D7 × D19): strategies × retention_factor r × relapse ρ
     on identical organizations. max_steps stays at the headline 100 (supersedes
-    the 80-step n=12 demo). ρ=0 arms are the within-design baseline; they are
-    run under BOTH r values on purpose — r is inert at ρ=0, so the duplicated
-    arms must be bit-identical, a free self-check for the notebook. Cumulative
-    (ever-adopted) vs terminal reach separates suppressed growth from erosion."""
+    the 80-step n=12 demo).
+
+    Arms vs contrasts (D19 amendment, pre-declared): the grid EXECUTES 24 arms
+    (3 strategies × 2 r × 4 ρ; 1 200 sims at n=50) but the primary Holm family
+    contains only the 7 UNIQUE random − cluster contrasts — one per (r, ρ>0)
+    cell (2 × 3) plus ρ=0 counted once, because r is inert without relapse and
+    its two ρ=0 arms are bit-identical (kept as a free self-check for the
+    notebook). Primary endpoint: **final_rate**. cumulative_rate and
+    retention_rate are secondary, descriptive-only metrics (paired CIs, no
+    corrected win/equivalence claims); champions contrasts are descriptive too."""
     paired = {"seeding.strategy": ["random", "champions", "cluster"],
               "dynamics.retention_factor": DECAY_R_AXIS,
               "dynamics.relapse_prob": DECAY_RHO_AXIS}
     jobs = expand_paired_jobs(sc, paired, replicates=replicates)
     rows = sweep(jobs, n_jobs)
     save_results(rows, RESULTS / f"exp1_decay_paired_{sc['meta']['name']}.csv", sc,
-                 extra_meta=sweep_meta(jobs, {}, pair_axes=list(paired)))
+                 extra_meta=sweep_meta(jobs, {}, pair_axes=paired))
     return rows
 
 
@@ -238,7 +244,7 @@ def run_robustness(sc: dict, n_jobs: int | None = None,
     save_results(all_rows, RESULTS / f"exp1_robustness_{sc['meta']['name']}.csv", sc,
                  extra_meta={"design": "paired_within_replicate",
                              "axes": {k: list(v) for k, v in axes.items()},
-                             "pair_axes": list(paired),
+                             "pair_axes": {k: list(v) for k, v in paired.items()},
                              "replicates_used": max(r["rep"] for r in all_rows) + 1})
     return all_rows
 

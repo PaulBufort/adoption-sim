@@ -13,7 +13,7 @@ from core.dynamics import run_simulation
 from core.orggen import generate_org
 from core.scenario import build_sim_params, default_scenario, org_kwargs
 from core.seeding import make_seeding
-from core.sweep import expand_paired_jobs, sweep
+from core.sweep import expand_paired_jobs, sweep, sweep_meta
 
 
 def toy_scenario(reps=2):
@@ -111,6 +111,21 @@ def test_crn_decay_arms_share_agents_and_seeds():
     assert (ra.ever_adopted | ~ra.adopted).all() and (rb.ever_adopted | ~rb.adopted).all()
 
 
+def test_sweep_meta_records_full_paired_axis_values():
+    """User arbitration 2026-08-02: sidecars must carry the paired-axis VALUE
+    lists, not just the axis names — the design must be reconstructible from
+    the sidecar alone."""
+    paired = {"seeding.strategy": ["random", "cluster"]}
+    jobs = expand_paired_jobs(toy_scenario(), paired, replicates=2)
+    meta = sweep_meta(jobs, {}, pair_axes=paired)
+    assert meta["design"] == "paired_within_replicate"
+    assert meta["pair_axes"] == {"seeding.strategy": ["random", "cluster"]}
+    assert meta["axes"] == {} and meta["replicates_used"] == 2
+    plain = sweep_meta(jobs, {"org.silo_strength": [0.5, 0.9]})
+    assert plain["design"] == "independent" and plain["pair_axes"] == {}
+    assert plain["axes"] == {"org.silo_strength": [0.5, 0.9]}
+
+
 def test_run_robustness_pair_ids_are_globally_unique(tmp_path, monkeypatch):
     """User arbitration 2026-08-02: expand_paired_jobs restarts its block index
     per call, so run_robustness must prefix pair_id with the axis — otherwise
@@ -136,6 +151,10 @@ def test_run_robustness_pair_ids_are_globally_unique(tmp_path, monkeypatch):
         by_pid.setdefault(r["pair_id"], []).append(r["strategy"])
     assert all(sorted(v) == ["cluster", "random"] for v in by_pid.values())
     assert (tmp_path / "exp1_robustness_smoke.csv").exists()
+    import json as _json
+    meta = _json.loads((tmp_path / "exp1_robustness_smoke.meta.json").read_text())
+    assert meta["pair_axes"] == {"seeding.strategy": ["random", "cluster"]}
+    assert meta["replicates_used"] == 2
 
 
 def test_robustness_axes_contain_the_headline_reference_exactly_once():

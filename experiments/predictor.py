@@ -338,7 +338,9 @@ def predict_strategy(strategy: str, rng: np.random.Generator, *, n_pop: int,
     ``reach_local`` is a LOWER BOUND on final reach: it counts only adoption
     inside teams that ignite on their own, and ignores every inter-team
     spillover. Comparing it against observed reach quantifies how much of the
-    cascade is not local (see the module docstring).
+    cascade is NOT EXPLAINED BY THE LOCAL PREDICTOR (see the module docstring;
+    the residual is not automatically "non-local" — attributing it to spillover
+    vs model error is level-2 territory).
     """
     pmf = seeds_per_team_pmf(strategy, n_pop, n_seeds, m, n_teams)
     per_s = {}

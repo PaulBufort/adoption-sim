@@ -16,8 +16,10 @@ for the observed reference values it compares against. Its numbers back the
 pre-execution calibration note in docs/decisions.md D21.
 
 Wording contract (user arbitration 2026-08-02): the level-1 shortfall is
-quoted as "X% of ignited TEAMS are non-local" and "Y% of REACH is non-local" —
-two different denominators, never interchanged.
+quoted as "X% of ignited TEAMS / Y% of REACH not explained by the local
+predictor" — two different denominators, never interchanged, and never the
+stronger mechanistic phrase "non-local" (what is measured is the predictor's
+residual, not the channel that produced it).
 
 ALL DATA SYNTHETIC. Stack policy: numpy + stdlib only.
 """
@@ -108,10 +110,10 @@ def calibrate(seed: int = CAL_SEED, n_orgs: int = N_ORGS,
             comparison[strat] = {
                 "observed_reach": obs_reach,
                 "predicted_local_reach": pred["reach_local"],
-                "share_of_reach_non_local": 1.0 - pred["reach_local"] / obs_reach,
+                "share_of_reach_unexplained": 1.0 - pred["reach_local"] / obs_reach,
                 "observed_ignited_teams": obs_teams,
                 "predicted_local_ignited_teams": pred["expected_ignited_teams"],
-                "share_of_teams_non_local": 1.0 - pred["expected_ignited_teams"] / obs_teams,
+                "share_of_teams_unexplained": 1.0 - pred["expected_ignited_teams"] / obs_teams,
             }
 
     return {
@@ -144,10 +146,11 @@ def report(cal: dict) -> str:
                      f"local reach={100 * p['reach_local']:5.1f}%")
     for strat, c in cal["comparison_vs_observed"].items():
         lines.append(
-            f"{strat:8} non-local share: TEAMS {100 * c['share_of_teams_non_local']:.0f}% "
+            f"{strat:8} not explained by the local predictor: "
+            f"TEAMS {100 * c['share_of_teams_unexplained']:.0f}% "
             f"({c['predicted_local_ignited_teams']:.1f} predicted vs "
             f"{c['observed_ignited_teams']:.0f} observed) · "
-            f"REACH {100 * c['share_of_reach_non_local']:.0f}% "
+            f"REACH {100 * c['share_of_reach_unexplained']:.0f}% "
             f"({100 * c['predicted_local_reach']:.1f} pp vs "
             f"{100 * c['observed_reach']:.1f} pp)")
     return "\n".join(lines)
