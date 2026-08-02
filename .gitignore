@@ -22,3 +22,17 @@ data/raw/
 # Scratch outputs (versioned results live in experiments/results/ and ARE committed)
 experiments/results/_scratch/
 experiments/results/*smoke*
+
+# LaTeX build artifacts (paper is built with tectonic; only main.pdf is versioned)
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+
+# Superseded external-review working notes (kept locally, never versioned —
+# they describe the pre-2026-08 state of the paper and contradict current results)
+RESUME_POUR_CHATGPT.md
+paper/CHATGPT_CRITICAL_REVIEW_PACKAGE.md
