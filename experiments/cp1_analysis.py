@@ -298,6 +298,94 @@ def fig_eucore(euc: dict) -> None:
     plt.close(fig)
 
 
+def fig_paper_crossover(reg: dict, dec: dict) -> None:
+    """The paper's central figure (Fig. 1): (a) 3-class regime map, (b) decay
+    crossover, (c) asymmetry in absolute levels. Printed at LLNCS \\textwidth
+    (12.2 cm) from a 19.4 cm canvas -> scale 0.63; fonts 9-11 pt -> ~6-7 pt
+    printed. Written to figures/exp1_crossover.png (300 dpi)."""
+    keys = [tuple(k) for k in reg["keys_sorted"]]
+    classified = reg["classified"]
+    delta = np.full((len(THETA_AXIS), len(BUDGET_AXIS)), np.nan)
+    cls_grid = np.empty((len(THETA_AXIS), len(BUDGET_AXIS)), dtype=object)
+    for k, c in zip(keys, classified):
+        i = THETA_AXIS.index(float(k[0])); j = BUDGET_AXIS.index(float(k[1]))
+        delta[i, j] = 100 * c["mean_d"]
+        cls_grid[i, j] = c["cls"]
+
+    fig, (ax, axb, axc) = plt.subplots(
+        1, 3, figsize=(8.0, 2.45), dpi=300,
+        gridspec_kw={"width_ratios": [1.35, 1.0, 1.0]})
+
+    vmax = np.nanmax(np.abs(delta))
+    masked = np.where(np.isin(cls_grid, ["win_x", "win_y"]), delta, np.nan)
+    im = ax.imshow(masked, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto",
+                   origin="lower")
+    for i in range(len(THETA_AXIS)):
+        for j in range(len(BUDGET_AXIS)):
+            c = cls_grid[i, j]
+            if c == "equivalent":
+                ax.add_patch(plt.Rectangle((j - .5, i - .5), 1, 1, color="#dedede"))
+                ax.text(j, i, "≈", ha="center", va="center", fontsize=8, color="#666")
+            elif c == "uncertain":
+                ax.add_patch(plt.Rectangle((j - .5, i - .5), 1, 1, fill=False,
+                                           hatch="////", edgecolor="#aaa", lw=0))
+            else:
+                ax.text(j, i, f"{delta[i, j]:+.0f}", ha="center", va="center",
+                        fontsize=8, fontweight="bold",
+                        color="white" if abs(delta[i, j]) > 25 else "black")
+    hi, hj = THETA_AXIS.index(0.30), BUDGET_AXIS.index(0.05)
+    ax.add_patch(plt.Rectangle((hj - .5, hi - .5), 1, 1, fill=False, lw=2.0,
+                               edgecolor="k"))
+    ax.set_xticks(range(len(BUDGET_AXIS)), [f"{100*b:.0f}" for b in BUDGET_AXIS],
+                  fontsize=9)
+    ax.set_yticks(range(len(THETA_AXIS)), [f"{t:.2f}" for t in THETA_AXIS], fontsize=9)
+    ax.set_xlabel("seed budget (%)", fontsize=10)
+    ax.set_ylabel(r"mean threshold $\bar\theta$", fontsize=10)
+    ax.set_title(r"(a) no decay: paired $\Delta$ (pp)", fontsize=10)
+    cbar = fig.colorbar(im, ax=ax, shrink=0.9, pad=0.02)
+    cbar.ax.tick_params(labelsize=8)
+
+    fam = dec["family_final_rate"]
+    rhos = [0.0, 0.1, 0.25, 0.4]
+    for r, style in (("0.5", "--o"), ("1.0", "-s")):
+        d, lo, hi2 = [], [], []
+        for rho in ("0.0", "0.1", "0.25", "0.4"):
+            key = "r=0.5,rho=0.0" if rho == "0.0" else f"r={r},rho={rho}"
+            c = fam[key]
+            d.append(c["delta_pp"]); lo.append(c["ci_pp"][0]); hi2.append(c["ci_pp"][1])
+        d, lo, hi2 = map(np.array, (d, lo, hi2))
+        axb.errorbar(rhos, d, yerr=[d - lo, hi2 - d], fmt=style, capsize=2.5,
+                     label=f"$r={r}$", lw=1.5, ms=4)
+    axb.axhspan(-2, 2, color="#eee", zorder=0)
+    axb.axhline(0, color="k", lw=0.7)
+    axb.set_xlabel(r"relapse probability $\rho$", fontsize=10)
+    axb.set_ylabel(r"paired $\Delta$ terminal adoption (pp)", fontsize=9)
+    axb.set_title("(b) decay crossover", fontsize=10)
+    axb.legend(fontsize=8)
+    axb.tick_params(labelsize=9)
+
+    for r, style in (("0.5", "--"), ("1.0", "-")):
+        rnd = [fam["r=0.5,rho=0.0" if rho == "0.0" else f"r={r},rho={rho}"]["random_mean_pct"]
+               for rho in ("0.0", "0.1", "0.25", "0.4")]
+        clu = [fam["r=0.5,rho=0.0" if rho == "0.0" else f"r={r},rho={rho}"]["cluster_mean_pct"]
+               for rho in ("0.0", "0.1", "0.25", "0.4")]
+        axc.plot(rhos, rnd, style, color="#1f77b4", lw=1.5,
+                 label=f"random $r={r}$")
+        axc.plot(rhos, clu, style, color="#d62728", lw=1.5,
+                 label=f"cluster $r={r}$")
+    axc.set_xlabel(r"relapse probability $\rho$", fontsize=10)
+    axc.set_ylabel("terminal adoption (%)", fontsize=9)
+    axc.set_title("(c) asymmetry", fontsize=10)
+    axc.legend(fontsize=7)
+    axc.tick_params(labelsize=9)
+
+    fig.text(0.005, 0.005, "SYNTHETIC DATA — paired protocol, n=50 organizations per cell",
+             fontsize=6, color="#888")
+    fig.tight_layout()
+    fig.savefig(HERE.parent / "figures" / "exp1_crossover.png", bbox_inches="tight")
+    plt.close(fig)
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     headline = analyze_headline()
@@ -306,6 +394,7 @@ def main() -> int:
     robustness = analyze_robustness()
     eucore = analyze_eucore()
     fig_regime(regime); fig_decay(decay); fig_robustness(robustness); fig_eucore(eucore)
+    fig_paper_crossover(regime, decay)
     tables = {
         "band_pp": 100 * BAND, "alpha": ALPHA,
         "headline_paired": headline,
