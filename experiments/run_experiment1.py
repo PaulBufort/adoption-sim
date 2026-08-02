@@ -47,6 +47,10 @@ def main() -> int:
     print(f"[exp1] silo panel: {len(silo)} runs")
     decay = exp1.run_decay_demo(sc, n_jobs, replicates=2 if args.smoke else 12)
     print(f"[exp1] decay demo: {len(decay)} runs")
+    paired = exp1.run_paired_headline(sc, n_jobs, replicates=2 if args.smoke else None)
+    print(f"[exp1] paired strategy contrasts (D19): {len(paired)} runs")
+    paired_decay = exp1.run_paired_decay(sc, n_jobs, replicates=2 if args.smoke else None)
+    print(f"[exp1] paired decay grid (D7×D19): {len(paired_decay)} runs")
     print(f"[exp1] done in {time.time() - t0:.0f}s — results in experiments/results/")
     return 0
 

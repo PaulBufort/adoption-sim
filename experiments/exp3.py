@@ -24,7 +24,7 @@ import numpy as np
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from core.scenario import load_scenario, save_results, set_path  # noqa: E402
-from core.sweep import expand_jobs, sweep  # noqa: E402
+from core.sweep import expand_jobs, sweep, sweep_meta  # noqa: E402
 
 HERE = pathlib.Path(__file__).resolve().parent
 RESULTS = HERE / "results"
@@ -44,13 +44,10 @@ def base_scenario() -> dict:
 def run_global_v_sweep(sc: dict, n_jobs: int | None = None, replicates: int = 12) -> list[dict]:
     """All five strategies × global visibility. Prediction (D17 proposition):
     orderings preserved — global v only slides everyone along the θ̄ axis."""
-    jobs = expand_jobs(
-        sc,
-        {"seeding.strategy": ALL_STRATEGIES, "agents.visibility": V_AXIS},
-        replicates=replicates,
-    )
+    axes = {"seeding.strategy": ALL_STRATEGIES, "agents.visibility": V_AXIS}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / "exp3_globalv.csv", sc)
+    save_results(rows, RESULTS / "exp3_globalv.csv", sc, extra_meta=sweep_meta(jobs, axes))
     return rows
 
 
@@ -59,11 +56,8 @@ def run_observable_pilots(sc: dict, n_jobs: int | None = None, replicates: int =
     rest of the organization sits at v_global < 1. An intervention on the pilot
     cohort, not a structural assumption (D17)."""
     sc = set_path(sc, "seeding.pilot_visibility", 1.0)
-    jobs = expand_jobs(
-        sc,
-        {"seeding.strategy": PILOT_STRATEGIES, "agents.visibility": PILOT_V_GLOBALS},
-        replicates=replicates,
-    )
+    axes = {"seeding.strategy": PILOT_STRATEGIES, "agents.visibility": PILOT_V_GLOBALS}
+    jobs = expand_jobs(sc, axes, replicates=replicates)
     rows = sweep(jobs, n_jobs)
-    save_results(rows, RESULTS / "exp3_pilots.csv", sc)
+    save_results(rows, RESULTS / "exp3_pilots.csv", sc, extra_meta=sweep_meta(jobs, axes))
     return rows
