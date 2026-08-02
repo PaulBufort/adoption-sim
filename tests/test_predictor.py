@@ -261,6 +261,21 @@ def test_v2_sign_agreement_counts_opposite_errors():
     assert rep_missing["n_missing_predictions"] == 1 and rep_missing["missing"] == ["b"]
 
 
+def test_calibration_is_deterministic_and_correctly_worded():
+    """calibrate() must be bit-reproducible under a fixed seed, and its
+    non-local shares must use the pre-declared denominators (teams vs reach)."""
+    from experiments.calibrate_predictor import calibrate
+    a = calibrate(seed=123, n_orgs=1, n_draws_curve=30, n_draws_fold=30)
+    b = calibrate(seed=123, n_orgs=1, n_draws_curve=30, n_draws_fold=30)
+    a.pop("comparison_vs_observed"); b.pop("comparison_vs_observed")
+    assert a == b
+    c = calibrate(seed=124, n_orgs=1, n_draws_curve=30, n_draws_fold=30)
+    assert c["p_ignite_curve_m8"] != a["p_ignite_curve_m8"]
+    # Structural sanity: P_ig curve monotone, fully-seeded team certain.
+    ps = [a["p_ignite_curve_m8"][s]["p_ignite"] for s in range(9)]
+    assert ps == sorted(ps) and ps[0] == 0.0 and ps[-1] == 1.0
+
+
 def test_verdict_applies_the_predeclared_gates():
     assert verdict(0.85, 0.95, 0)["verdict"] == "go"
     assert verdict(0.80, 0.90, 0)["verdict"] == "go"          # boundaries inclusive

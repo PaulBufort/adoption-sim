@@ -765,6 +765,39 @@ RESULTS_VERIFIED.md per the honesty rules, never quietly edited away.
 
 **PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
 
+**Amendment (user arbitration, 2026-08-02 — pre-declared BEFORE any paired
+run executes; audit findings integrated).**
+
+1. **Decay family correction, pre-declared.** The decay grid's primary family
+   is the **seven** paired random − cluster contrasts: one per (r, ρ) cell
+   with ρ > 0 (2 r × 3 ρ), plus the shared ρ = 0 baseline (its two r arms are
+   bit-identical by construction — r is inert without relapse — and count
+   once). The family is Holm-corrected and classified with the same 3-class
+   scheme (±2 pp band) as the regime map. Contrasts involving champions are
+   reported descriptively (means, per-cell CIs) with no corrected
+   win/equivalence claim attached.
+2. **Reporting policy: the paper cites the PAIRED runs exclusively** for every
+   seeded-strategy mean and contrast. The independent 50-replicate panel
+   remains the source for broadcast (not part of the paired design) and serves
+   as a repo-level cross-check. Audit fact behind the rule: by seed layout the
+   paired and independent samples are **disjoint** organizations for the
+   seeded strategies (0/50 shared; broadcast incidentally shares 50/50) —
+   their means differ by sampling noise and must never be presented as the
+   same number. `paper/audit_numbers.py` must treat them as distinct sources.
+3. **run_robustness layout fixed pre-execution** (audit findings): (a)
+   `pair_id` is prefixed with the axis name — `expand_paired_jobs` restarts
+   its block index per call, so raw ids would collide across the three axes
+   and a join on `pair_id` alone would silently mix organizations; (b) the
+   headline configuration appears exactly **once** (as n_agents = 2000) — the
+   mean_team_size axis would otherwise reproduce that arm *bit-identically*
+   (same spawn index ⇒ same organizations), and the silo axis would
+   triplicate the configuration under fresh seeds.
+4. **A-priori power fact (recorded for CP1):** with n = 50 pairs and the
+   ±2 pp band, TOST equivalence is declarable only if the paired sd is below
+   ≈ 8.4 pp. Unpaired between-org sds run 9–16 pp — without pairing, no cell
+   could ever have been declared equivalent. Check the realized paired sds at
+   CP1 against this bound.
+
 ## D20 — Coverage seeding strategy: one_per_team
 
 **Context (builder, 2026-08-02).** External review, priority 5: random and
@@ -819,6 +852,27 @@ checkpoint is a selection, not a rewrite. Language rule in all variants:
 results are "consistent with" the mechanism — never "prove" it.
 
 **PROVISIONAL (builder, 2026-08-02).** Awaiting scientist arbitration (CP1).
+
+**Pre-execution calibration note (user arbitration, 2026-08-02 — gates
+untouched).** Level 1 is implemented (`experiments/predictor.py`; its cascade
+is pinned bit-exactly against the engine on an isolated team) and calibrated
+by the fixed-seed script `experiments/calibrate_predictor.py` (master seed
+20260802; 5 orgs, 3000/1500 MC draws; deterministic, unit-tested). Official
+run: out-of-team credible mass ≈ 48% of the exposure denominator;
+P_ig(s, m=8) at headline parameters: s=1 → 0.021, s=2 → 0.210, s=3 → 0.676,
+s≥4 → 1.0. Folding: cluster buys 13.0 near-certain local ignitions; random
+buys ~100 tickets at ~2% across ~84 teams (E ≈ 4.9 locally ignited teams).
+Confronted with the committed meso diagnostic: for random, **98% of observed
+ignited teams and 90% of observed reach are NOT accounted for by local
+ignition** (two different denominators — teams vs reach — never to be
+interchanged; an earlier exploratory run quoted 97% for teams, superseded by
+the official seeded run). Level 1 models the ignition kernel, not final
+reach; the sign of Δ(random − cluster) at the headline point is nonetheless
+reproduced (+1.6 pp local vs +37.6 pp observed). **Expected verdict:
+*partial*.** The V1/V2 gates and the go/partial/no-go rule are NOT modified
+and will be applied verbatim to the validation data at CP1; the case
+"V1 passes, V2 fails" is read as *partial* (local ignition validated, map
+sign structure not) — flagged for arbitration, not silently resolved.
 
 ## D22 — Real-topology replication: email-Eu-core (pre-declaration)
 
