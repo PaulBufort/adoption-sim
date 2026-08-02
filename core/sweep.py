@@ -57,6 +57,67 @@ def expand_jobs(scenario: dict, axes: dict[str, list] | None = None,
     return jobs
 
 
+def expand_paired_jobs(scenario: dict, paired_axes: dict[str, list],
+                       base_axes: dict[str, list] | None = None,
+                       replicates: int | None = None) -> list[dict]:
+    """Common-random-numbers variant of expand_jobs (decision D19).
+
+    Every combination of ``paired_axes`` within one (base-combo, replicate) block
+    reuses the SAME pre-spawned (org, seeding, dynamics) seed triple: identical
+    organization, identical theta/willing/able draws, and identical seed sets
+    wherever the seeding strategy coincides. Conditions in a block therefore
+    differ only through the paired-axis values, so contrasts can be analyzed as
+    within-replicate paired differences (experiments/stats.py).
+
+    D14 semantics are untouched: each replicate still regenerates a fresh
+    organization; pairing happens WITHIN a replicate, ACROSS conditions. Rows
+    carry a ``pair_id`` label ("<base_combo_index>:<rep>") to join pairs.
+    Incompatible with run.share_graph (D14 option 2 fixes the org across
+    replicates — the opposite design).
+    """
+    if scenario["run"].get("share_graph"):
+        raise ValueError(
+            "expand_paired_jobs is incompatible with run.share_graph: pairing "
+            "shares the org across conditions within a replicate, share_graph "
+            "fixes it across replicates within a condition"
+        )
+    paired_names = list(paired_axes)
+    paired_combos = list(itertools.product(*paired_axes.values()))
+    if not paired_names or not paired_combos:
+        raise ValueError("paired_axes must contain at least one axis with values")
+    base_axes = base_axes or {}
+    reps = replicates if replicates is not None else scenario["run"]["replicates"]
+    master = np.random.SeedSequence(scenario["run"]["master_seed"])
+    base_names = list(base_axes)
+    base_combos = list(itertools.product(*base_axes.values())) if base_axes else [()]
+    children = master.spawn(len(base_combos) * reps)
+    jobs = []
+    for bi, bcombo in enumerate(base_combos):
+        base_variant = scenario
+        for name, value in zip(base_names, bcombo):
+            base_variant = set_path(base_variant, name, value)
+        for rep in range(reps):
+            # One triple per (base combo, replicate), spawned HERE in the parent
+            # (same never-mutate contract as expand_jobs) and reused verbatim by
+            # every paired-axes combo of the block. Constructing a Generator
+            # from a SeedSequence does not mutate it, so reuse is safe.
+            triple = tuple(children[bi * reps + rep].spawn(3))
+            for pcombo in paired_combos:
+                variant = base_variant
+                for name, value in zip(paired_names, pcombo):
+                    variant = set_path(variant, name, value)
+                jobs.append({
+                    "scenario": variant,
+                    "labels": {**dict(zip(base_names, bcombo)),
+                               **dict(zip(paired_names, pcombo)),
+                               "pair_id": f"{bi}:{rep}"},
+                    "rep": rep,
+                    "seeds": triple,
+                    "condition_index": bi,
+                })
+    return jobs
+
+
 def run_job(job: dict) -> dict:
     """One replicate -> one flat result row. Module-level for pickling."""
     from .seeding import make_seeding  # local import keeps spawn cheap
