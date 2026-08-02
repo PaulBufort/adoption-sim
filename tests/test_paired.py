@@ -111,6 +111,45 @@ def test_crn_decay_arms_share_agents_and_seeds():
     assert (ra.ever_adopted | ~ra.adopted).all() and (rb.ever_adopted | ~rb.adopted).all()
 
 
+def test_run_robustness_pair_ids_are_globally_unique(tmp_path, monkeypatch):
+    """User arbitration 2026-08-02: expand_paired_jobs restarts its block index
+    per call, so run_robustness must prefix pair_id with the axis — otherwise
+    '0:0' names different organizations in different axes of the same CSV."""
+    import experiments.exp1 as exp1
+    monkeypatch.setattr(exp1, "RESULTS", tmp_path)
+    sc = exp1.smoke_variant(exp1.headline_scenario())
+    sc["meta"]["name"] = "smoke"
+    rows = exp1.run_robustness(
+        sc, n_jobs=1, replicates=2,
+        axes={"org.n_agents": [300, 350], "org.silo_strength": [0.5]},
+    )
+    assert len(rows) == (2 + 1) * 2 * 2          # cells x strategies x reps
+    from collections import Counter
+    counts = Counter(r["pair_id"] for r in rows)
+    # Every pair block holds exactly the two strategies — no cross-axis merge.
+    assert set(counts.values()) == {2}
+    assert all(":" in pid for pid in counts)
+    assert {r["pair_id"].split(":")[0] for r in rows} == {"n_agents", "silo_strength"}
+    # Within a block the two rows are the two strategies on the same org.
+    by_pid = {}
+    for r in rows:
+        by_pid.setdefault(r["pair_id"], []).append(r["strategy"])
+    assert all(sorted(v) == ["cluster", "random"] for v in by_pid.values())
+    assert (tmp_path / "exp1_robustness_smoke.csv").exists()
+
+
+def test_robustness_axes_contain_the_headline_reference_exactly_once():
+    """The duplicated-reference fix: 2000/8/0.85 is the headline configuration;
+    it must be reachable through exactly one axis value (n_agents=2000)."""
+    import experiments.exp1 as exp1
+    sc = exp1.headline_scenario()
+    hits = []
+    for axis, values in exp1.ROBUSTNESS_AXES.items():
+        current = sc[axis.split(".", 1)[0]][axis.split(".", 1)[1]]
+        hits += [(axis, v) for v in values if v == current]
+    assert hits == [("org.n_agents", 2000)]
+
+
 def test_sweep_rows_carry_pair_id_and_parallel_equals_serial():
     jobs = expand_paired_jobs(toy_scenario(), {"seeding.strategy": ["random", "cluster"]},
                               replicates=2)

@@ -152,10 +152,16 @@ def run_regime_map(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
 PAIRED_STRATEGIES = ["random", "champions", "cluster", "one_per_team"]
 DECAY_R_AXIS = [0.5, 1.0]
 DECAY_RHO_AXIS = [0.0, 0.10, 0.25, 0.40]
+# One-at-a-time axes. The headline configuration appears exactly ONCE, as
+# n_agents=2000; the other axes omit their headline value on purpose (user
+# arbitration 2026-08-02): re-including team_size=8 would reproduce the
+# n_agents=2000 arm BIT-IDENTICALLY (same spawn index -> same organizations),
+# and silo=0.85 would triplicate the configuration under fresh seeds — silent
+# duplication either way.
 ROBUSTNESS_AXES = {
     "org.n_agents": [500, 2000, 8000],
-    "org.mean_team_size": [5, 8, 12],
-    "org.silo_strength": [0.5, 0.7, 0.85, 0.95],
+    "org.mean_team_size": [5, 12],
+    "org.silo_strength": [0.5, 0.7, 0.95],
 }
 
 
@@ -206,22 +212,32 @@ def run_paired_decay(sc: dict, n_jobs: int | None = None,
 
 
 def run_robustness(sc: dict, n_jobs: int | None = None,
-                   replicates: int | None = None) -> list[dict]:
+                   replicates: int | None = None,
+                   axes: dict[str, list] | None = None) -> list[dict]:
     """One-at-a-time robustness of the paired random − cluster contrast around
     the frozen headline point: org size, team size, silo strength (κ=12 and the
     T_b/p_innov sweeps already exist as independent panels). One CSV, long
-    format: (param, value, pair_id, strategy, ...)."""
+    format: (param, value, pair_id, strategy, ...).
+
+    pair_id is prefixed with the axis short name: expand_paired_jobs restarts
+    its block index per call, so raw pair_ids would collide across the three
+    axes and a join on pair_id alone would silently mix them. The paired join
+    key in this CSV is (param, value, pair_id) — pair_id alone stays unique
+    only thanks to the prefix."""
     paired = {"seeding.strategy": ["random", "cluster"]}
+    axes = ROBUSTNESS_AXES if axes is None else axes
     all_rows: list[dict] = []
-    for axis, values in ROBUSTNESS_AXES.items():
+    for axis, values in axes.items():
+        short = axis.split(".", 1)[1]
         jobs = expand_paired_jobs(sc, paired, base_axes={axis: values},
                                   replicates=replicates)
         for r in sweep(jobs, n_jobs):
             value = r.pop(axis)
-            all_rows.append({"param": axis.split(".", 1)[1], "value": value, **r})
+            r["pair_id"] = f"{short}:{r['pair_id']}"
+            all_rows.append({"param": short, "value": value, **r})
     save_results(all_rows, RESULTS / f"exp1_robustness_{sc['meta']['name']}.csv", sc,
                  extra_meta={"design": "paired_within_replicate",
-                             "axes": {k: list(v) for k, v in ROBUSTNESS_AXES.items()},
+                             "axes": {k: list(v) for k, v in axes.items()},
                              "pair_axes": list(paired),
                              "replicates_used": max(r["rep"] for r in all_rows) + 1})
     return all_rows
