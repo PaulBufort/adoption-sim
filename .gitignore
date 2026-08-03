@@ -36,3 +36,6 @@ paper/*.fdb_latexmk
 # they describe the pre-2026-08 state of the paper and contradict current results)
 RESUME_POUR_CHATGPT.md
 paper/CHATGPT_CRITICAL_REVIEW_PACKAGE.md
+# S4 delivery artifacts — derived byte-copies + CMT paste material.
+# Provenance and SHA-256 recorded in paper/cp4/CP4_PACKAGE.md (tracked).
+submission/
