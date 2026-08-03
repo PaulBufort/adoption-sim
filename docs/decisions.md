@@ -723,7 +723,8 @@ organizations, different agent draws — leaving the decisive quantity
 (cluster − random under decay) at +0.9 pp with a ±9 pp CI: parity claimed on an
 inconclusive interval. The regime map had the same weakness cell by cell
 (random and cluster drawn on different orgs). Between-organization variance
-(sd ≈ 9–16 pp) dominates these contrasts; pairing removes it.
+(sd ≈ 9–16 pp) dominates these contrasts; pairing removes it. *[⚠ that last
+clause is retracted — see the D19(b) corrigendum below.]*
 
 **Options.**
 
@@ -735,7 +736,9 @@ inconclusive interval. The regime map had the same weakness cell by cell
    organization, identical θ/willing/able draws, identical seed sets where the
    strategy coincides; decay arms diverge only at the first relapse draw
    (verified bit-exact in tests/test_paired.py). Contrasts become paired
-   differences; between-org variance cancels.
+   differences; between-org variance cancels. *[⚠ "variance cancels" is
+   retracted — see D19(b) below: confounding control, not variance
+   reduction.]*
 3. **share_graph (rejected):** D14 option 2 fixes the org across replicates
    *within* a condition — the opposite design; bending it would silently revisit
    ratified D14. `expand_paired_jobs` raises if share_graph is set.

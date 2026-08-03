@@ -52,7 +52,7 @@ generating-commit fields) as modified — the result CSVs and the PNG should be 
 and `python figures/make_all.py` regenerates **every** final figure (all nine, ~1–4
 min) deterministically from the master seeds.
 
-Run the test suite with plain `pytest` from the repo root (67 tests, ~20 s).
+Run the test suite with plain `pytest` from the repo root (119 tests, ~10 s).
 
 Prefer a package? `pip install -e .` installs the engine as `adoption_sim`
 (NetworkX + NumPy only); new here? start with
@@ -84,13 +84,13 @@ ready/willing/able attribution chart. Deployment to Streamlit Community Cloud:
 | `demo/` | Streamlit app (synthetic-data banner included) |
 | `figures/` | all nine final figures + `make_all.py` — one command regenerates everything from the master seeds |
 | `docs/` | [spec](docs/spec.md) · [model math](docs/model.md) · [assumptions](docs/assumptions.md) · [limitations](docs/limitations.md) · [decision log](docs/decisions.md) · [sanity checks](docs/sanity-checks.md) · [build journal](docs/journal.md) |
-| `tests/` | 67 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
+| `tests/` | 119 tests: threshold rule on hand-computed graphs, state conservation, determinism (parallel ≡ serial), seeding budgets, stack policy, demo smoke |
 
 ## The science, honestly
 
 - **Every modeling choice that affects claims is logged** in
   [docs/decisions.md](docs/decisions.md) with 2–3 alternatives and trade-offs —
-  D1–D17 **RATIFIED** at the 2026-06-10 arbitration, several with conditions
+  D1–D17 **RATIFIED** at the 2026-06-10 arbitration and D18–D23 at the 2026-08-02/03 CN2026 checkpoints (paired protocol, regime map, decay crossover, Eu-core replication, CP3 corrigenda), several with conditions
   (dual-regime presentation, sensitivity sweeps) that the experiments implement.
   The figure-level claims hang mostly on the threshold distribution (D1/D2) and
   seed budget — measured, not asserted (tornado in

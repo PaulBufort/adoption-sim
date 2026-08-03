@@ -8,8 +8,11 @@ rescue cluster seeding?
 
 Known before running (D17 proposition, exactly verified in
 tests/test_visibility.py): a *global* v is equivalent to rescaling every
-threshold by 1/v, so it cannot reorder the seeded strategies. The sweep below
-confirms it empirically; the intervention is the scientifically live part.
+threshold by 1/v. NOTE (D17(a) amendment, ratified 2026-08-02): the original
+"so it cannot reorder the seeded strategies" corollary is RETRACTED — the
+equivalence is exact, but rescaling thresholds slides the organization across
+the regime map, where orderings do change (see D18). The sweep below explores
+the global-v gradient; the intervention is the scientifically live part.
 
 ALL DATA SYNTHETIC.
 """
