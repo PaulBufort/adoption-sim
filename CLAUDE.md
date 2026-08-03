@@ -21,13 +21,15 @@ The v0.1 hardening items below are done and verified by a clean-room re-run:
 4. **`docs/` + `CITATION.cff`**: complete and mutually consistent (CITATION schema-valid). ✅
 5. **Key numbers**: re-confirmed against a clean run; all CSVs/figures/`numbers.json` reproduce **bit-for-bit**. ✅
 
-## Confirmed key numbers (PAIRED protocol D19, ratified at CP1 2026-08-02)
+## Confirmed key numbers (PAIRED protocol D19, ratified at CP1 2026-08-02; CP3 corrigenda 2026-08-03)
 Source of truth: `paper/numbers.json` (via `paper/extract_numbers.py`, audited by
-`paper/audit_numbers.py` — 35 claims). **The paper cites PAIRED results exclusively
+`paper/audit_numbers.py` — 42 claims). **The paper cites PAIRED results exclusively
 for seeded strategies**; the independent panel only for broadcast + the p_innov=0
-ablation. Full v2 record + the flagged parity→crossover contradiction:
-`RESULTS_VERIFIED.md`. Terminology: final_rate = **terminal adoption**,
-cumulative_rate = **cumulative reach**.
+ablation. Full v2 record + flagged contradictions + CP3 corrigenda (v3):
+`RESULTS_VERIFIED.md`; arbitration table: decisions.md **D23**. Terminology:
+final_rate = **terminal adoption**, cumulative_rate = **cumulative reach**.
+Pairing = confounding control, NOT variance reduction (D19(b)); never write
+"variance drops out".
 - Paired headline (n=50 orgs, terminal adoption, mean±sd): random **72.0±9.2%** ·
   champions **75.9±8.2%** · cluster **32.4±11.0%** · one_per_team **70.6±10.4%**;
   **random − cluster +39.7 pp [35.4, 43.9]**; champions−random +3.9 [0.6, 7.1]
@@ -35,16 +37,23 @@ cumulative_rate = **cumulative reach**.
   difference", D20 amendment — NOT "equivalent")
 - Broadcast **5.5±3.4%**; exactly **0.0%** ×12 at p_innov=0 (independent panel)
 - Regime map (40 cells, Holm ×2 families, ±2 pp band): **14 dispersion wins**
-  (+2.8…+42.6 pp) · **23 TOST-equivalent** · 3 uncertain · **0 cluster wins**
+  (+2.8…+42.6 pp) · **23 TOST-equivalent** (all in saturated/starved zones) ·
+  3 uncertain · **no cluster win ≥2 pp** — largest cluster edge 0.8 pp
+  (θ̄=.35, 1%, inside the band; the only Holm-significant one)
 - Decay **CROSSOVER** (7-contrast family, terminal adoption): r=1.0: +8.4 [4.2,
   12.7] @ρ=.10 → **−5.3 [−9.0, −1.5]** @ρ=.25 → −11.4 [−14.8, −8.0] @ρ=.40;
   r=0.5: +13.9 @.10, uncertain @.25, −7.7 @.40. Crossover located BETWEEN tested
   ρ values only. Asymmetry: cluster ~32→29% (barely moves), random 72→18%
-  (collapses). Secondary @(1, .25): cumulative 29.0 vs 30.9%; retention 0.86 vs 0.99
+  (collapses). Crossover is endpoint-dependent (CP3): cumulative-reach Δ
+  (descriptive, uncorrected) **−1.8 [−5.4, +1.8]** @(1,.25) — still uncertain —
+  and −7.4 [−10.7, −4.1] @(1,.40); terminal reversal @.25 driven mainly by
+  differential retention. Secondary levels @(1,.25): cumulative 29.0 vs 30.9%;
+  retention 0.86 vs 0.99
 - Robustness (8 paired variants): Δ **+14.7…+48.3 pp**, all CIs > 0
 - email-Eu-core (D22, real topology + synthetic attributes): **sign replication**
-  +13.5 pp [1.0, 26.0]; ignition 62% vs 42% of draws; bimodal lottery — never
-  "empirical validation"
+  +13.5 pp [1.0, 26.0]; bimodal outcomes (mode medians 9%/85%, no draw between
+  21% and 82%) — the "ignition 62% vs 42%" label is **RETRACTED** (D22(a), CP3:
+  post-hoc ≥10% cut inside the low mode); never "empirical validation"
 - Predictor (D21): verdict **no_go** (V1 AUC 0.642 < 0.70; V2 14/14) — one
   transparency sentence in the paper body, never the abstract; residual is "not
   explained by the local predictor", never auto-attributed to spillover

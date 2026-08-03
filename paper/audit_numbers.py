@@ -37,8 +37,12 @@ def claims() -> list[tuple[str, str]]:
     reg = N["regime_map"]
     dec = N["decay"]["family"]
     sec = N["decay"]["secondary_at_r1_rho025"]
+    cum25 = N["decay"]["cumulative_contrasts"]["r=1.0,rho=0.25"]
+    cum40 = N["decay"]["cumulative_contrasts"]["r=1.0,rho=0.4"]
+    edge = reg["largest_cluster_edge"]
     rob = N["robustness"]
     euc = N["eucore"]
+    modes = euc["modes"]
     ind = N["independent_panel"]
     pred = N["predictor"]
 
@@ -53,6 +57,18 @@ def claims() -> list[tuple[str, str]]:
         ("map cells won", f"wins {reg['counts']['win_x']} of {reg['n_cells']} cells"),
         ("map equivalences", f"in {reg['counts']['equivalent']}"),
         ("map uncertain", f"{reg['counts']['uncertain']} stay uncertain"),
+        # CP3: abstract is arithmetically complete (14 + 23 + 3 = 40) and the
+        # "no cluster win" sentence is guarded — if a win_y cell ever appears in
+        # the data, the rebuilt needle becomes unfindable and the audit fails.
+        ("abstract map counts",
+         f"{reg['counts']['equivalent']} saturated or starved cells equivalent"),
+        ("abstract map uncertain", f"{reg['counts']['uncertain']} uncertain"),
+        ("no cluster win band",
+         (f"no cluster win of ${{\\ge}}{reg['band_pp']:.0f}$\\,pp"
+          if reg["counts"].get("win_y", 0) == 0
+          else "INVALID — cluster wins exist; manuscript sentence must change")),
+        ("largest cluster edge",
+         f"largest cluster edge, ${r1(abs(edge['delta_pp']))}$\\,pp"),
         ("map win range", f"+{r1(reg['win_delta_min_pp'])}$ to $+{r1(reg['win_delta_max_pp'])}"),
         ("map headline cell CI", f"[{r1(reg['headline_cell']['ci_pp'][0])},"),
         ("meso random seeded", f"{ph['meso']['random']['seeded_teams_mean']:.0f}$ of {ph['n_line_teams']}"),
@@ -70,11 +86,23 @@ def claims() -> list[tuple[str, str]]:
         ("asym random collapse", f"{r1(dec['r=0.5,rho=0.0']['random_pct'])}\\%$ to ${r1(dec['r=1.0,rho=0.4']['random_pct'])}\\%"),
         ("cumulative random", r1(sec["random"]["cumulative_pct"])),
         ("retention pair", f"{sec['cluster']['retention_mean']:.2f}$ (cluster) vs.\\ ${sec['random']['retention_mean']:.2f}$ (random)"),
+        # CP3: endpoint-dependence — cumulative-reach contrasts (descriptive).
+        ("cumulative contrast rho.25",
+         f"{r1(cum25['delta_pp'])}$\\,pp $[{r1(cum25['ci_pp'][0])}, +{r1(cum25['ci_pp'][1])}]"),
+        ("cumulative contrast rho.40",
+         f"{r1(cum40['delta_pp'])}$\\,pp $[{r1(cum40['ci_pp'][0])}, {r1(cum40['ci_pp'][1])}]"),
         ("robustness range", f"+{r1(rob['min_pp'])}$ to $+{r1(rob['max_pp'])}"),
         ("eucore contrast", f"+{r1(euc['contrast_random_cluster']['delta_pp'])}"),
         ("eucore CI", f"[{r1(euc['contrast_random_cluster']['ci_pp'][0])}, {r1(euc['contrast_random_cluster']['ci_pp'][1])}]"),
         ("eucore graph", f"{euc['graph']['n_nodes_compiled']} nodes, {euc['graph']['n_departments']} ground-truth"),
-        ("eucore ignition", f"{100*euc['ignition_share']['random']:.0f}\\% of draws, cluster in {100*euc['ignition_share']['cluster']:.0f}\\%"),
+        # CP3 (D22(a)): the >=10% "ignition share" claim is retracted; the
+        # manuscript now cites the bimodal shape (largest-gap split, descriptive).
+        ("eucore mode medians",
+         f"low (median ${modes['low_median_pct']:.0f}$\\%) or high "
+         f"(median ${modes['high_median_pct']:.0f}$\\%)"),
+        ("eucore mode gap",
+         f"none between ${modes['gap_open_interval_pct'][0]}$\\% and "
+         f"${modes['gap_open_interval_pct'][1]}$\\%"),
         ("predictor gate", f"AUC ${pred['v1_auc']:.2f}$, below even the "
                            f"${pred['gate_partial']:.2f}$ partial threshold"),
         ("scenario N", f"N{{=}}{N['scenario']['n_agents']}"),
