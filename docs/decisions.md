@@ -45,7 +45,8 @@
 | D19 | Paired replicate protocol (common random numbers) | RATIFIED 2026-08-02 (CP1), incl. amendments |
 | D20 | Coverage seeding strategy: one_per_team | RATIFIED 2026-08-02 (CP1) with amendment: "no clear difference detected", NOT equivalence |
 | D21 | Team-level ignition predictor (semi-analytic) | RATIFIED 2026-08-02 (CP1) — verdict **no_go** accepted as-is |
-| D22 | Real-topology replication: email-Eu-core (pre-declaration) | RATIFIED 2026-08-02 (CP1) as SIGN replication on a real topology, not mechanism validation |
+| D22 | Real-topology replication: email-Eu-core (pre-declaration) | RATIFIED 2026-08-02 (CP1) as SIGN replication on a real topology, not mechanism validation; amendment (a) 2026-08-03 (CP3): "ignition 62%/42%" label RETRACTED |
+| D23 | CP3: independent-review arbitration (S3.3 corrigenda) | RATIFIED 2026-08-03 (CP3) — wording corrections only, no data change |
 
 ---
 
@@ -819,6 +820,26 @@ run executes; audit findings integrated).**
    could ever have been declared equivalent. Check the realized paired sds at
    CP1 against this bound.
 
+**D19(b) amendment — CP3 corrigendum (scientist arbitration, 2026-08-03).**
+The variance-mechanism claims above — "pairing removes it" (Context) and
+"between-org variance cancels" (option 2) — are **retracted as stated**; the
+original wording is left in place per the honesty rules. What the design
+guarantees is *confounding control*: every contrast compares strategies on
+identical organizations and agent draws, so organization-level heterogeneity
+cannot confound a within-block difference. It does **not** guarantee variance
+reduction or narrower CIs than independent sampling: the realized
+random↔cluster correlation across the 58 paired cells is weak (median ≈ +0.18)
+and slightly *negative* at the headline cell (−0.09; paired-difference sd
+14.9 pp vs ≈14.3 pp under a hypothetical independent design) — ignition
+variance is largely strategy-specific, not shared. All published CIs are
+unaffected (they were always computed from the paired differences themselves).
+The manuscript sentence citing a "shared between-organization variance
+component (9–16 pp) [that] drops out" was corrected at S3.3; the a-priori
+power fact in item 4 is unaffected, and the realized paired sds meet its
+≈8.4 pp TOST bound only in saturated/starved cells — which is exactly why
+every declared equivalence lies in those regions (recorded at CP3; the
+manuscript now says so).
+
 ## D20 — Coverage seeding strategy: one_per_team
 
 **Context (builder, 2026-08-02).** External review, priority 5: random and
@@ -965,6 +986,48 @@ champions saturates at 84.4% ± 1.3). Authorized claim: *the sign of the
 dispersed-vs-clustered contrast replicates on a real modular topology with
 synthetic behavioral attributes*; magnitudes are not comparable across
 topologies and the mechanism is not empirically validated.
+
+**D22(a) amendment — CP3 corrigendum (scientist arbitration, 2026-08-03).**
+The clause "random ignites in 62% of draws vs 42% for cluster" is **retracted
+as a measurement**; the sentence above is left in place as the historical
+record. The ≥10% cut behind those shares (a) was not pre-declared in this
+entry — only the paired contrast was — and (b) falls **inside the low mode**
+of the strongly bimodal outcome distribution (pooled random+cluster terminal
+rates: mode medians 9.2% / 84.6%; **no draw between 20.2% and 82.0%** — a
+~62 pp gap), so it separates non-ignited draws from other non-ignited draws
+rather than measuring the low/high-mode split. **No replacement threshold is
+adopted** (any post-hoc cut, including the reviewer's 20%, inherits the same
+problem). Authorized descriptions from this arm: the pre-declared paired
+contrast (+13.5 pp [1.0, 26.0]) and the bimodal shape itself
+(`paper/numbers.json` → `eucore.modes`, a descriptive largest-gap split that
+replaces the removed `eucore.ignition_share`). The 62%/42% values survive
+only here and in the CP1 package as the trace of the retracted labelling.
+
+## D23 — CP3: independent-review arbitration (S3.3 corrigenda)
+
+**Context (scientist arbitration, 2026-08-03).** An independent senior-review
+pass (Opus, read-only, on submission candidate commit `5346724`) returned a
+weak-accept with two scientific errors, two overstatements, and several
+recommendations. This entry records the arbitration; S3.3 implements it.
+**No simulation, no new seed; every new number derives from the
+already-versioned paired CSVs and enters `numbers.json` + the audit
+(35 → 42 claims).**
+
+| Reviewer point | Decision | Implementation |
+| --- | --- | --- |
+| S1.1 — "shared between-org variance (9–16 pp) drops out" is false (median paired correlation ≈ +0.18; −0.09 at headline) | **accepted** | D19(b) corrigendum; manuscript claims confounding control only, no efficiency gain assumed; post-hoc correlations recorded here, NOT in the paper |
+| S1.2 — Eu-core "ignition 62%/42%" uses a ≥10% cut inside the low mode | **accepted, amended** | D22(a) retraction; manuscript reports the bimodal shape (medians 9%/85%, no draw between 21% and 82%); reviewer's replacement 20% cut REJECTED as equally post hoc |
+| S2.1 — crossover is endpoint-dependent; cumulative contrast at (1,.25) is −1.8 [−5.4,+1.8], inside the band | **accepted** | terminal stays the sole confirmatory endpoint; cumulative contrasts quoted as secondary descriptive with pointwise uncorrected CIs: −1.8 [−5.4,+1.8] at (1,.25), −7.4 [−10.7,−4.1] at (1,.40); "driven mainly by differential retention" now explicit |
+| S2.2 — abstract arithmetic incomplete (14+23≠40); equivalences structurally degenerate | **accepted in part** | abstract now 14 / 23 (saturated-or-starved) / 3 with no cluster win ≥2 pp; the reviewer's "14 of ~17 cells where strategies can differ" denominator REJECTED as a post-hoc classification |
+| S2.3 — "cluster seeding wins nowhere" too strong | **amended** | replaced by "no practically relevant cluster win (≥2 pp); largest cluster edge 0.8 pp, in the starved corner, inside the band". Reviewer's own claim of "three reliable cluster edges" is WRONG after Holm: exactly one sub-1 pp edge is Holm-significant (θ̄=0.35, budget 1%, −0.76 pp, p_holm<10⁻⁴; the other two: 0.17, 0.97) — recorded in `regime_map.largest_cluster_edge` |
+| Add p_innov=0 random−cluster (+21.4 [14.9,27.9]) to the paper | **REJECTED** | independent panel, n=12/arm, Welch — D19 amendment 2 forbids citing the independent panel for any seeded-strategy contrast; kept in `paper/REVIEWER_RATIONALE.md` as an explicitly-labelled exploratory oral answer |
+| Add ~86% willing-ceiling note | **REJECTED** | not needed by any claim; would add an unaudited number |
+| Timeline: "pre-specified before execution" reads too strong | **accepted** | manuscript now says "after exploratory n=12 panels, before the confirmatory run"; no claim of pre-specification prior to all exploration |
+
+**Delivery constraints honored:** `final_rate` remains the only confirmatory
+endpoint; cumulative contrasts stay descriptive (no new Holm family); exactly
+4 pages; figure unchanged; audit extended; 119 tests green; corrigenda in
+this file + `RESULTS_VERIFIED.md` v3 rather than silent edits.
 
 ---
 *All defaults above are recorded in `core/defaults.py` and surfaced in `docs/model.md`.

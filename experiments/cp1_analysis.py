@@ -286,8 +286,10 @@ def fig_eucore(euc: dict) -> None:
     ax.scatter(np.ones(len(clu)) + jitter, clu, s=14, alpha=0.7, label="cluster")
     ax.set_xticks([0, 1], ["random", "cluster"])
     ax.set_ylabel("final reach (%) per attribute draw")
+    # CP3/D22(a): "ignition lottery" label retracted — describe the bimodal
+    # shape only; no threshold-based "ignition" wording anywhere.
     ax.set_title("email-Eu-core (real topology, synthetic agents, 50 paired draws)\n"
-                 "bimodal ignition lottery — paired Δ "
+                 "bimodal outcomes — paired Δ "
                  f"{euc['contrast_random_cluster']['mean_d_pp']:+.1f} pp "
                  f"CI {euc['contrast_random_cluster']['ci_pp']}", fontsize=9)
     ax.legend(fontsize=8)

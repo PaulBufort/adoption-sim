@@ -109,10 +109,21 @@ def regime_map() -> dict:
                              "ci_pp": [round(100 * c["ci"][0], 4),
                                        round(100 * c["ci"][1], 4)],
                              "cls": c["cls"]}
+    # CP3 (D23): the manuscript's "no practically relevant cluster win" sentence
+    # is backed by the largest cluster-favoured point estimate across the map.
+    negatives = [(k, c) for k, c in zip(keys, classified) if c["mean_d"] < 0]
+    worst_k, worst = min(negatives, key=lambda t: t[1]["mean_d"])
     return {"n_cells": len(keys), "counts": counts,
             "win_delta_min_pp": round(min(win_deltas), 1),
             "win_delta_max_pp": round(max(win_deltas), 1),
             "headline_cell": headline_cell,
+            "largest_cluster_edge": {
+                "delta_pp": round(100 * worst["mean_d"], 4),
+                "theta_mean": float(worst_k[0]), "budget": float(worst_k[1]),
+                "cls": worst["cls"],
+                "holm_significant_diff": bool(worst["p_diff_holm"] < 0.05),
+                "n_cluster_edges_holm_significant": sum(
+                    1 for _, c in negatives if c["p_diff_holm"] < 0.05)},
             "n_pairs_per_cell": 50, "band_pp": 100 * BAND}
 
 
@@ -139,9 +150,23 @@ def decay() -> dict:
         ret = [r["retention_rate"] for r in sub if not np.isnan(r["retention_rate"])]
         sec[s] = {"cumulative_pct": round(100 * float(np.mean([r["cumulative_rate"] for r in sub])), 1),
                   "retention_mean": round(float(np.mean(ret)), 2)}
+    # CP3 (D23): head-to-head cumulative-reach contrasts at the two cells the
+    # manuscript discusses. Secondary descriptive — pointwise uncorrected CIs,
+    # never part of the confirmatory (terminal-adoption) Holm family.
+    cum_cells = cell_finals(rows, ("dynamics.retention_factor", "dynamics.relapse_prob"),
+                            value="cumulative_rate")
+    cum = {}
+    for k in (("1.0", "0.25"), ("1.0", "0.4")):
+        s = paired_stats(*aligned_pair(cum_cells[k], "random", "cluster"))
+        cum[f"r={k[0]},rho={k[1]}"] = {
+            "delta_pp": round(100 * s["mean_d"], 4),
+            "ci_pp": [round(100 * s["ci"][0], 4), round(100 * s["ci"][1], 4)],
+            "p": s["p"], "n": s["n"]}
     return {"family": fam, "secondary_at_r1_rho025": sec,
+            "cumulative_contrasts": cum,
             "note": "primary endpoint = terminal adoption (final_rate); "
-                    "cumulative/retention secondary descriptive (D19)"}
+                    "cumulative/retention secondary descriptive, pointwise "
+                    "uncorrected CIs (D19; CP3/D23)"}
 
 
 def robustness() -> dict:
@@ -162,13 +187,36 @@ def eucore() -> dict:
     rows = read_rows(RESULTS / "exp4_eucore.csv")
     cell = cell_finals(rows, ())[()]
     meta = json.loads((RESULTS / "exp4_eucore.meta.json").read_text())
+    # CP3 (D22(a)): the >=10% "ignition share" is retracted — the cut was post
+    # hoc and falls inside the low mode. The manuscript now describes the
+    # bimodal shape itself: a largest-gap split of the pooled random+cluster
+    # terminal rates (descriptive; no tunable threshold — the gap is ~62 pp).
+    pooled = np.sort(np.concatenate(
+        [np.array(list(cell["random"].values()), dtype=float),
+         np.array(list(cell["cluster"].values()), dtype=float)])) * 100.0
+    gaps = np.diff(pooled)
+    i = int(np.argmax(gaps))
+    low, high = pooled[:i + 1], pooled[i + 1:]
+    modes = {
+        "split": "largest gap in pooled random+cluster terminal rates "
+                 "(descriptive; replaces the retracted >=10% ignition share, "
+                 "D22(a))",
+        "low_median_pct": round(float(np.median(low)), 1),
+        "high_median_pct": round(float(np.median(high)), 1),
+        "low_max_pct": round(float(low.max()), 1),
+        "high_min_pct": round(float(high.min()), 1),
+        "gap_pp": round(float(gaps[i]), 1),
+        # open interval (ints) containing NO draw, from the unrounded extrema
+        "gap_open_interval_pct": [int(np.ceil(low.max())),
+                                  int(np.floor(high.min()))],
+        "n_low": int(low.size), "n_high": int(high.size),
+    }
     return {
         "contrast_random_cluster": _contrast(cell, "random", "cluster"),
         "means": {s: {"mean_pct": round(100 * float(np.mean(list(v.values()))), 1),
                       "sd_pct": round(100 * float(np.std(list(v.values()), ddof=1)), 1)}
                   for s, v in cell.items()},
-        "ignition_share": {s: round(float(np.mean([v >= 0.10 for v in cell[s].values()])), 2)
-                           for s in cell},
+        "modes": modes,
         "n_draws": 50,
         "graph": {k: meta["graph"][k] for k in
                   ("n_nodes_compiled", "n_departments", "symmetrization")},

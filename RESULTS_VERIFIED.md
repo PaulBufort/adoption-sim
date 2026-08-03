@@ -1,5 +1,46 @@
 # RESULTS_VERIFIED.md
 
+## v3 — CP3 corrigenda (2026-08-03, S3.3): claim corrections, zero data change
+
+> Independent review (CP3, Opus, on commit `5346724`) found two published
+> formulations the data do not support. **No simulation was re-run; every
+> CSV and every paired number below stands bit-identical. The paper figure
+> (`figures/exp1_crossover.png`) and the other CP1 artifacts are
+> bit-identical; `paper/cp1/fig_eucore.png` alone was regenerated to correct
+> its title ("bimodal ignition lottery" → "bimodal outcomes", D22(a)) — same
+> data, new label.** The corrections are to claims, not results (full
+> arbitration: decisions.md D23).
+
+1. **Pairing rationale corrected (D19(b)).** "Shared between-organization
+   variance (9–16 pp) drops out" is retracted. Pairing guarantees
+   *confounding control* (identical organizations and agent draws per
+   contrast), not variance reduction: realized random↔cluster correlations
+   are weak (median ≈ +0.18 over the 58 paired cells; −0.09 at the headline
+   cell, where the paired sd is 14.9 pp vs ≈14.3 pp independent-equivalent).
+   All published CIs are unchanged — they were always computed from the
+   paired differences themselves.
+2. **email-Eu-core "ignition in 62% vs 42% of draws" retracted (D22(a)).**
+   The ≥10% cut was post hoc and sits inside the low mode of a bimodal
+   distribution (pooled mode medians 9.2%/84.6%; no draw between 20.2% and
+   82.0%). The paper now reports the bimodal shape and the pre-declared
+   +13.5 pp [1.0, 26.0] contrast only. No replacement cut adopted;
+   `numbers.json` `eucore.ignition_share` → `eucore.modes` (largest-gap
+   split, descriptive). The v2 bullet below stays as the historical record.
+3. **Crossover endpoint-dependence made explicit (no new claim family).**
+   Terminal adoption (confirmatory) reverses at (r=1, ρ=0.25): −5.3 pp
+   [−9.0, −1.5]. Cumulative reach (secondary descriptive, pointwise
+   uncorrected) is still uncertain there: **−1.8 pp [−5.4, +1.8]**, and is
+   clearly negative (pointwise CI excluding zero) only at ρ=0.40:
+   **−7.4 pp [−10.7, −4.1]** — both computed from
+   the versioned `exp1_decay_paired_headline.csv`. The terminal reversal at
+   ρ=0.25 is therefore driven mainly by differential retention (0.99 vs
+   0.86). The paper states this; the crossover-location sentence remains
+   scoped to terminal adoption.
+4. Bookkeeping: regime map gains `largest_cluster_edge` (−0.76 pp at
+   θ̄=0.35/1%, the only Holm-significant cluster-favoured contrast; classed
+   equivalent); audit extended **35 → 42 claims**; abstract counts now sum
+   to 40 (14 wins / 23 equivalent / 3 uncertain).
+
 ## v2 — Paired S2 verification and the crossover finding (2026-08-02, CP1)
 
 > The **canonical numbers are now the PAIRED results** (D19, ratified at CP1):
@@ -54,8 +95,9 @@ double-rounding artifact).
 - Robustness (one-at-a-time, paired): Δ from +14.7 [9.8, 19.7] (N=500) to
   +48.3 [46.5, 50.1] (N=8000); all 8 CIs exclude zero.
 - email-Eu-core (real topology, synthetic attributes, D22): random − cluster
-  +13.5 pp [1.0, 26.0]; ignition in 62% vs 42% of draws; SIGN replication
-  only.
+  +13.5 pp [1.0, 26.0]; ignition in 62% vs 42% of draws **[the "ignition"
+  label is retracted at v3 — D22(a); cut inside the low mode]**; SIGN
+  replication only.
 - Predictor (D21): verdict **no_go** — V1 pooled AUC 0.642 < 0.70 (12 789
   units), V2 sign agreement 14/14; per-strategy AUCs descriptive (cluster
   0.996, dispersed 0.59–0.69).

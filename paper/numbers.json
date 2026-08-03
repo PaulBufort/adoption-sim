@@ -113,6 +113,14 @@
       ],
       "cls": "win_x"
     },
+    "largest_cluster_edge": {
+      "delta_pp": -0.762,
+      "theta_mean": 0.35,
+      "budget": 0.01,
+      "cls": "equivalent",
+      "holm_significant_diff": true,
+      "n_cluster_edges_holm_significant": 1
+    },
     "n_pairs_per_cell": 50,
     "band_pp": 2.0
   },
@@ -199,7 +207,27 @@
         "retention_mean": 0.99
       }
     },
-    "note": "primary endpoint = terminal adoption (final_rate); cumulative/retention secondary descriptive (D19)"
+    "cumulative_contrasts": {
+      "r=1.0,rho=0.25": {
+        "delta_pp": -1.825,
+        "ci_pp": [
+          -5.4292,
+          1.7792
+        ],
+        "p": 0.3138894570444596,
+        "n": 50
+      },
+      "r=1.0,rho=0.4": {
+        "delta_pp": -7.405,
+        "ci_pp": [
+          -10.6758,
+          -4.1342
+        ],
+        "p": 3.5547118400886145e-05,
+        "n": 50
+      }
+    },
+    "note": "primary endpoint = terminal adoption (final_rate); cumulative/retention secondary descriptive, pointwise uncorrected CIs (D19; CP3/D23)"
   },
   "robustness": {
     "cells": {
@@ -288,10 +316,19 @@
         "sd_pct": 29.2
       }
     },
-    "ignition_share": {
-      "random": 0.62,
-      "champions": 1.0,
-      "cluster": 0.42
+    "modes": {
+      "split": "largest gap in pooled random+cluster terminal rates (descriptive; replaces the retracted >=10% ignition share, D22(a))",
+      "low_median_pct": 9.2,
+      "high_median_pct": 84.6,
+      "low_max_pct": 20.2,
+      "high_min_pct": 82.0,
+      "gap_pp": 61.9,
+      "gap_open_interval_pct": [
+        21,
+        82
+      ],
+      "n_low": 73,
+      "n_high": 27
     },
     "n_draws": 50,
     "graph": {

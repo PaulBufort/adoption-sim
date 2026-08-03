@@ -20,6 +20,11 @@
 \setcounter{topnumber}{2}
 \setlength{\textfloatsep}{6pt plus 2pt minus 3pt}
 \setlength{\abovecaptionskip}{4pt}
+\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}%
+  \setlength{\belowdisplayskip}{5pt}%
+  \setlength{\abovedisplayshortskip}{3pt}%
+  \setlength{\belowdisplayshortskip}{3pt}}
+\setlength{\emergencystretch}{2pt}
 
 \begin{document}
 
@@ -42,9 +47,10 @@ thresholds, innovator atom, credibility-weighted exposure) under a
 same 50 organizations with identical agent draws. Without decay, dispersed
 seeding dominates the tested ignition band: $+39.7$ percentage points
 of terminal adoption over cluster seeding at the headline setting (95\% CI
-$[35.4, 43.9]$), winning 14 of 40 cells of a threshold--budget map and
-losing none (23 cells equivalent within $\pm2$\,pp). Under
-reinforcement-dependent decay the advantage shrinks
+$[35.4, 43.9]$), winning 14 of 40 cells of a threshold--budget map (23
+saturated or starved cells equivalent within $\pm2$\,pp, 3 uncertain, no
+cluster win of ${\ge}2$\,pp). Under
+reinforcement-dependent decay the terminal-adoption advantage shrinks
 and \emph{reverses} between the tested relapse rates: dispersed cascades stop
 growing, while clustered adoption stays near 30\% across the tested decay
 settings. The sign of the contrast replicates on a real modular topology
@@ -81,7 +87,7 @@ pre-specified in a version-controlled decision log.\looseness=-1
 \section{Model and paired protocol}
 \label{sec:model}
 
-A generator produces two-layer organizations: a formal hierarchy (CEO, 8
+A generator produces two-layer organizations: a formal hierarchy (8
 departments, 249 line teams of mean size 8, $N{=}2000$) and an informal
 influence network---dense within teams ($p{=}0.9$), locally concentrated
 between ring-adjacent ``sister'' teams, sparse across departments (silo
@@ -114,10 +120,12 @@ optima~\cite{kempe2003,ou2022}.\looseness=-1
 \emph{Paired protocol.} Within each condition cell, every strategy runs on
 the \emph{same} 50 fresh organizations with \emph{identical} agent draws
 (common random numbers; cells may use independent samples), so contrasts
-are paired differences from which the shared between-organization variance
-component (9--16\,pp) drops out. Two confirmatory families (regime map,
-decay grid) were pre-specified in a version-controlled decision log before
-execution and Holm-corrected for both difference and TOST-equivalence
+are within-organization paired differences---confound-free at the
+organization level, with no efficiency gain over independent sampling
+assumed. Two confirmatory families (regime map,
+decay grid) were pre-specified in a version-controlled decision log---after
+exploratory $n{=}12$ panels, before the confirmatory run---and
+Holm-corrected for both difference and TOST-equivalence
 against a $\pm2$\,pp practical band; each cell gets a three-way verdict:
 \emph{win}, \emph{equivalent} (within $\pm2$\,pp, for the tested cells and
 model), or \emph{uncertain}. Seeds were frozen before execution; all paired
@@ -126,7 +134,7 @@ simulations).\looseness=-1
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/exp1_crossover.png}
+\includegraphics[width=0.92\textwidth]{../figures/exp1_crossover.png}
 \caption{\textbf{Synthetic data.} (a)~Paired $\Delta$ terminal adoption
 (random $-$ cluster, pp) over $\bar\theta\times$ seed budget ($n{=}50$
 pairs/cell; Holm-corrected difference and TOST families): red = dispersion
@@ -144,17 +152,19 @@ dispersed collapses.}
 headline setting, random seeding reaches $72.0\pm9.2$\% terminal adoption
 (mean$\pm$sd) against $32.4\pm11.0$\% for cluster seeding: a paired
 difference of $\mathbf{+39.7}$\,pp, 95\% CI $[35.4, 43.9]$. Degree targeting
-adds ${\sim}3.9$\,pp (descriptive, outside the confirmatory families), and
+adds ${\sim}3.9$\,pp (descriptive), and
 coverage with one seed per team yields no clear difference from random
 ($-1.4$\,pp, CI $[-5.0, +2.2]$)---on average, random already lands seeds in
 $82$ of 249 line teams (${\sim}205$ end at majority) vs.\ $13$
 (${\sim}91$) for cluster. Across the map (Fig.~\ref{fig:crossover}a),
 dispersion wins 14 of
 40 cells---the diagonal ignition band, $+2.8$ to $+42.6$\,pp ($[39.1,
-46.0]$ at the boxed headline cell, an independent paired sample at the same
-parameters)---the strategies are equivalent within $\pm2$\,pp (TOST) in 23
+46.0]$ at the boxed cell, an independent paired sample)---the
+strategies are equivalent within $\pm2$\,pp (TOST) in 23
 cells (saturation at low $\bar\theta$, starvation at high $\bar\theta$/low
-budget), 3 stay uncertain, and \textbf{cluster seeding wins nowhere}.
+budget), 3 stay uncertain; no cell shows a practically relevant cluster
+win (${\ge}2$\,pp)---the largest cluster edge, $0.8$\,pp in the starved
+corner, sits inside the band.
 Broadcast converts $5.5\pm3.4$\% ($0.0$\% in all 12 runs without
 innovators; independent panel).\looseness=-1
 
@@ -170,11 +180,14 @@ $\rho{=}0.25$ ($-0.3$\,pp $[-4.1, +3.5]$), reversal at $\rho{=}0.40$
 ($-7.7$\,pp $[-11.5, -3.9]$). The crossover is asymmetric: clustered
 adoption barely moves ($32.4\%$ at $\rho{=}0$ to $29.3\%$ at the harshest
 setting)---it \emph{endures} rather than wins---while dispersed adoption
-collapses ($72.0\%$ to $17.9\%$). Cumulative reach clarifies the pattern: at
-($r{=}1$, $\rho{=}0.25$) random's ever-adopted share is only $29.0$\% (vs.\
-$72$\% without decay)---relapse throttles the dispersed cascade \emph{while
-it grows}; retention ratios (descriptive) are $0.99$ (cluster) vs.\ $0.86$
-(random).\looseness=-1
+collapses ($72.0\%$ to $17.9\%$). It is also endpoint-dependent: at
+($r{=}1$, $\rho{=}0.25$) the terminal contrast has reversed, but the
+cumulative-reach contrast (secondary, descriptive) is still uncertain
+($-1.8$\,pp $[-5.4, +1.8]$; clearly negative only at $\rho{=}0.40$:
+$-7.4$\,pp $[-10.7, -4.1]$)---so the terminal reversal there is driven mainly by
+differential retention, $0.99$ (cluster) vs.\ $0.86$ (random). Relapse
+throttles the dispersed cascade \emph{while it grows}: random's
+ever-adopted share is $29.0$\% vs.\ $72$\% without decay.\looseness=-1
 
 \textbf{Robustness and a real topology.} The no-decay contrast keeps its
 sign across one-at-a-time organization variants ($N\in\{500, 2000, 8000\}$,
@@ -183,9 +196,9 @@ $\Delta$ from $+14.7$ to $+48.3$\,pp, all CIs excluding zero. On the real
 email-Eu-core
 topology (986 nodes, 42 ground-truth departments; \emph{all behavioral
 attributes synthetic}) the contrast keeps its sign: $+13.5$\,pp
-$[1.0, 26.0]$ over 50 paired attribute draws. Adoption there is a bimodal
-ignition lottery: random ignites in 62\% of draws, cluster in 42\%. This is
-a \emph{sign replication
+$[1.0, 26.0]$ over 50 paired attribute draws. Adoption there is bimodal:
+draws end low (median $9$\%) or high (median $85$\%), none between
+$21$\% and $82$\%. This is a \emph{sign replication
 on a real modular topology}, not an empirical validation of the
 mechanism.\looseness=-1
 
@@ -201,7 +214,7 @@ local critical mass relapse barely touches. The prescription is conditional
 and asymmetric: \emph{disperse to ignite} when
 adoption reinforces itself; \emph{concentrate to endure} when reinforcement
 erodes quickly. A local-ignition predictor,
-pre-specified in the same decision log, failed its validation gates (AUC
+pre-specified in the same log, failed its validation gates (AUC
 $0.64$, below even the $0.70$ partial threshold): most dispersed-seeding
 ignition is \emph{not explained by the local predictor}; a two-level model
 is future work. All of this holds within a synthetic, uncalibrated
@@ -210,14 +223,14 @@ stipulated on a grid; a 21-entry limitations file ships with the
 code.\looseness=-1
 
 \vspace{-4pt}
-\emph{Reproducibility.} Every modeling decision (D1--D22) is logged with
-alternatives; analysis families pre-specified in that log; seeds
-frozen; one successful full-pipeline execution for the paired results. CI
-fails if any published number changes; every statistic is machine-extracted
-and audited. Repository: AGPL-3.0, public at publication.\looseness=-1
+\emph{Reproducibility.} Every modeling decision (D1--D23) is logged with
+alternatives; analysis families pre-specified there; seeds frozen; one
+successful full-pipeline execution for the paired results. CI fails if any
+published number changes; every statistic is machine-extracted and
+audited. Repository: AGPL-3.0, public at publication.\looseness=-1
 
 \bibliographystyle{splncs03}
-\vspace{-14pt}
+\vspace{-18pt}
 \bibliography{refs}
 
 \end{document}

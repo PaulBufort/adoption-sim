@@ -69,11 +69,14 @@ organization.
     overshoot-then-sag ever appears. If your mental model of rollouts includes that
     shape, this simulator will not draw it for you — reproducing it would require
     non-social novelty decay we declined to add.
-16. **"Always seed clusters."** In this model family, dispersed seeding beats
-    cluster seeding on terminal adoption wherever a cascade can ignite at all
-    (paired D19 protocol: +39.7 pp [35.4, 43.9] at the headline setting; 14 of
-    40 regime-map cells won, 23 equivalent within ±2 pp, cluster wins none),
-    because every agent already sits inside a dense team. Under
+16. **"Always seed clusters."** In this model family, without decay, dispersed
+    seeding dominates cluster seeding on terminal adoption across the tested
+    ignition band (paired D19 protocol: +39.7 pp [35.4, 43.9] at the headline
+    setting; 14 of 40 regime-map cells won, 23 equivalent within ±2 pp — all
+    in the saturation/starvation zones — and 3 uncertain; no practically
+    relevant cluster edge ≥2 pp anywhere, the largest being 0.8 pp, inside
+    the band; D23, CP3 2026-08-03), because every agent already sits inside
+    a dense team. Under
     reinforcement-dependent decay there is a **crossover**, not a parity: the
     advantage shrinks with ρ and reverses *between the tested values* — at
     r=1.0, between ρ=0.10 and 0.25 (−5.3 pp [−9.0, −1.5] at ρ=0.25); at
@@ -114,9 +117,11 @@ organization.
 21. **email-Eu-core is a sign replication, not a validation (D22).** Real
     topology (986 nodes, 42 ground-truth departments), ALL behavioral
     attributes synthetic; the paired random−cluster contrast keeps its sign
-    (+13.5 pp [1.0, 26.0]) in a bimodal ignition-lottery regime unlike the
-    synthetic one. Magnitudes are not comparable across topologies; nothing
-    about the real organization's actual adoption is claimed.
+    (+13.5 pp [1.0, 26.0]) in a strongly bimodal outcome regime unlike the
+    synthetic one (mode medians ~9%/~85%; no draw between 21% and 82%; no
+    "ignition rate" is quoted — any cut is post hoc, D22(a)). Magnitudes are
+    not comparable across topologies; nothing about the real organization's
+    actual adoption is claimed.
 
 ## Known technical limitations
 

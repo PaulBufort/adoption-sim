@@ -57,6 +57,13 @@ ne gagne que là où les campagnes échouent » serait faux sous decay fort).
   θ/willing/able. Les contrastes sont des différences appariées ; la variance
   inter-organisations (sd 9–16 pp) disparaît des IC. Vérifié bit-exact par
   tests (graphes et tirages identiques dans un bloc).
+  > **⚠ Corrigendum CP3 (2026-08-03, D19(b))** : « la variance
+  > inter-organisations disparaît des IC » est **rétracté comme mécanisme** —
+  > l'appariement garantit l'absence de confusion au niveau organisation
+  > (comparaisons sur organisations identiques), pas une réduction de
+  > variance : corrélation random↔cluster médiane ≈ +0.18 sur les 58
+  > cellules, −0.09 au réglage headline. Les IC publiés sont inchangés
+  > (toujours calculés sur les différences appariées elles-mêmes).
 - **Familles pré-déclarées AVANT exécution** (commits `9c8391a` → `d36cece`) :
   carte = 40 cellules, decay = 7 contrastes uniques random−cluster sur
   **final_rate** (24 bras exécutés) ; Holm par famille (différence ET
@@ -185,6 +192,19 @@ champions y sature (hubs → allumage quasi certain). Niveau de revendication
 autorisé : *le signe et le mécanisme se répliquent sur une topologie réelle
 modulaire ; les magnitudes ne sont pas comparables (régime d'allumage
 différent)*. Engagement D22 tenu : résultat rapporté tel quel.
+
+> **⚠ Corrigendum CP3 (2026-08-03, D22(a) — le texte ci-dessus est conservé
+> comme trace historique).** Le libellé « s'allume plus souvent (62 % vs
+> 42 %) » est **rétracté comme mesure** : la coupe ≥ 10 % n'était pas
+> prédéclarée et tombe *à l'intérieur du mode bas* de la distribution
+> bimodale (médianes des modes 9.2 %/84.6 % ; aucun tirage entre 20.2 % et
+> 82.0 %). Aucun seuil de remplacement n'est adopté ; le papier ne cite plus
+> que le contraste apparié prédéclaré et la forme bimodale elle-même
+> (`numbers.json` → `eucore.modes`). La colonne « tirages > 10 % » du tableau
+> reste exacte en tant que description arithmétique, mais ne doit plus être
+> appelée « allumage ». Au passage : la phrase « le signe et le mécanisme se
+> répliquent » excède le niveau ratifié par D22 (réplication du **signe**
+> uniquement, jamais du mécanisme) — lire « le signe se réplique ».
 
 ### 3.6 Prédicteur local D21 — verdict réel : **no_go**
 

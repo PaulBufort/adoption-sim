@@ -1,5 +1,49 @@
 # Reviewer-response rationale — CN 2026 extended abstract
 
+## v3 (2026-08-03, post-CP3) — corrigenda + oral-defense answers
+
+> CP3 = independent senior-review pass (Opus) arbitrated in decisions.md
+> **D23**; S3.3 implements it. Two claims were retracted (D19(b) pairing
+> variance; D22(a) Eu-core "ignition 62%/42%"), the crossover is now
+> explicitly endpoint-dependent, and the abstract counts sum to 40. If a
+> referee spots the old wording in a cached draft, own it: "caught in an
+> internal review pass, corrected before submission, logged in the repo".
+
+**Rehearsed answers for the questions CP3 predicts:**
+
+- *"Is the crossover a reach effect or a retention effect?"* At (r=1, ρ=0.25)
+  it is **mainly retention**: terminal Δ −5.3 [−9.0, −1.5] vs cumulative Δ
+  −1.8 [−5.4, +1.8] (descriptive) — decomposition stated in the paper.
+  Cumulative reach is clearly negative (pointwise CI excluding zero) only at
+  ρ=0.40 (−7.4 [−10.7, −4.1]). The
+  crossover-location sentence is scoped to terminal adoption, our sole
+  confirmatory endpoint.
+- *"Isn't the +39.7 an artifact of the innovator atom?"* **Exploratory oral
+  answer only — INDEPENDENT PANEL, n=12/arm, Welch; NOT paper-citable under
+  the D19 source policy:** at p_innovator=0 the ordering survives, random −
+  cluster ≈ +21.4 pp [14.9, 27.9] (`exp1_pinnov_headline.csv`). Offer it as
+  "an exploratory sweep suggests", never as a confirmatory number.
+- *"Doesn't cluster ever win?"* No cell reaches a ≥2 pp cluster win. Exactly
+  one cluster-favoured contrast survives Holm — θ̄=0.35 at 1% budget,
+  −0.76 pp, inside the ±2 pp band (`regime_map.largest_cluster_edge`). It
+  sits in the starvation corner, where local critical mass *should* help —
+  say so; it supports the mechanism narrative at negligible size.
+- *"What does 'bimodal' mean on Eu-core, quantitatively?"* Pooled terminal
+  rates: mode medians 9%/85%, **no draw between 21% and 82%** (gap ≈62 pp).
+  We deliberately quote no "ignition rate": any cut is post hoc (that is the
+  D22(a) retraction); the pre-declared quantity is the paired +13.5 [1.0,
+  26.0].
+- *"Why is 72% the ceiling-free number?"* Oral, unaudited: with willing≈85%
+  and innovators, the attainable ceiling is ≈86%, so random's 72.0% is ≈84%
+  of attainable. Fine to say aloud; kept out of the paper (D23: rejected
+  addition).
+- *"Why ±2 pp as the practical band?"* Pre-declared with the families (D18/
+  D19); note honestly that the two independent estimates of the same
+  headline contrast differ by 2.9 pp (39.7 vs 42.6) — the band is of the
+  same order as design-level Monte-Carlo variation, which is why "win"
+  additionally requires Holm significance, and `exceeds_band` marks the
+  stronger cells.
+
 ## v2 (2026-08-02, post-CP1) — the crossover manuscript
 
 > Current manuscript: "Disperse to ignite, concentrate to endure: a
