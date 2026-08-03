@@ -120,7 +120,9 @@ def run_decay_demo(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
 
 
 # Regime map (referee request 2026-08-01): axes chosen to bracket the frozen
-# headline point (θ̄=0.30, budget 0.05). PROVISIONAL D18 — pending arbitration.
+# headline point (θ̄=0.30, budget 0.05). D18 RATIFIED 2026-08-02 (CP1) as the
+# paired n=50 3-class upgrade (run_paired_regime below); this n=12 harness is
+# the superseded exploratory version.
 REGIME_THETA_AXIS = [0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
 REGIME_BUDGET_AXIS = [0.01, 0.02, 0.05, 0.10, 0.15]
 
@@ -131,8 +133,9 @@ def run_regime_map(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
     "scattered wins in this regime" into an explicit boundary.
 
     SUPERSEDED by run_paired_regime (D19: 50 paired replicates, Holm-corrected
-    3-class cells). Kept only until notebook 01 switches over at the CP1
-    regeneration commit; its n=12 CSV was never committed."""
+    3-class cells). Notebook 01 dropped its call at S4 (2026-08-03); kept as
+    the documented exploratory harness only. Its n=12 CSV was never
+    committed and the stray artifacts were deleted at S4."""
     axes = {"agents.theta_mean": REGIME_THETA_AXIS,
             "seeding.budget": REGIME_BUDGET_AXIS,
             "seeding.strategy": ["random", "cluster"]}
@@ -143,7 +146,7 @@ def run_regime_map(sc: dict, n_jobs: int | None = None, replicates: int = 12) ->
     return rows
 
 
-# --- Paired protocol (D19, PROVISIONAL): common random numbers ------------------
+# --- Paired protocol (D19, RATIFIED 2026-08-02 CP1): common random numbers ------
 # Same organizations + same theta/willing/able draws across the conditions of a
 # pair block (core/sweep.expand_paired_jobs); contrasts analyzed as paired
 # differences (experiments/stats.py). Seed layout frozen at implementation time
