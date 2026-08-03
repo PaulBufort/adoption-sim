@@ -39,7 +39,9 @@ EXPECTED = [
     "exp1_tb.png",         # exp1: broadcast duration sweep (D8)
     "exp1_silo.png",       # exp1: silo gradient
     "exp1_decay.png",      # exp1: decay reversal
-    "exp1_regime.png",     # exp1: dispersed-vs-cluster regime map (D18)
+    # exp1_regime.png (n=12 exploratory map) removed at S4: superseded by the
+    # paired n=50 map (D18 upgrade, D23) — see experiments/cp1_analysis.py and
+    # figures/exp1_crossover.png panel (a).
     "exp2_tornado.png",    # exp2: sensitivity tornado
     "exp3_equivalence.png",  # exp3: theta/v equivalence witness (D17)
     "exp3_globalv.png",    # exp3: global visibility sweep
