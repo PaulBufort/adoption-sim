@@ -773,7 +773,7 @@ tracker identity and the shortcut's bounded undercount.
 
 **Anti-seed-fishing commitment.** master_seed stays 20260610; the seed layout
 (SeedSequence children indexed by (base-combo, replicate), one triple per
-block) was frozen at implementation time — commits `d86efba` and `09724dc`,
+block) was frozen at implementation time — commits `8f30f0d` and `0eead9e`,
 BEFORE any paired result was inspected. Whatever the paired runs show is
 reported; if they contradict a previously cited number, that is flagged in
 RESULTS_VERIFIED.md per the honesty rules, never quietly edited away.
@@ -1009,7 +1009,7 @@ only here and in the CP1 package as the trace of the retracted labelling.
 ## D23 — CP3: independent-review arbitration (S3.3 corrigenda)
 
 **Context (scientist arbitration, 2026-08-03).** An independent senior-review
-pass (Opus, read-only, on submission candidate commit `5346724`) returned a
+pass (Opus, read-only, on submission candidate commit `da65e54`) returned a
 weak-accept with two scientific errors, two overstatements, and several
 recommendations. This entry records the arbitration; S3.3 implements it.
 **No simulation, no new seed; every new number derives from the

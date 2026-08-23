@@ -2,7 +2,7 @@
 
 ## v3 — CP3 corrigenda (2026-08-03, S3.3): claim corrections, zero data change
 
-> Independent review (CP3, Opus, on commit `5346724`) found two published
+> Independent review (CP3, Opus, on commit `da65e54`) found two published
 > formulations the data do not support. **No simulation was re-run; every
 > CSV and every paired number below stands bit-identical. The paper figure
 > (`figures/exp1_crossover.png`) and the other CP1 artifacts are

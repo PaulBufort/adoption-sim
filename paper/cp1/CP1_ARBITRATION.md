@@ -2,7 +2,7 @@
 
 **Statut : PROVISOIRE — document d'arbitrage, pas un contenu du papier.**
 Rédigé le 2026-08-02 après l'exécution unique du pipeline apparié (S2), branche
-`cn2026-upgrade`, code au commit `4d7a9fe` (+ colonnes `run_job` CP1-held dans
+`cn2026-upgrade`, code au commit `5e22911` (+ colonnes `run_job` CP1-held dans
 le worktree). Lecture ~45 min. Ce document est autonome : toutes les décisions
 demandées peuvent se prendre sans ouvrir le code. Figures : `paper/cp1/*.png` ;
 chiffres machine-dérivés : `paper/cp1/cp1_tables.json` et
@@ -64,7 +64,7 @@ ne gagne que là où les campagnes échouent » serait faux sous decay fort).
   > variance : corrélation random↔cluster médiane ≈ +0.18 sur les 58
   > cellules, −0.09 au réglage headline. Les IC publiés sont inchangés
   > (toujours calculés sur les différences appariées elles-mêmes).
-- **Familles pré-déclarées AVANT exécution** (commits `9c8391a` → `d36cece`) :
+- **Familles pré-déclarées AVANT exécution** (commits `dc3d4ab` → `4d7a005`) :
   carte = 40 cellules, decay = 7 contrastes uniques random−cluster sur
   **final_rate** (24 bras exécutés) ; Holm par famille (différence ET
   équivalence TOST) ; bande pratique ±2 pp ; 3 classes
@@ -329,7 +329,7 @@ rechute est forte (croisement à ρ≈0.2–0.3 selon r).
 
 ## 7. Provenance & audit
 
-- **Code** : commit `4d7a9fe` (+ worktree CP1-held : colonnes
+- **Code** : commit `5e22911` (+ worktree CP1-held : colonnes
   `cumulative_rate`/`retention_rate`/`seeded_teams` de `core/sweep.py` et
   `tests/test_run_job_columns.py`, destinées au commit atomique). 119 tests
   verts avant exécution.
