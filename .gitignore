@@ -39,3 +39,9 @@ paper/CHATGPT_CRITICAL_REVIEW_PACKAGE.md
 # S4 delivery artifacts — derived byte-copies + CMT paste material.
 # Provenance and SHA-256 recorded in paper/cp4/CP4_PACKAGE.md (tracked).
 submission/
+
+# Brouillons successifs de l'extended abstract CN2026 — conservés localement,
+# jamais versionnés : itérations superseded sans valeur de provenance (la trace
+# décisionnelle vit dans docs/decisions.md et les arbitrages CP1/CP3/CP4), et
+# leurs PDF portent une adresse de contact obsolète, non substituable.
+Draft/
