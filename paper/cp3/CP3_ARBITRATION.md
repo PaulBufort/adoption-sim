@@ -1,6 +1,6 @@
 # CP3 — Arbitrage de la revue indépendante (S3.3)
 
-**Date :** 2026-08-03 · **Candidat revu :** commit `5346724` (S3.2) ·
+**Date :** 2026-08-03 · **Candidat revu :** commit `da65e54` (S3.2) ·
 **Reviewer :** passe indépendante Opus (lecture seule, verdict *weak accept*,
 tous les chiffres décisifs recalculés depuis les CSV appariés — zéro écart).
 **Arbitre :** scientifique. **Implémentation :** S3.3. Entrée canonique :

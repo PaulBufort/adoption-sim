@@ -60,7 +60,7 @@
     "networkx": "3.6.1",
     "adoption_sim": "0.1.0"
   },
-  "git_commit": "4d7a9fe",
+  "git_commit": "5e22911",
   "data_is_synthetic": true,
   "design": "paired_within_replicate",
   "axes": {
