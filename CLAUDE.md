@@ -84,7 +84,7 @@ master seed 20260610 (exp4: [20260610, 4]).
 - Stack: Python 3.12, NetworkX, NumPy, custom sim loop; Streamlit for the demo. Every new dependency is debt — justify it in the PR.
 - One notebook per experiment; fixed seeds; YAML config per scenario; versioned results (CSV/parquet).
 - 15–20 unit tests on the core (graph creation, threshold rule, state conservation); CI green before release.
-- License **AGPL-3.0**. **Keep the repo private until the v0.1 release.**
+- License **AGPL-3.0**. Repository **public since 2026-08-23** (CN2026 submission cites its URL).
 
 ## Working method
 - Read the repo and **propose a short plan before editing**; list any decisions that need human arbitration.
