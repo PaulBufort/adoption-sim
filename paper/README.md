@@ -10,9 +10,10 @@ Single-blind. Accepted abstracts appear in the Book of Abstracts.
 ## What was actually submitted (2026-08-23)
 
 `main.tex` in this directory is **not** the file deposited on CMT. The deposited
-abstract was typeset from a separate source (`Draft1_CN2026_v27.tex`, kept
-outside this repository) using the plain `article` class rather than LLNCS, and
-it carries 11 references where `main.tex` carries 12. The two documents state
+abstract was typeset from a separate source (`Draft1_CN2026_v29_llncs.tex`,
+kept outside this repository) on the conference's official LLNCS abstract
+template, after 24 author-validated wording tightenings (no number or caveat
+changed), and it carries 11 references where `main.tex` carries 12. The two documents state
 the same results — every number in both is machine-extracted from
 `numbers.json` and covered by `audit_numbers.py` — but their wording and layout
 differ, and only the deposited file is authoritative for what reviewers read.
@@ -21,7 +22,7 @@ The deposited PDF and its embedded figure are pinned by SHA-256:
 
 | Artefact | SHA-256 |
 |---|---|
-| `Bufort_CN2026_Extended_Abstract.pdf` | `2a98f06907813326bbb070204a6ab987dfa4ba0ba0924a1786ac4e94f1001192` |
+| `Bufort_CN2026_Extended_Abstract.pdf` | `04c47d9642f950754cde7e29ac93d574efcd2dbfbe3b9b14add3cd378526dd2d` |
 | figure (= `figures/exp1_crossover_2panel.png`) | `8eb59614a563a176890c16ad46027a0634f4a682fa41727a000585949bb729ca` |
 | `paper/main.pdf` (this directory, LLNCS variant) | `0c29888468bdfc8998118db849f5fd6392414d29100ebfef26b4e597fe58427f` |
 
