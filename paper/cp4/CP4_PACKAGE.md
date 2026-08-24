@@ -149,10 +149,13 @@ modifié.
   plus** — elle avait déjà cessé de valoir au CP4 même, le fichier de
   livraison provenant depuis le 2026-08-13 de `Draft1_CN2026_v27.tex`.
 - Fichier de soumission régénéré le 2026-08-23 depuis `Draft1_CN2026_v27.tex`
-  (dossier « Abstract vfin ») : SHA-256
-  `2a98f06907813326bbb070204a6ab987dfa4ba0ba0924a1786ac4e94f1001192`
-  (remplace `fd37b80b…ab50`). QA : diff de texte = 2 tokens, 4 pages, 0 « ?? »,
-  33/33 polices, aucun marqueur ajouté. Détail dans
+  (adresse seule ; SHA-256 `2a98f069…1192`), puis **re-typographié le
+  2026-08-24 sur le gabarit LLNCS officiel de la conférence**
+  (`Draft1_CN2026_v29_llncs.tex`, 24 resserrages de forme validés par
+  l'auteur — aucun chiffre ni caveat modifié) : SHA-256
+  `04c47d9642f950754cde7e29ac93d574efcd2dbfbe3b9b14add3cd378526dd2d`.
+  QA v29 : 4 pages, 0 « ?? », 25/25 polices, caveats D19(b)/D20/D21/D22(a)
+  vérifiés présents. Détail et historique des hashes dans
   `submission/CMT_METADATA.txt`.
 - Diff sémantique ancien → nouveau PDF : **2 tokens** (ancienne adresse
   retirée, nouvelle ajoutée). Aucune autre différence de texte.
