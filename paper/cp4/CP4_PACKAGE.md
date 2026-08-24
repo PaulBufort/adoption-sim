@@ -151,10 +151,12 @@ modifié.
 - Fichier de soumission régénéré le 2026-08-23 depuis `Draft1_CN2026_v27.tex`
   (adresse seule ; SHA-256 `2a98f069…1192`), puis **re-typographié le
   2026-08-24 sur le gabarit LLNCS officiel de la conférence**
-  (`Draft1_CN2026_v29_llncs.tex`, 24 resserrages de forme validés par
-  l'auteur — aucun chiffre ni caveat modifié) : SHA-256
-  `04c47d9642f950754cde7e29ac93d574efcd2dbfbe3b9b14add3cd378526dd2d`.
-  QA v29 : 4 pages, 0 « ?? », 25/25 polices, caveats D19(b)/D20/D21/D22(a)
+  (`Draft1_CN2026_v30_llncs.tex`, 24 resserrages de forme validés par
+  l'auteur, puis retrait du chapeau « Abstract. » — absent du gabarit
+  officiel et des contributions du Book of Abstracts ; aucun chiffre ni
+  caveat modifié) : SHA-256
+  `3e3d56f92a9f0cf81328bac3d753d73f0ad0a9edf2472b951fc0f84599b7d525`.
+  QA v30 : 4 pages, 0 « ?? », 29/29 polices, caveats D19(b)/D20/D21/D22(a)
   vérifiés présents. Détail et historique des hashes dans
   `submission/CMT_METADATA.txt`.
 - Diff sémantique ancien → nouveau PDF : **2 tokens** (ancienne adresse
