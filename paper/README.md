@@ -10,12 +10,13 @@ Single-blind. Accepted abstracts appear in the Book of Abstracts.
 ## What was actually submitted (2026-08-23)
 
 `main.tex` in this directory is **not** the file deposited on CMT. The deposited
-abstract was typeset from a separate source (`Draft1_CN2026_v30_llncs.tex`,
+abstract was typeset from a separate source (`Draft1_CN2026_v32_llncs.tex`,
 kept outside this repository) on the conference's official LLNCS abstract
 template, after 24 author-validated wording tightenings (no number or caveat
 changed) and without the leading abstract paragraph (the official abstract
 template carries none; it lives in the CMT abstract field), and it carries
-11 references where `main.tex` carries 12. The two documents state
+12 references (Coale 1973 added for ready/willing/able) where `main.tex`
+carries 12 — the two lists still differ (Kitsak vs. Tanase/Guilbeault). The two documents state
 the same results — every number in both is machine-extracted from
 `numbers.json` and covered by `audit_numbers.py` — but their wording and layout
 differ, and only the deposited file is authoritative for what reviewers read.
@@ -24,7 +25,7 @@ The deposited PDF and its embedded figure are pinned by SHA-256:
 
 | Artefact | SHA-256 |
 |---|---|
-| `Bufort_CN2026_Extended_Abstract.pdf` | `3e3d56f92a9f0cf81328bac3d753d73f0ad0a9edf2472b951fc0f84599b7d525` |
+| `Bufort_CN2026_Extended_Abstract.pdf` | `a4e72574e3559c97e2975f0693d970141a73f741ca19ecea090bc85f84e06e53` |
 | figure (= `figures/exp1_crossover_2panel.png`) | `8eb59614a563a176890c16ad46027a0634f4a682fa41727a000585949bb729ca` |
 | `paper/main.pdf` (this directory, LLNCS variant) | `0c29888468bdfc8998118db849f5fd6392414d29100ebfef26b4e597fe58427f` |
 
