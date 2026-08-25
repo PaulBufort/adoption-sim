@@ -1,6 +1,8 @@
 # Paper — COMPLEX NETWORKS 2026 extended abstract
 
-**Track:** extended abstract (recommended 2–3 pages, hard max 4 — we are at 4).
+**Track:** extended abstract (recommended 2–3 pages, hard max 4). The page
+limit applies to the deposited file, which is at 4; this repo variant runs to
+5 pages since the Coale attribution added a 13th reference.
 **Format:** Springer LLNCS (official CNA abstract template; `llncs.cls` +
 `splncs03.bst` vendored here). **Submission:** Microsoft CMT
 (https://cmt3.research.microsoft.com/COMPLEXNETWORKS2026), deadline
@@ -16,7 +18,7 @@ template, after 24 author-validated wording tightenings (no number or caveat
 changed) and without the leading abstract paragraph (the official abstract
 template carries none; it lives in the CMT abstract field), and it carries
 12 references (Coale 1973 added for ready/willing/able) where `main.tex`
-carries 12 — the two lists still differ (Kitsak vs. Tanase/Guilbeault). The two documents state
+carries 13 — the two lists still differ (Kitsak vs. Tanase/Guilbeault). The two documents state
 the same results — every number in both is machine-extracted from
 `numbers.json` and covered by `audit_numbers.py` — but their wording and layout
 differ, and only the deposited file is authoritative for what reviewers read.
@@ -27,7 +29,7 @@ The deposited PDF and its embedded figure are pinned by SHA-256:
 |---|---|
 | `Bufort_CN2026_Extended_Abstract.pdf` | `a4e72574e3559c97e2975f0693d970141a73f741ca19ecea090bc85f84e06e53` |
 | figure (= `figures/exp1_crossover_2panel.png`) | `8eb59614a563a176890c16ad46027a0634f4a682fa41727a000585949bb729ca` |
-| `paper/main.pdf` (this directory, LLNCS variant) | `0c29888468bdfc8998118db849f5fd6392414d29100ebfef26b4e597fe58427f` |
+| `paper/main.pdf` (this directory, LLNCS variant) | `1cb441e0f5c74203aa6450ec4a0405faa59c5a5aba3eb84c823641fcc17c5f2b` |
 
 The submitted figure is versioned here as `figures/exp1_crossover_2panel.png`;
 the `submission/` directory itself is not versioned (byte-copies only, see
