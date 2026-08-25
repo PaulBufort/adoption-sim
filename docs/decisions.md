@@ -199,6 +199,9 @@ exactly the real-world intuition being tested. **RATIFIED (2026-06-10).**
 **Context.** willing = "individual disposition (perceived cost, drawn randomly,
 modulated by role)". Adoption requires ready ∧ willing ∧ able; every non-adoption is
 attributed to a missing condition.
+*Note (2026-08-26): the ready ∧ willing ∧ able decomposition follows Coale
+(1973), "The demographic transition reconsidered" — attribution added to the
+paper and this log; the decision itself is unchanged.*
 
 **Options.**
 

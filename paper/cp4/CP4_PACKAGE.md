@@ -143,7 +143,9 @@ ci-dessus reste le registre de la livraison CP4 (`19ab3ea`) et n'est pas
 modifié.
 
 - Nouveau `paper/main.pdf` : SHA-256
-  `0c29888468bdfc8998118db849f5fd6392414d29100ebfef26b4e597fe58427f`
+  `1cb441e0f5c74203aa6450ec4a0405faa59c5a5aba3eb84c823641fcc17c5f2b`
+  (recompilé 2026-08-26 avec l'attribution Coale 1973 — 13 réfs, 5 pages ;
+  le précédent, adresse seule, était `0c298884…8427f`)
 - L'équivalence octet-à-octet entre `paper/main.pdf` et
   `submission/Bufort_CN2026_Extended_Abstract.pdf` établie au CP4 **ne vaut
   plus** — elle avait déjà cessé de valoir au CP4 même, le fichier de
