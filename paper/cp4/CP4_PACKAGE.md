@@ -1,11 +1,11 @@
 # CP4 — Paquet de soumission CN2026 (S4)
 
-**Date :** 2026-08-03 · **Candidat scientifique :** `1e4f59b` (S3.4, validé
-CP3 « clear accept ») · **HEAD S4 :** `19ab3ea` + ce paquet · **Décision
+**Date :** 2026-08-03 · **Candidat scientifique :** `b1a505e` (S3.4, validé
+CP3 « clear accept ») · **HEAD S4 :** `7e789b2` + ce paquet · **Décision
 recommandée : GO** (validation humaine finale requise avant toute action
 externe). Aucun push, aucun tag, aucune soumission CMT effectués.
 
-Vérification d'identité : `git diff 1e4f59b..19ab3ea` est **vide** sur
+Vérification d'identité : `git diff b1a505e..7e789b2` est **vide** sur
 `experiments/results/*`, `paper/numbers.json`, `paper/main.tex`,
 `paper/main.pdf`, `figures/*.png`, `paper/cp1/*.json` — les commits S4 sont
 purement documentaires.
@@ -16,8 +16,8 @@ purement documentaires.
 
 | Commit | Contenu | Justification |
 |---|---|---|
-| `907bb06` S4.1 | Notebook 01 : section « regime map » remplacée par une note de supersession (D18/D23, lecture confirmatoire 14/23/3, plus grand avantage cluster 0.8 pp) ; cellule de code n=12 supprimée ; footer corrigé (D1–D23, 21 entrées de limitations) avec sortie vidée honnêtement (non ré-exécuté) ; `make_all.py` n'attend plus `exp1_regime.png` | Empêcher toute confusion exploratoire n=12 ↔ confirmatoire n=50 ; le pipeline suivi ne peut plus régénérer d'artefact périmé |
-| `19ab3ea` S4.2 | README : 67→119 tests (×2), D18–D23 ajoutés à la ligne de ratification ; `exp1.py` : deux commentaires PROVISIONAL → RATIFIED (D18/D19, CP1) + docstring `run_regime_map` actualisée ; `exp3.py` : le corollaire « cannot reorder » est annoté RETRACTED (D17(a)) ; `docs/decisions.md` : deux renvois inline *[⚠ … see D19(b)]* sur les formulations historiques (trace intacte) ; `paper/README.md` : provenance (politique D19, 42 claims, audit) et checklist CMT actualisées | Mentions actives périmées ; renvoi inline D19(b) demandé au mandat S4 |
+| `5a60a7c` S4.1 | Notebook 01 : section « regime map » remplacée par une note de supersession (D18/D23, lecture confirmatoire 14/23/3, plus grand avantage cluster 0.8 pp) ; cellule de code n=12 supprimée ; footer corrigé (D1–D23, 21 entrées de limitations) avec sortie vidée honnêtement (non ré-exécuté) ; `make_all.py` n'attend plus `exp1_regime.png` | Empêcher toute confusion exploratoire n=12 ↔ confirmatoire n=50 ; le pipeline suivi ne peut plus régénérer d'artefact périmé |
+| `7e789b2` S4.2 | README : 67→119 tests (×2), D18–D23 ajoutés à la ligne de ratification ; `exp1.py` : deux commentaires PROVISIONAL → RATIFIED (D18/D19, CP1) + docstring `run_regime_map` actualisée ; `exp3.py` : le corollaire « cannot reorder » est annoté RETRACTED (D17(a)) ; `docs/decisions.md` : deux renvois inline *[⚠ … see D19(b)]* sur les formulations historiques (trace intacte) ; `paper/README.md` : provenance (politique D19, 42 claims, audit) et checklist CMT actualisées | Mentions actives périmées ; renvoi inline D19(b) demandé au mandat S4 |
 | S4.3 (ce commit) | `paper/cp4/` (ce paquet) ; `.gitignore` + `submission/` | Livraison ; `submission/` est ignoré car il ne contient que des copies dérivées octet-à-octet et du matériel de collage CMT, dont la provenance est fixée par SHA-256 ici |
 
 **Artefacts non suivis supprimés (autorisation explicite S4)** — hashes au
@@ -40,8 +40,8 @@ suppression). Aucun autre fichier supprimé.
 **Verdict : REPRODUCTION PARFAITE — 15/15 artefacts scientifiques
 bit-identiques, 0 divergence.**
 
-- **Commit reproduit :** `19ab3ea` (artefacts scientifiques bit-identiques à
-  `1e4f59b`, cf. supra), clone `git clone file://… && git checkout 19ab3ea`
+- **Commit reproduit :** `7e789b2` (artefacts scientifiques bit-identiques à
+  `b1a505e`, cf. supra), clone `git clone file://… && git checkout 7e789b2`
   dans un répertoire temporaire hors du worktree canonique.
 - **Environnement :** macOS 15 (Darwin 25.5.0), Python **3.13.13**
   (python.org), venv frais ; `pip install -r requirements-dev.txt -c
@@ -63,7 +63,7 @@ bit-identiques, 0 divergence.**
 **Commandes réellement utilisées et durées :**
 
 ```
-git clone file://<canonique> repo && git checkout 19ab3ea        2.1 s
+git clone file://<canonique> repo && git checkout 7e789b2        2.1 s
 python3.13 -m venv .venv-clean                                    2.0 s
 pip install -r requirements-dev.txt -c constraints.txt           28.4 s
 python -m pytest -q                                →  119 passed  9.9 s
@@ -139,7 +139,7 @@ SHA-256  16f28ca641fa8a6f20ce7360397b17ba4882074b9bb2cf4554f60fb27394e5a8
 
 `paper/main.tex` et `paper/main.pdf` ont été régénérés pour remplacer
 l'adresse de contact de l'auteur par `paulbufort@paulbufort.com`. Le hash
-ci-dessus reste le registre de la livraison CP4 (`19ab3ea`) et n'est pas
+ci-dessus reste le registre de la livraison CP4 (`7e789b2`) et n'est pas
 modifié.
 
 - Nouveau `paper/main.pdf` : SHA-256
@@ -200,7 +200,7 @@ consentement/conditions ; déclarations de conflits ; clic final « Submit ».
 
 ## 5. Checklist de soumission
 
-- [x] Candidat scientifique gelé (`1e4f59b`, CP3 clear accept)
+- [x] Candidat scientifique gelé (`b1a505e`, CP3 clear accept)
 - [x] Hygiène dépôt (S4.1–S4.2) ; artefacts n=12 supprimés
 - [x] Clean-room : 119 tests · 6 744 sims · audit 42/42 · 15/15 bit-identiques
 - [x] QA PDF : 13/13 PASS
