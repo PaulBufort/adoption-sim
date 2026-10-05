@@ -1,10 +1,10 @@
-# Schema-valid (validated with cffconvert; see REVIEW_A.md).
+# Citation File Format 1.2.0 (https://citation-file-format.github.io).
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "adoption-sim: complex contagion on synthetic organizational networks"
-version: 0.1.0
-date-released: "2026-06-10"
+version: 0.2.0
+date-released: "2026-10-05"
 license: AGPL-3.0
 repository-code: "https://github.com/PaulBufort/adoption-sim"
 authors:
@@ -13,14 +13,34 @@ authors:
     orcid: "https://orcid.org/0009-0000-6080-1887"
 abstract: >-
   Research simulator of complex contagion (fractional thresholds with
-  ready/willing/able gating and per-source visibility) on synthetic two-layer
-  organizational networks. Compares seeding strategies (broadcast, random,
-  champions, cluster, line-manager-first) under explicit, ratified modeling
-  decisions with logged alternatives. All outputs are synthetic and
-  uncalibrated by design (v0.1).
+  ready/willing/able gating, per-source visibility and reinforcement-dependent
+  relapse) on synthetic two-layer organizational networks. Compares seeding
+  strategies (broadcast, random, champions, cluster, one-per-team,
+  line-manager-first) with a paired protocol (common random numbers), under
+  explicit, ratified modeling decisions with logged alternatives (D1-D23).
+  Holds the code, decision log and reproduction pipeline of the extended
+  abstract listed under references. All outputs are synthetic and
+  uncalibrated by design.
 keywords:
   - complex contagion
   - threshold models
   - organizational networks
   - diffusion of innovations
   - agent-based simulation
+  - seeding strategies
+references:
+  - type: conference-paper
+    title: "Disperse to ignite, concentrate to endure: a decay-driven crossover in modular complex contagions"
+    authors:
+      - family-names: "Bufort"
+        given-names: "Paul"
+        orcid: "https://orcid.org/0009-0000-6080-1887"
+    year: 2026
+    status: in-press
+    notes: "Extended abstract, accepted at COMPLEX NETWORKS 2026."
+    conference:
+      name: "COMPLEX NETWORKS 2026, 15th International Conference on Complex Networks and Their Applications"
+      city: "Granada"
+      country: "ES"
+      date-start: "2026-12-01"
+      date-end: "2026-12-04"

@@ -8,7 +8,7 @@ All modeling choices that affect scientific claims are logged in docs/decisions.
 with a D-number; code comments reference those numbers.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from .orggen import OrgGraph, CompiledOrg, generate_org
 from .dynamics import SimParams, RunResult, run_simulation
