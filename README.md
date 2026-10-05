@@ -20,7 +20,8 @@ Their Applications (Granada, 1–4 December 2026).
 > you cannot conclude is in [docs/limitations.md](docs/limitations.md), and it is
 > long on purpose.
 
-Built with AI assistance; every modeling decision was human-arbitrated and is
+Built with Claude Code (Anthropic) as the coding agent; the research question,
+every modeling decision and the interpretation are the author's, each decision
 logged with its alternatives in [docs/decisions.md](docs/decisions.md).
 
 ![Figure 1 of the extended abstract, two panels. (a) Heat map of the paired difference in terminal adoption, random minus cluster seeding, across mean threshold and seed budget, without decay: dispersion wins along a diagonal band, grey cells are equivalent within ±2 pp, hatched cells are uncertain, and no cell shows a cluster advantage of 2 pp or more. (b) The same contrast as the relapse probability rises, for two retention requirements: it falls and changes sign between the tested values. SYNTHETIC DATA.](figures/exp1_crossover_2panel.png)
