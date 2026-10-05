@@ -29,7 +29,7 @@ The deposited PDF and its embedded figure are pinned by SHA-256:
 |---|---|
 | `Bufort_CN2026_Extended_Abstract.pdf` | `a4e72574e3559c97e2975f0693d970141a73f741ca19ecea090bc85f84e06e53` |
 | figure (= `figures/exp1_crossover_2panel.png`) | `8eb59614a563a176890c16ad46027a0634f4a682fa41727a000585949bb729ca` |
-| `paper/main.pdf` (this directory, LLNCS variant) | `1cb441e0f5c74203aa6450ec4a0405faa59c5a5aba3eb84c823641fcc17c5f2b` |
+| `paper/main.pdf` (this directory, LLNCS variant) | `86f2f84b645ecfb262a6263e6327c978f0cdd19e30a203066f6a21cb265e896d` |
 
 The submitted figure is versioned here as `figures/exp1_crossover_2panel.png`;
 the `submission/` directory itself is not versioned (byte-copies only, see
@@ -53,8 +53,10 @@ Every statistic in `main.tex` derives from `numbers.json`, produced by
 `python paper/extract_numbers.py` from the versioned result CSVs in
 `experiments/results/` under the D19 source policy (PAIRED n=50 results for
 every seeded-strategy mean/contrast; the independent panel only for broadcast
-and the p_innov=0 ablation), and is enforced by `python paper/audit_numbers.py`
-(42 claims; CI-gating). CP3 corrigenda: decisions.md D23. Oral-defense map:
+and the p_innov=0 ablation), and is checked by `python paper/audit_numbers.py`
+(42 claims). The audit is run by hand at each checkpoint: continuous
+integration re-runs the unit tests and regenerates the notebook CSVs, but it
+neither regenerates the paired results nor runs this audit. CP3 corrigenda: decisions.md D23. Oral-defense map:
 `REVIEWER_RATIONALE.md` (v3).
 
 ## Checklist before submission (human steps)

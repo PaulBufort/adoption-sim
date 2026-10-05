@@ -217,3 +217,9 @@ consentement/conditions ; déclarations de conflits ; clic final « Submit ».
 verte, chaîne de traçabilité (extract → numbers → audit → CI) intacte de
 bout en bout. Aucune décision scientifique ouverte ; les seuls actes
 restants sont humains et externes (validation CP4, push, saisie CMT).
+
+> **Correction (2026-10-05).** Le maillon « → CI » de la chaîne ci-dessus est
+> inexact : l'intégration continue relance les tests unitaires et régénère les
+> CSV des notebooks, mais elle ne régénère pas les résultats appariés et ne
+> lance pas `audit_numbers.py`. L'audit (42/42) s'exécute à la main, à chaque
+> point de contrôle. Le reste du constat est inchangé.
